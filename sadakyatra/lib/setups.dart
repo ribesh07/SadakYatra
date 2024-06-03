@@ -1,4 +1,4 @@
-// ignore_for_file: file_names
+// ignore_for_file: file_names, non_constant_identifier_names
 
 import 'dart:io';
 
@@ -6,9 +6,9 @@ import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 
 const backgroundColor = Color(0xFFF9FAFB);
-const textcolor = Color(0xFF9C07E6);
-const appbarcolor = Color(0xFF8A55DF);
-const appbarfontcolor = Color(0xFFF9F8F9);
+const textcolor = Color.fromARGB(255, 17, 16, 17);
+const appbarcolor = Color.fromARGB(255, 206, 194, 218);
+const appbarfontcolor = Color.fromARGB(255, 17, 16, 17);
 
 const TextStyle textStyle = TextStyle(
   color: textcolor,

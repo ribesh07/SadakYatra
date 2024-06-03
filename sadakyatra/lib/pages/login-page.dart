@@ -31,9 +31,12 @@ class _Login_pageState extends State<Login_page> {
       appBar: AppBar(
         title: Container(
             alignment: Alignment.center,
-            child: const Text(
-              'Login Page',
-              style: textStyleappbar,
+            child: const Padding(
+              padding:  EdgeInsets.only(right: 69),
+              child: Text(
+                'Login Page',
+                style: textStyleappbar,
+              ),
             )),
         backgroundColor: appbarcolor,
       ),

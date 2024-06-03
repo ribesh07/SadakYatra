@@ -29,7 +29,7 @@ class _Signup_pageState extends State<Signup_page> {
     String password = passcontroller.text.trim();
     String cpassword = cpasscontroller.text.trim();
     String username = usernamecontroller.text.trim();
-    String contactnum = usernamecontroller.text.trim();
+    String contactnum = contactnumcontroller.text.trim();
     
 
     if (image != null) {
@@ -59,9 +59,12 @@ class _Signup_pageState extends State<Signup_page> {
       appBar: AppBar(
         title: Container(
             alignment: Alignment.center,
-            child: const Text(
-              'SignUp',
-              style: textStyleappbar,
+            child: const Padding(
+              padding: EdgeInsets.only(right:69),
+              child: Text(
+                'SignUp',
+                style: textStyleappbar,
+              ),
             )),
         backgroundColor: appbarcolor,
       ),
@@ -195,6 +198,9 @@ class _Signup_pageState extends State<Signup_page> {
                       debugPrint(emailcontroller.text);
                       debugPrint(passcontroller.text);
                       debugPrint(cpasscontroller.text);
+                      debugPrint(contactnumcontroller.text);
+                      debugPrint(usernamecontroller.text);
+                      debugPrint("Inside Button invoked !!!");
                       storeUserData;
                       
                     },
