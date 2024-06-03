@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:sadakyatra/pages/Home_screen.dart';
+import 'package:sadakyatra/pages/botton_nav_bar.dart';
 import 'package:sadakyatra/pages/login-page.dart';
 import 'package:sadakyatra/payments/esewa-pay.dart';
 import 'package:sadakyatra/payments/khalti-pay.dart';
@@ -99,8 +100,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   child: const Text(
                     "khalti-pay",
                     style: textStyle,
-                  )
-                  ),
+                  )),
               const SizedBox(
                 height: 10,
               ),
@@ -109,11 +109,11 @@ class _MyHomePageState extends State<MyHomePage> {
                     Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => const khalti_pay()));
+                            builder: (context) => const BottomBar()));
                     // builder: (context) => const KhaltiSDKDemo()));
                   },
                   child: const Text(
-                    "khalti-pay-test",
+                    "BottomNavBar",
                     style: textStyle,
                   )),
               const SizedBox(

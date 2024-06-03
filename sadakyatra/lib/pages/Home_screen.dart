@@ -31,13 +31,13 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(
-          "Sada Yatra",
-        ),
-        centerTitle: true,
-        backgroundColor: appbarcolor,
-      ),
+      // appBar: AppBar(
+      //   title: Text(
+      //     "Sada Yatra",
+      //   ),
+      //   centerTitle: true,
+      //   backgroundColor: appbarcolor,
+      // ),
       body: Column(
         children: [
           SizedBox(
