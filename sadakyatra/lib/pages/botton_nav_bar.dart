@@ -1,6 +1,8 @@
 import 'package:fluentui_icons/fluentui_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:sadakyatra/pages/Home_screen.dart';
+import 'package:sadakyatra/pages/history.dart';
+import 'package:sadakyatra/pages/setting_profile.dart';
 
 class BottomBar extends StatefulWidget {
   const BottomBar({super.key});
@@ -14,8 +16,8 @@ class _BottomBarState extends State<BottomBar> {
 
   static final List<Widget> _widgetOptions = <Widget>[
     const HomeScreen(),
-    const Text('ticket'),
-    const Text('profile'),
+    const MyTabbedPage(),
+    const profileSetting(),
   ];
   void _onItemTapped(int Index) {
     setState(() {
@@ -28,7 +30,7 @@ class _BottomBarState extends State<BottomBar> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        title: const Text('Home'),
+        title: const Text('SadakYatra'),
       ),
       body: Center(
         child: _widgetOptions[_selectedIndex],
