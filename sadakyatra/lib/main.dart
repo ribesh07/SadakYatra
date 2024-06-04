@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:sadakyatra/pages/Home_screen.dart';
 import 'package:sadakyatra/pages/botton_nav_bar.dart';
 import 'package:sadakyatra/pages/login-page.dart';
+import 'package:sadakyatra/pages/seat_plan.dart';
 import 'package:sadakyatra/payments/esewa-pay.dart';
 import 'package:sadakyatra/payments/khalti-pay.dart';
 // import 'package:sadakyatra/payments/test_khalti.dart';
@@ -60,7 +61,21 @@ class _MyHomePageState extends State<MyHomePage> {
                 ),
               ),
               const SizedBox(
-                height: 200,
+                height: 10,
+              ),
+              ElevatedButton(
+                  onPressed: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const seatSelection()));
+                  },
+                  child: const Text(
+                    "seat selection",
+                    style: textStyle,
+                  )),
+              const SizedBox(
+                height: 40,
               ),
               ElevatedButton(
                   onPressed: () {
