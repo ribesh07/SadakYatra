@@ -2,14 +2,18 @@ import 'package:flutter/material.dart';
 import 'package:sadakyatra/pages/Home_screen.dart';
 import 'package:sadakyatra/pages/botton_nav_bar.dart';
 import 'package:sadakyatra/pages/login-page.dart';
+import 'package:sadakyatra/pages/seat_plan.dart';
+import 'package:sadakyatra/payments/App_khalti.dart';
 import 'package:sadakyatra/payments/esewa-pay.dart';
 import 'package:sadakyatra/payments/khalti-pay.dart';
 // import 'package:sadakyatra/payments/test_khalti.dart';
 import 'package:sadakyatra/setups.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 void main() {
   //  WidgetsFlutterBinding.ensureInitialized();
-  runApp(const MyApp());
+  // runApp(const MyApp());
+  runApp(ProviderScope(child: App()));
 }
 
 class MyApp extends StatelessWidget {
@@ -60,7 +64,21 @@ class _MyHomePageState extends State<MyHomePage> {
                 ),
               ),
               const SizedBox(
-                height: 200,
+                height: 10,
+              ),
+              ElevatedButton(
+                  onPressed: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const seatSelection()));
+                  },
+                  child: const Text(
+                    "seat selection",
+                    style: textStyle,
+                  )),
+              const SizedBox(
+                height: 40,
               ),
               ElevatedButton(
                   onPressed: () {
@@ -81,7 +99,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => const esewa_pay()));
+                            builder: (context) => const EsewaScreen()));
                   },
                   child: const Text(
                     "e-pay",
@@ -95,7 +113,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => const khalti_pay()));
+                            builder: (context) => const PaymentKhalti()));
                   },
                   child: const Text(
                     "khalti-pay",

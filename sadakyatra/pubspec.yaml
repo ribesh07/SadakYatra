@@ -46,7 +46,10 @@ dependencies:
   cupertino_icons: ^1.0.2
   webview_flutter: ^4.8.0
   fluentui_icons: ^1.0.0
-
+  khalti_flutter: ^3.0.0
+  dio: ^5.1.2
+  esewa_flutter_sdk:
+    path: ./external_sdk/esewa_sdk/esewa_flutter_sdk
 
 dev_dependencies:
   flutter_test:

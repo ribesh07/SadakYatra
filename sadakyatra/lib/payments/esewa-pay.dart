@@ -1,42 +1,42 @@
-// ignore_for_file: camel_case_types
+// ignore_for_file: file_names
 
 import 'package:flutter/material.dart';
-import 'package:sadakyatra/setups.dart';
-import 'package:webview_flutter/webview_flutter.dart';
+import 'package:sadakyatra/payments/esewa_function.dart';
 
-class esewa_pay extends StatefulWidget {
-  const esewa_pay({super.key});
-
-  @override
-  State<esewa_pay> createState() => _esewa_payState();
-}
-
-class _esewa_payState extends State<esewa_pay> {
-
-  final controller = WebViewController()..setJavaScriptMode(JavaScriptMode.disabled)
-        ..loadRequest(Uri.parse("https://google.com"));
+class EsewaScreen extends StatelessWidget {
+  const EsewaScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Container(
-            alignment: Alignment.center,
-            child:const Padding(
-              padding:  EdgeInsets.only(right: 69),
-              child:  Text(
-                'e-Payment Page',
-                style: textStyleappbar,
-              ),
-            )),
-        backgroundColor: appbarcolor,
+        title: const Text('Esewa Integration'),
+        backgroundColor: const Color.fromRGBO(103, 58, 183, 1),
+        centerTitle: true,
       ),
-      body:
-      Container(
-        height: double.infinity,
-        width: double.infinity,
-        child: WebViewWidget(controller: controller),
-        
+      body: ListView(
+        padding: const EdgeInsets.all(24.0),
+        children: [
+          Icon(
+            Icons.paid,
+            size: 300,
+          ),
+          Text(
+            'Payment',
+            textAlign: TextAlign.center,
+            style: Theme.of(context).textTheme.titleMedium,
+          ),
+          Padding(
+            padding: const EdgeInsets.all(12.0),
+            child: ElevatedButton(
+              child: const Text('Pay with E-Sewa'),
+              onPressed: () {
+                Esewa esewa = Esewa();
+                esewa.pay(context);
+              },
+            ),
+          ),
+        ],
       ),
     );
   }

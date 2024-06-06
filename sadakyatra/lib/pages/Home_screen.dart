@@ -49,7 +49,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
               shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(12)),
               elevation: 5,
-              child: Container(
+              child: Container(      
                 decoration: BoxDecoration(
                   color: Colors.black.withOpacity(0.1),
                   borderRadius: BorderRadius.circular(12),
@@ -71,13 +71,13 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                     ),
                     Tab(
                       child: Text(
-                        ' Tickets   ',
+                        '  Tickets   ',
                         style: textStyle,
                       ),
                     ),
                     Tab(
                       child: Text(
-                        ' Journey ',
+                        '  Journey  ',
                         style: textStyle,
                       ),
                     ),
