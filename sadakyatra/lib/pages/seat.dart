@@ -16,6 +16,7 @@ class SeatS extends StatefulWidget {
 
 class _SeatSState extends State<SeatS> {
   //var index = [];
+  var selectedseats = [];
   //1st Row
   bool _isSelectedL1 = false;
   bool _isBookedL1 = false;
