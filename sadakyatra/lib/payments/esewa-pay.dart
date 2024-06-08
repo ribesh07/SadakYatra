@@ -17,7 +17,7 @@ class EsewaScreen extends StatelessWidget {
       body: ListView(
         padding: const EdgeInsets.all(24.0),
         children: [
-          Icon(
+       const Icon(
             Icons.paid,
             size: 300,
           ),
