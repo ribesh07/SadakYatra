@@ -50,9 +50,11 @@ dependencies:
   dio: ^5.1.2
   esewa_flutter_sdk:
     path: ./external_sdk/esewa_sdk/esewa_flutter_sdk
+  toggle_switch: ^2.3.0
+  font_awesome_flutter: ^10.7.0
   email_validator: ^2.1.17
-  provider: ^6.1.2
   intl: ^0.18.1
+  provider: ^6.1.2
 
 dev_dependencies:
   flutter_test:

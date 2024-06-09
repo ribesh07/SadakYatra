@@ -75,7 +75,7 @@ class _MyHomePageState extends State<MyHomePage> {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => bookSeat(),
+                            builder: (context) => const bookSeat(),
                           ),
                         );
                       },
@@ -171,6 +171,7 @@ class _MyHomePageState extends State<MyHomePage> {
                         "Bookseat",
                         style: textStyle,
                       )),
+                      
                 ],
               )
             ],

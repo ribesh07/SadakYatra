@@ -27,7 +27,8 @@ class _HomeDefScreenState extends State<HomeDefScreen> {
           child: Form(
             child: SingleChildScrollView(
               physics: BouncingScrollPhysics(
-                  parent: AlwaysScrollableScrollPhysics()),
+                parent: AlwaysScrollableScrollPhysics(),
+              ),
               child: Column(
                 children: [
                   Card(
