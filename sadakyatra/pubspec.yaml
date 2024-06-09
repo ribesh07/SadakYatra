@@ -53,6 +53,8 @@ dependencies:
   toggle_switch: ^2.3.0
   font_awesome_flutter: ^10.7.0
   email_validator: ^2.1.17
+  intl: ^0.18.1
+  provider: ^6.1.2
 
 dev_dependencies:
   flutter_test:

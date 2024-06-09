@@ -3,7 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
+// import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:sadakyatra/Booking/input_field.dart';
 import 'package:sadakyatra/Booking/provide.dart';
 import 'package:sadakyatra/setups.dart';
@@ -43,10 +43,15 @@ class _bookSeatState extends State<bookSeat> {
       child: Scaffold(
         appBar: AppBar(
           automaticallyImplyLeading: false,
-          title: Text('booking',textAlign: TextAlign.left,),
-          leading: IconButton(onPressed: (){
-            Navigator.pop(context,"hello");
-          }, icon: Icon(Icons.arrow_back_ios_new_sharp)),
+          title: Text(
+            'booking',
+            textAlign: TextAlign.left,
+          ),
+          leading: IconButton(
+              onPressed: () {
+                Navigator.pop(context, "hello");
+              },
+              icon: Icon(Icons.arrow_back_ios_new_sharp)),
           // actions: [
           //    IconButton(onPressed: (){}, icon: Icon(Icons.arrow_back_ios_new_sharp)),
           //   Text("data"),
@@ -60,6 +65,9 @@ class _bookSeatState extends State<bookSeat> {
           child: Form(
             key: formkey,
             child: SingleChildScrollView(
+              physics: BouncingScrollPhysics(
+                parent: AlwaysScrollableScrollPhysics(),
+              ),
               child: Padding(
                 padding: EdgeInsets.all(8.0),
                 child: Column(
