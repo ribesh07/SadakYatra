@@ -52,6 +52,7 @@ dependencies:
     path: ./external_sdk/esewa_sdk/esewa_flutter_sdk
   email_validator: ^2.1.17
   provider: ^6.1.2
+  intl: ^0.18.1
 
 dev_dependencies:
   flutter_test:

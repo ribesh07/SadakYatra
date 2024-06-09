@@ -48,22 +48,13 @@ class _TicketScreenState extends State<TicketScreen> {
         child: Form(
           key: formkey,
           child: SingleChildScrollView(
+            physics: BouncingScrollPhysics(
+              parent: AlwaysScrollableScrollPhysics(),
+            ),
             child: Padding(
               padding: EdgeInsets.all(8.0),
               child: Column(
                 children: [
-                  Card(
-                    elevation: 8,
-                    child: Container(
-                      height: 100,
-                      width: MediaQuery.of(context).size.width,
-                      child: Text(
-                        'Trip Details',
-                        style: textStyle,
-                        textAlign: TextAlign.center,
-                      ),
-                    ),
-                  ),
                   SizedBox(height: 20),
                   Card(
                     elevation: 8,

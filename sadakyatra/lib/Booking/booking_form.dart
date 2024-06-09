@@ -50,6 +50,9 @@ class _bookSeatState extends State<bookSeat> {
         child: Form(
           key: formkey,
           child: SingleChildScrollView(
+            physics: BouncingScrollPhysics(
+              parent: AlwaysScrollableScrollPhysics(),
+            ),
             child: Padding(
               padding: EdgeInsets.all(8.0),
               child: Column(
