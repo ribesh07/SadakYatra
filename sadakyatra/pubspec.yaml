@@ -50,6 +50,8 @@ dependencies:
   dio: ^5.1.2
   esewa_flutter_sdk:
     path: ./external_sdk/esewa_sdk/esewa_flutter_sdk
+  toggle_switch: ^2.3.0
+  font_awesome_flutter: ^10.7.0
 
 dev_dependencies:
   flutter_test:

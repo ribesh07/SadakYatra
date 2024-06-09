@@ -44,46 +44,44 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
             height: 15,
           ),
           Padding(
-            padding: const EdgeInsets.only(left: 18.0, right: 18),
+            padding: const EdgeInsets.only(left: 8.0, right: 18),
             child: Card(
               shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(12)),
               elevation: 5,
-              child: Container(      
-                decoration: BoxDecoration(
-                  color: Colors.black.withOpacity(0.1),
-                  borderRadius: BorderRadius.circular(12),
+              child: Row(mainAxisAlignment: MainAxisAlignment.start, children: [
+                Container(
+                  child: TabBar(
+                    indicator: BoxDecoration(
+                        borderRadius: BorderRadius.circular(12),
+                        color: appbarcolor),
+                    controller: _tabController,
+                    isScrollable: true,
+                    labelPadding:
+                        EdgeInsets.symmetric(vertical: 4, horizontal: 0),
+                    tabs: [
+                      Tab(
+                        child: Text(
+                          '  Home ',
+                          style: textStyle,
+                        ),
+                      ),
+                      Tab(
+                        child: Text(
+                          ' Reservation ',
+                          style: textStyle,
+                        ),
+                      ),
+                      Tab(
+                        child: Text(
+                          ' Pacakages',
+                          style: textStyle,
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
-                child: TabBar(
-                  indicator: BoxDecoration(
-                      borderRadius: BorderRadius.circular(6),
-                      color: appbarcolor),
-                  controller: _tabController,
-                  isScrollable: true,
-                  labelPadding:
-                      EdgeInsets.symmetric(vertical: 4, horizontal: 2),
-                  tabs: [
-                    Tab(
-                      child: Text(
-                        '  Home    ',
-                        style: textStyle,
-                      ),
-                    ),
-                    Tab(
-                      child: Text(
-                        '  Tickets   ',
-                        style: textStyle,
-                      ),
-                    ),
-                    Tab(
-                      child: Text(
-                        '  Journey  ',
-                        style: textStyle,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
+              ]),
             ),
           ),
           Expanded(

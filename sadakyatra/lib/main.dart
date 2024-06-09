@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:sadakyatra/Booking/booking_form.dart';
 import 'package:sadakyatra/pages/Home_screen.dart';
 import 'package:sadakyatra/pages/botton_nav_bar.dart';
 import 'package:sadakyatra/pages/login-page.dart';
+import 'package:sadakyatra/pages/seat.dart';
 import 'package:sadakyatra/pages/seat_plan.dart';
 import 'package:sadakyatra/payments/App_khalti.dart';
 import 'package:sadakyatra/payments/esewa-pay.dart';
@@ -54,101 +56,124 @@ class _MyHomePageState extends State<MyHomePage> {
               )),
         ),
         body: Center(
-          child: Column(
+          child: Row(
             children: [
-              const Padding(
-                padding: EdgeInsets.only(top: 200),
-                child: Text(
-                  'MainPage',
-                  style: textStyle,
-                ),
+              Column(
+                children: [
+                  const Padding(
+                    padding: EdgeInsets.only(top: 200),
+                    child: Text(
+                      'MainPage',
+                      style: textStyle,
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  ElevatedButton(
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const bookSeat(),
+                          ),
+                        );
+                      },
+                      child: const Text(
+                        "book",
+                        style: textStyle,
+                      )),
+                  const SizedBox(
+                    height: 40,
+                  ),
+                  ElevatedButton(
+                      onPressed: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => const Login_page()));
+                      },
+                      child: const Text(
+                        "Login User",
+                        style: textStyle,
+                      )),
+                  const SizedBox(
+                    height: 40,
+                  ),
+                  ElevatedButton(
+                      onPressed: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => const EsewaScreen()));
+                      },
+                      child: const Text(
+                        "e-pay",
+                        style: textStyle,
+                      )),
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  ElevatedButton(
+                      onPressed: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => const PaymentKhalti()));
+                      },
+                      child: const Text(
+                        "khalti-pay",
+                        style: textStyle,
+                      )),
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  ElevatedButton(
+                      onPressed: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => const BottomBar()));
+                        // builder: (context) => const KhaltiSDKDemo()));
+                      },
+                      child: const Text(
+                        "BottomNavBar",
+                        style: textStyle,
+                      )),
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  ElevatedButton(
+                      onPressed: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => const HomeScreen()));
+                        // builder: (context) => const KhaltiSDKDemo()));
+                      },
+                      child: const Text(
+                        "HomeScreen",
+                        style: textStyle,
+                      )),
+                ],
               ),
-              const SizedBox(
-                height: 10,
-              ),
-              ElevatedButton(
-                  onPressed: () {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => const seatSelection()));
-                  },
-                  child: const Text(
-                    "seat selection",
-                    style: textStyle,
-                  )),
-              const SizedBox(
-                height: 40,
-              ),
-              ElevatedButton(
-                  onPressed: () {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => const Login_page()));
-                  },
-                  child: const Text(
-                    "Login User",
-                    style: textStyle,
-                  )),
-              const SizedBox(
-                height: 40,
-              ),
-              ElevatedButton(
-                  onPressed: () {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => const EsewaScreen()));
-                  },
-                  child: const Text(
-                    "e-pay",
-                    style: textStyle,
-                  )),
-              const SizedBox(
-                height: 10,
-              ),
-              ElevatedButton(
-                  onPressed: () {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => const PaymentKhalti()));
-                  },
-                  child: const Text(
-                    "khalti-pay",
-                    style: textStyle,
-                  )),
-              const SizedBox(
-                height: 10,
-              ),
-              ElevatedButton(
-                  onPressed: () {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => const BottomBar()));
-                    // builder: (context) => const KhaltiSDKDemo()));
-                  },
-                  child: const Text(
-                    "BottomNavBar",
-                    style: textStyle,
-                  )),
-              const SizedBox(
-                height: 10,
-              ),
-              ElevatedButton(
-                  onPressed: () {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => const HomeScreen()));
-                    // builder: (context) => const KhaltiSDKDemo()));
-                  },
-                  child: const Text(
-                    "HomeScreen",
-                    style: textStyle,
-                  )),
+              Column(
+                children: [
+                  ElevatedButton(
+                      onPressed: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => const SeatS()));
+                        // builder: (context) => const KhaltiSDKDemo()));
+                      },
+                      child: const Text(
+                        "Bookseat",
+                        style: textStyle,
+                      )),
+                      
+                ],
+              )
             ],
           ),
         ));
