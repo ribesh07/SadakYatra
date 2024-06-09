@@ -4,16 +4,25 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class InputField extends StatelessWidget {
   final String label;
   final IconData? icon;
-  final String? keypad;
+  //final String? keypad;
+  final TextInputType? keypad;
+  final TextEditingController? controller;
+  final FormFieldValidator? validator;
+  final List<TextInputFormatter>? inputFormat;
 
   const InputField({
     super.key,
     this.label = "label Name",
     this.icon,
+    // this.keypad,
+    this.controller,
+    this.validator,
+    this.inputFormat,
     this.keypad,
   });
 
@@ -22,8 +31,18 @@ class InputField extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: TextFormField(
-        keyboardType:
-            (keypad != null) ? TextInputType.number : TextInputType.text,
+        onTapOutside: (event) {
+          //print('onTapOutside');
+          FocusManager.instance.primaryFocus?.unfocus();
+        },
+        validator: validator,
+        controller: controller,
+        inputFormatters: inputFormat,
+        keyboardType: keypad,
+        autovalidateMode:
+            AutovalidateMode.onUserInteraction, //validation while typing
+        // keyboardType:
+        //     (keypad != null) ? TextInputType.number : TextInputType.text,
         decoration: InputDecoration(
           label: Text(label),
           prefixIcon: Icon(icon),
@@ -36,6 +55,16 @@ class InputField extends StatelessWidget {
           focusedBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(5),
             borderSide: BorderSide(color: Colors.blue.withOpacity(1), width: 2),
+          ),
+          errorBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(5),
+            borderSide:
+                BorderSide(color: Colors.red.withOpacity(0.4), width: 1.5),
+          ),
+          focusedErrorBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(5),
+            borderSide:
+                BorderSide(color: Colors.red.withOpacity(1), width: 1.5),
           ),
         ),
       ),
