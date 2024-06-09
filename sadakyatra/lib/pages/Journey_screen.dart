@@ -15,18 +15,17 @@ class JourneyScreen extends StatefulWidget {
 
 class _JourneyScreenState extends State<JourneyScreen> {
   List<dynamic> dataItems = [
-    // {"product": "data", "frequency": 1},
-    // {"product": "data2", "frequency": 2},
-    // {"product": "data3", "frequency": 3},
-    // {"product": "data4", "frequency": 4}
     {"product": "hi", "frequency": 1},
-    {"product": "hello", "frequency": 2}
+    {"product": "hello", "frequency": 2},
+    {"product": "hey", "frequency": 3},
+    {"product": "hola", "frequency": 4}
   ];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
+        color: Color.fromARGB(255, 202, 227, 247),
         height: double.infinity,
         width: double.infinity,
         child: SingleChildScrollView(
@@ -45,11 +44,12 @@ class _JourneyScreenState extends State<JourneyScreen> {
               SizedBox(
                 height: 20,
               ),
-              ListView.separated(
+              ListView.builder(
                 scrollDirection: Axis.vertical,
+                physics: NeverScrollableScrollPhysics(),
                 shrinkWrap: true,
                 itemCount: dataItems.length,
-                separatorBuilder: (_, __) => const Divider(),
+                //separatorBuilder: (_, __) => const Divider(),
                 itemBuilder: (context, index) {
                   return Container(
                     child: Column(

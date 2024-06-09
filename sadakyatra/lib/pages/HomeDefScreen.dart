@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:sadakyatra/Booking/booking_form.dart';
 import 'package:sadakyatra/Booking/input_field.dart';
 import 'package:sadakyatra/setups.dart';
 
@@ -13,6 +14,13 @@ class HomeDefScreen extends StatefulWidget {
 }
 
 class _HomeDefScreenState extends State<HomeDefScreen> {
+  List<dynamic> dataItems = [
+    {"product": "hi", "frequency": 1},
+    {"product": "hello", "frequency": 2},
+    {"product": "hey", "frequency": 3},
+    {"product": "hola", "frequency": 4}
+  ];
+
   var _value = -1;
   var departureDate = "select date";
   @override
@@ -227,8 +235,69 @@ class _HomeDefScreenState extends State<HomeDefScreen> {
 
                         SizedBox(
                           height: 20,
-                        )
+                        ),
                       ],
+                    ),
+                  ),
+                  SizedBox(
+                    height: 20,
+                  ),
+                  SizedBox(
+                    height: 260.0,
+                    child: ListView.builder(
+                      physics: BouncingScrollPhysics(
+                        parent: AlwaysScrollableScrollPhysics(),
+                      ),
+                      // ClampingScrollPhysics(),
+                      shrinkWrap: true,
+                      scrollDirection: Axis.horizontal,
+                      itemCount: dataItems.length,
+                      itemBuilder: (BuildContext context, int index) => Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Card(
+                          child: Container(
+                              height: 200,
+                              width: 300,
+                              child: Column(
+                                // mainAxisAlignment: MainAxisAlignment.start,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    "   ${dataItems[index]["frequency"].toString()}",
+                                    style: textStyle,
+                                  ),
+                                  Container(
+                                    width: MediaQuery.of(context).size.width,
+                                    height: 120,
+                                    color: Color.fromARGB(255, 153, 203, 238),
+                                    child: Text(
+                                        dataItems[index]["product"].toString(),
+                                        style: textStyle,
+                                        textAlign: TextAlign.center),
+                                  ),
+                                  Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceEvenly,
+                                    // crossAxisAlignment: CrossAxisAlignment.end,
+                                    children: [
+                                      ElevatedButton(
+                                          onPressed: () {
+                                            Navigator.push(
+                                                context,
+                                                MaterialPageRoute(
+                                                    builder: (context) =>
+                                                        const bookSeat()));
+                                          },
+                                          child: Text(
+                                            'Book Now',
+                                            style: textStyle,
+                                          )),
+                                    ],
+                                  )
+                                ],
+                              )),
+                        ),
+                      ),
                     ),
                   ),
                 ],
