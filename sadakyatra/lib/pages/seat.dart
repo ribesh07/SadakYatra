@@ -1,9 +1,10 @@
-// ignore_for_file: prefer_const_constructors, sized_box_for_whitespace
+// ignore_for_file: prefer_const_constructors, sized_box_for_whitespace, sort_child_properties_last, avoid_unnecessary_containers
 
 //import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:sadakyatra/Booking/booking_form.dart';
+import 'package:sadakyatra/pages/setups/seats_layout.dart';
 
 import 'package:sadakyatra/setups.dart';
 
@@ -90,6 +91,7 @@ class _SeatSState extends State<SeatS> {
   setSeatSelectedL1() {
     setState(() {
       if (_isBookedL1 == true) {
+        //isbooked from database to update
         _isSelectedL1 = false;
       } else {
         _isSelectedL1 = !_isSelectedL1;
@@ -711,17 +713,71 @@ class _SeatSState extends State<SeatS> {
     return Scaffold(
       backgroundColor: Color.fromARGB(255, 117, 182, 228),
       body: Padding(
-        padding: const EdgeInsets.only(top: 40, left: 8, right: 8),
+        padding: const EdgeInsets.only(top: 70, left: 8, right: 8),
         child: Container(
-          height: 800,
+          height: 720,
           width: 400,
           child: Card(
             elevation: 50,
             child: Padding(
-              padding: const EdgeInsets.only(left: 20, top: 100),
+              padding: const EdgeInsets.only(left: 20, top: 70),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
+                  Row(
+                    children: [
+                      Container(
+                        child: Row(
+                          children: [
+                            Text(
+                              "Available: ",
+                              style: textStyle,
+                            ),
+                            Container(
+                                height: 20,
+                                width: 20,
+                                decoration: BoxDecoration(
+                                  border:
+                                      Border.all(color: Colors.grey.shade500),
+                                  borderRadius: BorderRadius.circular(5),
+                                  color: Colors.white,
+                                ))
+                          ],
+                        ),
+                      ),
+                      Container(
+                        child: Text(
+                          "  Booked: ",
+                          style: textStyle,
+                        ),
+                      ),
+                      Container(
+                          height: 20,
+                          width: 20,
+                          decoration: BoxDecoration(
+                            border: Border.all(color: Colors.grey.shade500),
+                            borderRadius: BorderRadius.circular(5),
+                            color: Colors.grey.shade500,
+                          )),
+                      Container(
+                        child: Text(
+                          "   Selected: ",
+                          style: textStyle,
+                        ),
+                      ),
+                      Container(
+                          height: 20,
+                          width: 20,
+                          decoration: BoxDecoration(
+                            border: Border.all(color: Colors.grey.shade500),
+                            borderRadius: BorderRadius.circular(5),
+                            color: Colors.red,
+                          )),
+                    ],
+                  ),
+                  SizedBox(
+                    height: 20,
+                  ),
                   //1st Row
                   Row(
                     mainAxisAlignment: MainAxisAlignment.start,
@@ -733,17 +789,20 @@ class _SeatSState extends State<SeatS> {
                           print(_isSelectedL1);
                         },
                         child: Container(
+                          child: SeatsLayout(ID: 'L1'),
                           height: 60,
                           width: 60,
                           decoration: BoxDecoration(
-                              border: Border.all(color: Colors.black),
-                              color: _isBookedL1
-                                  ? Colors.black
+                              border: Border.all(color: Colors.transparent),
+                              borderRadius: BorderRadius.circular(18),
+                              color: _isBookedL1 //from db to update
+                                  ? Colors.grey.shade500
                                   : _isSelectedL1
                                       ? Colors.red
-                                      : Colors.blue),
+                                      : Colors.transparent),
                         ),
                       ),
+
                       SizedBox(width: 10),
                       GestureDetector(
                         onTap: () {
@@ -751,15 +810,17 @@ class _SeatSState extends State<SeatS> {
                           print(_isSelectedL2);
                         },
                         child: Container(
+                          child: SeatsLayout(ID: 'L2'),
                           height: 60,
                           width: 60,
                           decoration: BoxDecoration(
-                              border: Border.all(color: Colors.black),
+                              border: Border.all(color: Colors.transparent),
+                              borderRadius: BorderRadius.circular(18),
                               color: _isbookedL2
-                                  ? Colors.black
+                                  ? Colors.grey.shade500
                                   : _isSelectedL2
                                       ? Colors.red
-                                      : Colors.blue),
+                                      : Colors.transparent),
                         ),
                       ),
                       SizedBox(
@@ -771,15 +832,17 @@ class _SeatSState extends State<SeatS> {
                           setSeatSelectedR1();
                         },
                         child: Container(
+                          child: SeatsLayout(ID: 'R1'),
                           height: 60,
                           width: 60,
                           decoration: BoxDecoration(
-                              border: Border.all(color: Colors.black),
+                              border: Border.all(color: Colors.transparent),
+                              borderRadius: BorderRadius.circular(18),
                               color: _isBookedR1
-                                  ? Colors.black
+                                  ? Colors.grey.shade500
                                   : _isSelectedR1
                                       ? Colors.red
-                                      : Colors.blue),
+                                      : Colors.transparent),
                         ),
                       ),
                       SizedBox(
@@ -790,15 +853,17 @@ class _SeatSState extends State<SeatS> {
                           setSeatSelectedR2();
                         },
                         child: Container(
+                          child: SeatsLayout(ID: 'R2'),
                           height: 60,
                           width: 60,
                           decoration: BoxDecoration(
-                              border: Border.all(color: Colors.black),
+                              border: Border.all(color: Colors.transparent),
+                              borderRadius: BorderRadius.circular(18),
                               color: _isBookedR2
-                                  ? Colors.black
+                                  ? Colors.grey.shade500
                                   : _isSelectedR2
                                       ? Colors.red
-                                      : Colors.blue),
+                                      : Colors.transparent),
                         ),
                       ),
                     ],
@@ -815,15 +880,17 @@ class _SeatSState extends State<SeatS> {
                           setSeatSelectedL3();
                         },
                         child: Container(
+                          child: SeatsLayout(ID: 'L3'),
                           height: 60,
                           width: 60,
                           decoration: BoxDecoration(
-                              border: Border.all(color: Colors.black),
+                              border: Border.all(color: Colors.transparent),
+                              borderRadius: BorderRadius.circular(18),
                               color: _isBookedL3
-                                  ? Colors.black
+                                  ? Colors.grey.shade500
                                   : _isSelectedL3
                                       ? Colors.red
-                                      : Colors.blue),
+                                      : Colors.transparent),
                         ),
                       ),
                       SizedBox(width: 10),
@@ -832,15 +899,17 @@ class _SeatSState extends State<SeatS> {
                           setSeatSelectedL4();
                         },
                         child: Container(
+                          child: SeatsLayout(ID: 'L4'),
                           height: 60,
                           width: 60,
                           decoration: BoxDecoration(
-                              border: Border.all(color: Colors.black),
+                              border: Border.all(color: Colors.transparent),
+                              borderRadius: BorderRadius.circular(18),
                               color: _isbookedL4
-                                  ? Colors.black
+                                  ? Colors.grey.shade500
                                   : _isSelectedL4
                                       ? Colors.red
-                                      : Colors.blue),
+                                      : Colors.transparent),
                         ),
                       ),
                       SizedBox(
@@ -852,15 +921,17 @@ class _SeatSState extends State<SeatS> {
                           setSeatSelectedR3();
                         },
                         child: Container(
+                          child: SeatsLayout(ID: 'R3'),
                           height: 60,
                           width: 60,
                           decoration: BoxDecoration(
-                              border: Border.all(color: Colors.black),
+                              border: Border.all(color: Colors.transparent),
+                              borderRadius: BorderRadius.circular(18),
                               color: _isBookedR3
-                                  ? Colors.black
+                                  ? Colors.grey.shade500
                                   : _isSelectedR3
                                       ? Colors.red
-                                      : Colors.blue),
+                                      : Colors.transparent),
                         ),
                       ),
                       SizedBox(
@@ -871,15 +942,17 @@ class _SeatSState extends State<SeatS> {
                           setSeatSelectedR4();
                         },
                         child: Container(
+                          child: SeatsLayout(ID: 'R4'),
                           height: 60,
                           width: 60,
                           decoration: BoxDecoration(
-                              border: Border.all(color: Colors.black),
+                              border: Border.all(color: Colors.transparent),
+                              borderRadius: BorderRadius.circular(18),
                               color: _isBookedR4
-                                  ? Colors.black
+                                  ? Colors.grey.shade500
                                   : _isSelectedR4
                                       ? Colors.red
-                                      : Colors.blue),
+                                      : Colors.transparent),
                         ),
                       ),
                     ],
@@ -898,15 +971,17 @@ class _SeatSState extends State<SeatS> {
                           setSeatSelectedL5();
                         },
                         child: Container(
+                          child: SeatsLayout(ID: 'L5'),
                           height: 60,
                           width: 60,
                           decoration: BoxDecoration(
-                              border: Border.all(color: Colors.black),
+                              border: Border.all(color: Colors.transparent),
+                              borderRadius: BorderRadius.circular(18),
                               color: _isBookedL5
-                                  ? Colors.black
+                                  ? Colors.grey.shade500
                                   : _isSelectedL5
                                       ? Colors.red
-                                      : Colors.blue),
+                                      : Colors.transparent),
                         ),
                       ),
                       SizedBox(width: 10),
@@ -915,15 +990,17 @@ class _SeatSState extends State<SeatS> {
                           setSeatSelectedL6();
                         },
                         child: Container(
+                          child: SeatsLayout(ID: 'L6'),
                           height: 60,
                           width: 60,
                           decoration: BoxDecoration(
-                              border: Border.all(color: Colors.black),
+                              border: Border.all(color: Colors.transparent),
+                              borderRadius: BorderRadius.circular(18),
                               color: _isbookedL6
-                                  ? Colors.black
+                                  ? Colors.grey.shade500
                                   : _isSelectedL6
                                       ? Colors.red
-                                      : Colors.blue),
+                                      : Colors.transparent),
                         ),
                       ),
                       SizedBox(
@@ -935,15 +1012,17 @@ class _SeatSState extends State<SeatS> {
                           setSeatSelectedR5();
                         },
                         child: Container(
+                          child: SeatsLayout(ID: 'R5'),
                           height: 60,
                           width: 60,
                           decoration: BoxDecoration(
-                              border: Border.all(color: Colors.black),
+                              border: Border.all(color: Colors.transparent),
+                              borderRadius: BorderRadius.circular(18),
                               color: _isBookedR5
-                                  ? Colors.black
+                                  ? Colors.grey.shade500
                                   : _isSelectedR5
                                       ? Colors.red
-                                      : Colors.blue),
+                                      : Colors.transparent),
                         ),
                       ),
                       SizedBox(
@@ -954,15 +1033,17 @@ class _SeatSState extends State<SeatS> {
                           setSeatSelectedR6();
                         },
                         child: Container(
+                          child: SeatsLayout(ID: 'R6'),
                           height: 60,
                           width: 60,
                           decoration: BoxDecoration(
-                              border: Border.all(color: Colors.black),
+                              border: Border.all(color: Colors.transparent),
+                              borderRadius: BorderRadius.circular(18),
                               color: _isBookedR6
-                                  ? Colors.black
+                                  ? Colors.grey.shade500
                                   : _isSelectedR6
                                       ? Colors.red
-                                      : Colors.blue),
+                                      : Colors.transparent),
                         ),
                       ),
                     ],
@@ -980,15 +1061,17 @@ class _SeatSState extends State<SeatS> {
                           setSeatSelectedL7();
                         },
                         child: Container(
+                          child: SeatsLayout(ID: 'L7'),
                           height: 60,
                           width: 60,
                           decoration: BoxDecoration(
-                              border: Border.all(color: Colors.black),
+                              border: Border.all(color: Colors.transparent),
+                              borderRadius: BorderRadius.circular(18),
                               color: _isBookedL7
-                                  ? Colors.black
+                                  ? Colors.grey.shade500
                                   : _isSelectedL7
                                       ? Colors.red
-                                      : Colors.blue),
+                                      : Colors.transparent),
                         ),
                       ),
                       SizedBox(width: 10),
@@ -997,15 +1080,17 @@ class _SeatSState extends State<SeatS> {
                           setSeatSelectedL8();
                         },
                         child: Container(
+                          child: SeatsLayout(ID: 'L8'),
                           height: 60,
                           width: 60,
                           decoration: BoxDecoration(
-                              border: Border.all(color: Colors.black),
+                              border: Border.all(color: Colors.transparent),
+                              borderRadius: BorderRadius.circular(18),
                               color: _isbookedL8
-                                  ? Colors.black
+                                  ? Colors.grey.shade500
                                   : _isSelectedL8
                                       ? Colors.red
-                                      : Colors.blue),
+                                      : Colors.transparent),
                         ),
                       ),
                       SizedBox(
@@ -1017,15 +1102,17 @@ class _SeatSState extends State<SeatS> {
                           setSeatSelectedR7();
                         },
                         child: Container(
+                          child: SeatsLayout(ID: 'R7'),
                           height: 60,
                           width: 60,
                           decoration: BoxDecoration(
-                              border: Border.all(color: Colors.black),
+                              border: Border.all(color: Colors.transparent),
+                              borderRadius: BorderRadius.circular(18),
                               color: _isBookedR7
-                                  ? Colors.black
+                                  ? Colors.grey.shade500
                                   : _isSelectedR7
                                       ? Colors.red
-                                      : Colors.blue),
+                                      : Colors.transparent),
                         ),
                       ),
                       SizedBox(
@@ -1036,15 +1123,17 @@ class _SeatSState extends State<SeatS> {
                           setSeatSelectedR8();
                         },
                         child: Container(
+                          child: SeatsLayout(ID: 'R8'),
                           height: 60,
                           width: 60,
                           decoration: BoxDecoration(
-                              border: Border.all(color: Colors.black),
+                              border: Border.all(color: Colors.transparent),
+                              borderRadius: BorderRadius.circular(18),
                               color: _isBookedR8
-                                  ? Colors.black
+                                  ? Colors.grey.shade500
                                   : _isSelectedR8
                                       ? Colors.red
-                                      : Colors.blue),
+                                      : Colors.transparent),
                         ),
                       ),
                     ],
@@ -1061,15 +1150,17 @@ class _SeatSState extends State<SeatS> {
                           setSeatSelectedL9();
                         },
                         child: Container(
+                          child: SeatsLayout(ID: 'L9'),
                           height: 60,
                           width: 60,
                           decoration: BoxDecoration(
-                              border: Border.all(color: Colors.black),
+                              border: Border.all(color: Colors.transparent),
+                              borderRadius: BorderRadius.circular(18),
                               color: _isBookedL9
-                                  ? Colors.black
+                                  ? Colors.grey.shade500
                                   : _isSelectedL9
                                       ? Colors.red
-                                      : Colors.blue),
+                                      : Colors.transparent),
                         ),
                       ),
                       SizedBox(width: 10),
@@ -1078,15 +1169,17 @@ class _SeatSState extends State<SeatS> {
                           setSeatSelectedL10();
                         },
                         child: Container(
+                          child: SeatsLayout(ID: 'L10'),
                           height: 60,
                           width: 60,
                           decoration: BoxDecoration(
-                              border: Border.all(color: Colors.black),
+                              border: Border.all(color: Colors.transparent),
+                              borderRadius: BorderRadius.circular(18),
                               color: _isbookedL10
-                                  ? Colors.black
+                                  ? Colors.grey.shade500
                                   : _isSelectedL10
                                       ? Colors.red
-                                      : Colors.blue),
+                                      : Colors.transparent),
                         ),
                       ),
                       SizedBox(
@@ -1098,15 +1191,17 @@ class _SeatSState extends State<SeatS> {
                           setSeatSelectedR9();
                         },
                         child: Container(
+                          child: SeatsLayout(ID: 'R9'),
                           height: 60,
                           width: 60,
                           decoration: BoxDecoration(
-                              border: Border.all(color: Colors.black),
+                              border: Border.all(color: Colors.transparent),
+                              borderRadius: BorderRadius.circular(18),
                               color: _isBookedR9
-                                  ? Colors.black
+                                  ? Colors.grey.shade500
                                   : _isSelectedR9
                                       ? Colors.red
-                                      : Colors.blue),
+                                      : Colors.transparent),
                         ),
                       ),
                       SizedBox(
@@ -1117,15 +1212,17 @@ class _SeatSState extends State<SeatS> {
                           setSeatSelectedR10();
                         },
                         child: Container(
+                          child: SeatsLayout(ID: 'R10'),
                           height: 60,
                           width: 60,
                           decoration: BoxDecoration(
-                              border: Border.all(color: Colors.black),
+                              border: Border.all(color: Colors.transparent),
+                              borderRadius: BorderRadius.circular(18),
                               color: _isBookedR10
-                                  ? Colors.black
+                                  ? Colors.grey.shade500
                                   : _isSelectedR10
                                       ? Colors.red
-                                      : Colors.blue),
+                                      : Colors.transparent),
                         ),
                       ),
                     ],
@@ -1144,15 +1241,17 @@ class _SeatSState extends State<SeatS> {
                           setSeatSelectedL11();
                         },
                         child: Container(
+                          child: SeatsLayout(ID: 'L11'),
                           height: 60,
                           width: 60,
                           decoration: BoxDecoration(
-                              border: Border.all(color: Colors.black),
+                              border: Border.all(color: Colors.transparent),
+                              borderRadius: BorderRadius.circular(18),
                               color: _isBookedL11
-                                  ? Colors.black
+                                  ? Colors.grey.shade500
                                   : _isSelectedL11
                                       ? Colors.red
-                                      : Colors.blue),
+                                      : Colors.transparent),
                         ),
                       ),
                       SizedBox(width: 10),
@@ -1161,15 +1260,17 @@ class _SeatSState extends State<SeatS> {
                           setSeatSelectedL12();
                         },
                         child: Container(
+                          child: SeatsLayout(ID: 'L12'),
                           height: 60,
                           width: 60,
                           decoration: BoxDecoration(
-                              border: Border.all(color: Colors.black),
+                              border: Border.all(color: Colors.transparent),
+                              borderRadius: BorderRadius.circular(18),
                               color: _isbookedL12
-                                  ? Colors.black
+                                  ? Colors.grey.shade500
                                   : _isSelectedL12
                                       ? Colors.red
-                                      : Colors.blue),
+                                      : Colors.transparent),
                         ),
                       ),
                       SizedBox(
@@ -1181,15 +1282,17 @@ class _SeatSState extends State<SeatS> {
                           setSeatSelectedR11();
                         },
                         child: Container(
+                          child: SeatsLayout(ID: 'R11'),
                           height: 60,
                           width: 60,
                           decoration: BoxDecoration(
-                              border: Border.all(color: Colors.black),
+                              border: Border.all(color: Colors.transparent),
+                              borderRadius: BorderRadius.circular(18),
                               color: _isBookedR11
-                                  ? Colors.black
+                                  ? Colors.grey.shade500
                                   : _isSelectedR11
                                       ? Colors.red
-                                      : Colors.blue),
+                                      : Colors.transparent),
                         ),
                       ),
                       SizedBox(
@@ -1200,15 +1303,17 @@ class _SeatSState extends State<SeatS> {
                           setSeatSelectedR12();
                         },
                         child: Container(
+                          child: SeatsLayout(ID: 'R12'),
                           height: 60,
                           width: 60,
                           decoration: BoxDecoration(
-                              border: Border.all(color: Colors.black),
+                              border: Border.all(color: Colors.transparent),
+                              borderRadius: BorderRadius.circular(18),
                               color: _isBookedR12
-                                  ? Colors.black
+                                  ? Colors.grey.shade500
                                   : _isSelectedR12
                                       ? Colors.red
-                                      : Colors.blue),
+                                      : Colors.transparent),
                         ),
                       ),
                     ],
@@ -1228,15 +1333,17 @@ class _SeatSState extends State<SeatS> {
                           setSeatSelectedL13();
                         },
                         child: Container(
+                          child: SeatsLayout(ID: 'L13'),
                           height: 60,
                           width: 60,
                           decoration: BoxDecoration(
-                              border: Border.all(color: Colors.black),
+                              border: Border.all(color: Colors.transparent),
+                              borderRadius: BorderRadius.circular(18),
                               color: _isBookedL13
-                                  ? Colors.black
+                                  ? Colors.grey.shade500
                                   : _isSelectedL13
                                       ? Colors.red
-                                      : Colors.blue),
+                                      : Colors.transparent),
                         ),
                       ),
                       SizedBox(width: 10),
@@ -1245,15 +1352,17 @@ class _SeatSState extends State<SeatS> {
                           setSeatSelectedL14();
                         },
                         child: Container(
+                          child: SeatsLayout(ID: 'L14'),
                           height: 60,
                           width: 60,
                           decoration: BoxDecoration(
-                              border: Border.all(color: Colors.black),
+                              border: Border.all(color: Colors.transparent),
+                              borderRadius: BorderRadius.circular(18),
                               color: _isbookedL14
-                                  ? Colors.black
+                                  ? Colors.grey.shade500
                                   : _isSelectedL14
                                       ? Colors.red
-                                      : Colors.blue),
+                                      : Colors.transparent),
                         ),
                       ),
 
@@ -1266,15 +1375,17 @@ class _SeatSState extends State<SeatS> {
                           setSeatSelectedC1();
                         },
                         child: Container(
+                          child: SeatsLayout(ID: 'C1'),
                           height: 60,
                           width: 60,
                           decoration: BoxDecoration(
-                              border: Border.all(color: Colors.black),
+                              border: Border.all(color: Colors.transparent),
+                              borderRadius: BorderRadius.circular(18),
                               color: _isBookedC1
-                                  ? Colors.black
+                                  ? Colors.grey.shade500
                                   : _isSelectedC1
                                       ? Colors.red
-                                      : Colors.blue),
+                                      : Colors.transparent),
                         ),
                       ),
                       SizedBox(
@@ -1287,15 +1398,17 @@ class _SeatSState extends State<SeatS> {
                           setSeatSelectedR13();
                         },
                         child: Container(
+                          child: SeatsLayout(ID: 'R14'),
                           height: 60,
                           width: 60,
                           decoration: BoxDecoration(
-                              border: Border.all(color: Colors.black),
+                              border: Border.all(color: Colors.transparent),
+                              borderRadius: BorderRadius.circular(18),
                               color: _isBookedR13
-                                  ? Colors.black
+                                  ? Colors.grey.shade500
                                   : _isSelectedR13
                                       ? Colors.red
-                                      : Colors.blue),
+                                      : Colors.transparent),
                         ),
                       ),
                       SizedBox(
@@ -1306,15 +1419,17 @@ class _SeatSState extends State<SeatS> {
                           setSeatSelectedR14();
                         },
                         child: Container(
+                          child: SeatsLayout(ID: 'R15'),
                           height: 60,
                           width: 60,
                           decoration: BoxDecoration(
-                              border: Border.all(color: Colors.black),
+                              border: Border.all(color: Colors.transparent),
+                              borderRadius: BorderRadius.circular(18),
                               color: _isBookedR14
-                                  ? Colors.black
+                                  ? Colors.grey.shade500
                                   : _isSelectedR14
                                       ? Colors.red
-                                      : Colors.blue),
+                                      : Colors.transparent),
                         ),
                       ),
                     ],
@@ -1404,7 +1519,7 @@ class _SeatSState extends State<SeatS> {
                         }
                       }
                     },
-                    child: Text('Book'),
+                    child: Text('   Book   '),
                   ),
                 ],
               ),

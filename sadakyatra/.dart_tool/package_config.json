@@ -92,6 +92,12 @@
       "languageVersion": "2.15"
     },
     {
+      "name": "email_validator",
+      "rootUri": "file:///C:/Users/Dell/AppData/Local/Pub/Cache/hosted/pub.dev/email_validator-2.1.17",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
+    },
+    {
       "name": "esewa_flutter_sdk",
       "rootUri": "../external_sdk/esewa_sdk/esewa_flutter_sdk",
       "packageUri": "lib/",
@@ -620,7 +626,7 @@
       "languageVersion": "3.2"
     }
   ],
-  "generated": "2024-06-08T21:51:59.388601Z",
+  "generated": "2024-06-09T07:24:25.092401Z",
   "generator": "pub",
   "generatorVersion": "3.4.1",
   "flutterRoot": "file:///C:/flutter",

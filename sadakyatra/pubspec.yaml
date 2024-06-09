@@ -52,6 +52,7 @@ dependencies:
     path: ./external_sdk/esewa_sdk/esewa_flutter_sdk
   toggle_switch: ^2.3.0
   font_awesome_flutter: ^10.7.0
+  email_validator: ^2.1.17
 
 dev_dependencies:
   flutter_test:
