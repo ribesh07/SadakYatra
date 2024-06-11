@@ -47,43 +47,84 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
             ),
             Padding(
               padding: const EdgeInsets.only(left: 18.0, right: 18),
-              child: Card(
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(12)),
-                elevation: 5,
-                child: Container(
-                  decoration: BoxDecoration(
-                    color: Colors.black.withOpacity(0.1),
-                    borderRadius: BorderRadius.circular(12),
-                  ),
-                  child: TabBar(
-                    indicator: BoxDecoration(
-                        borderRadius: BorderRadius.circular(6),
-                        color: appbarcolor),
-                    controller: _tabController,
-                    isScrollable: true,
-                    labelPadding:
-                        EdgeInsets.symmetric(vertical: 4, horizontal: 2),
-                    tabs: [
-                      Tab(
-                        child: Text(
-                          '  Home    ',
-                          style: textStyle,
+              child: Container(
+                height: 100,
+                width: MediaQuery.of(context).size.width,
+                child: Card(
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(12)),
+                  elevation: 5,
+                  child: Container(
+                    decoration: BoxDecoration(
+                      color: Colors.black.withOpacity(0.1),
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                    child: TabBar(
+                      indicator: BoxDecoration(
+                          borderRadius: BorderRadius.circular(6),
+                          color: appbarcolor),
+                      controller: _tabController,
+                      //isScrollable: true,
+                      labelPadding: EdgeInsets.only(right: 10, left: 10),
+                      indicatorPadding: EdgeInsets.only(top: 5, bottom: 5),
+                      //padding: EdgeInsets.symmetric(),
+                      tabs: [
+                        Container(
+                          width: 100,
+                          child: Tab(
+                            height: 60,
+                            child: Column(
+                              children: [
+                                Icon(
+                                  Icons.directions_bus_filled_outlined,
+                                  size: 30,
+                                ),
+                                Text(
+                                  'Bus Tickets',
+                                  style: TextStyle(fontSize: 18),
+                                ),
+                              ],
+                            ),
+                          ),
                         ),
-                      ),
-                      Tab(
-                        child: Text(
-                          '  Tickets   ',
-                          style: textStyle,
+                        Container(
+                          width: 100,
+                          child: Tab(
+                            height: 60,
+                            child: Column(
+                              children: [
+                                Icon(
+                                  Icons.airport_shuttle_outlined,
+                                  size: 30,
+                                ),
+                                Text(
+                                  'Reservation',
+                                  style: TextStyle(fontSize: 18),
+                                ),
+                              ],
+                            ),
+                          ),
                         ),
-                      ),
-                      Tab(
-                        child: Text(
-                          '  Journey  ',
-                          style: textStyle,
+                        Container(
+                          width: 100,
+                          child: Tab(
+                            height: 60,
+                            child: Column(
+                              children: [
+                                Icon(
+                                  Icons.surfing_outlined,
+                                  size: 30,
+                                ),
+                                Text(
+                                  'Packages',
+                                  style: TextStyle(fontSize: 18),
+                                ),
+                              ],
+                            ),
+                          ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
                 ),
               ),

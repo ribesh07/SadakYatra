@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_const_constructors
+// ignore_for_file: prefer_const_constructors, unused_local_variable, curly_braces_in_flow_control_structures
 
 import 'dart:io';
 
@@ -60,61 +60,65 @@ class _changeProfilePicState extends State<changeProfilePic> {
           'Change Profile Pic',
           style: textStyleappbar,
         ),
-        backgroundColor: Color.fromARGB(255, 205, 225, 243),
+        backgroundColor: Color.fromARGB(255, 137, 196, 248),
       ),
       body: Container(
         width: MediaQuery.of(context).size.width,
         height: double.infinity,
+        color: Color.fromARGB(255, 210, 230, 244),
         child: Column(
           children: [
             const SizedBox(
-              height: 40,
+              height: 100,
             ),
-            Stack(
-              children: [
-                image != null
-                    ? CircleAvatar(
-                        backgroundImage: FileImage(image!),
-                        radius: 46,
-                        // child: Icon(
-                        //   Icons.person,
-                        //   size: 50,
-                        // )
-                      )
-                    : CircleAvatar(
-                        backgroundColor: appbarcolor,
-                        radius: 46,
-                        child: GestureDetector(
-                          onTap: selectImage,
-                          child: const Icon(
-                            Icons.person,
-                            size: 50,
+            FittedBox(
+              child: Stack(
+                alignment: Alignment.center,
+                children: [
+                  image != null
+                      ? CircleAvatar(
+                          backgroundImage: FileImage(image!),
+                          radius: 80,
+                          // child: Icon(
+                          //   Icons.person,
+                          //   size: 50,
+                          // )
+                        )
+                      : CircleAvatar(
+                          backgroundColor: appbarcolor,
+                          radius: 80,
+                          child: GestureDetector(
+                            onTap: selectImage,
+                            child: const Icon(
+                              Icons.person,
+                              size: 90,
+                            ),
                           ),
                         ),
-                      ),
-                if (image == null)
-                  Positioned(
-                    bottom: -6,
-                    right: -10,
-                    child: IconButton(
-                      onPressed: () {
-                        selectImage();
-                      },
-                      icon: const Icon(
-                        Icons.add_a_photo_outlined,
-                        size: 30,
+                  if (image == null)
+                    Positioned(
+                      bottom: -6,
+                      right: -8,
+                      child: IconButton(
+                        onPressed: () {
+                          selectImage();
+                        },
+                        icon: const Icon(
+                          Icons.add_a_photo_outlined,
+                          size: 40,
+                        ),
                       ),
                     ),
-                  ),
-              ],
+                ],
+              ),
             ),
             const SizedBox(
               height: 26,
             ),
             image == null
                 ? const Text(
-                    'Add Image',
-                    style: textStyle,
+                    'Add Profile Pic',
+                    style: TextStyle(fontSize: 25),
                   )
                 : const Text(
                     'Your Image',
@@ -122,6 +126,34 @@ class _changeProfilePicState extends State<changeProfilePic> {
                   ),
             const SizedBox(
               height: 20,
+            ),
+            ElevatedButton(
+              onPressed: () {
+                if (image != null) {
+                  final snackBar = SnackBar(
+                    backgroundColor: Colors.green,
+                    elevation: 10,
+                    duration: Duration(milliseconds: 3000),
+                    content: const Text(
+                      "Profile Pic Uppdated",
+                      style: TextStyle(fontSize: 20),
+                    ),
+                  );
+                  ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                } else {
+                  final snackBar = SnackBar(
+                    backgroundColor: Color.fromARGB(255, 232, 13, 13),
+                    elevation: 10,
+                    duration: Duration(milliseconds: 3000),
+                    content: const Text(
+                      "Please Select Image",
+                      style: TextStyle(fontSize: 20),
+                    ),
+                  );
+                  ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                }
+              },
+              child: Text('Change'),
             ),
           ],
         ),

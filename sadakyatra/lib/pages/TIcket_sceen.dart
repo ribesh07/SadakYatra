@@ -69,6 +69,12 @@ class _TicketScreenState extends State<TicketScreen> {
                           label: "Full Name",
                           keypad: TextInputType.text,
                           controller: namecontroller,
+                          inputFormat: [
+                            FilteringTextInputFormatter.allow(
+                              RegExp(r'[a-zA-z]'),
+                            ),
+                            LengthLimitingTextInputFormatter(50),
+                          ],
                           validator: (value) => provider.validator(
                               value, "full Name is required"),
                         ),
@@ -179,6 +185,12 @@ class _TicketScreenState extends State<TicketScreen> {
                           label: "From",
                           keypad: TextInputType.text,
                           controller: departcontroller,
+                          inputFormat: [
+                            FilteringTextInputFormatter.allow(
+                              RegExp(r'[a-zA-z0-9-_]'),
+                            ),
+                            LengthLimitingTextInputFormatter(50),
+                          ],
                           validator: (value) => provider.validator(
                               value, "please enter departure location"),
                         ),
@@ -248,8 +260,6 @@ class _TicketScreenState extends State<TicketScreen> {
                                     TextButton(
                                       onPressed: () {
                                         //main Logic
-                                        if (formkey.currentState!.validate()) {
-                                        } else {}
 
                                         final snackBar = SnackBar(
                                           backgroundColor: Colors.green,

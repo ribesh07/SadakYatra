@@ -15,7 +15,8 @@ class HomeDefScreen extends StatefulWidget {
 
 class _HomeDefScreenState extends State<HomeDefScreen> {
   var departurevalue = -1;
-  var toevalue = -1;
+  var destinationvalue = -1;
+  final formkey = GlobalKey<FormState>();
   List<dynamic> dataItems = [
     {"product": "hi", "frequency": 1},
     {"product": "hello", "frequency": 2},
@@ -34,14 +35,15 @@ class _HomeDefScreenState extends State<HomeDefScreen> {
           color: const Color.fromARGB(255, 213, 227, 239),
           width: double.infinity,
           height: double.infinity,
-          child: Form(
-            child: SingleChildScrollView(
-              physics: BouncingScrollPhysics(
-                parent: AlwaysScrollableScrollPhysics(),
-              ),
-              child: Column(
-                children: [
-                  Card(
+          child: SingleChildScrollView(
+            physics: BouncingScrollPhysics(
+              parent: AlwaysScrollableScrollPhysics(),
+            ),
+            child: Column(
+              children: [
+                Form(
+                  key: formkey,
+                  child: Card(
                     //surfaceTintColor: Colors.grey,
                     margin: EdgeInsets.only(left: 15, right: 15, top: 10),
                     elevation: 8,
@@ -118,10 +120,10 @@ class _HomeDefScreenState extends State<HomeDefScreen> {
                               ),
                               prefixIcon:
                                   Icon(Icons.add_location_alt_outlined)),
-                          value: toevalue,
+                          value: destinationvalue,
                           onChanged: (value) {
                             setState(() {
-                              toevalue = value as int;
+                              destinationvalue = value as int;
                               print(_value);
                             });
                           },
@@ -200,7 +202,26 @@ class _HomeDefScreenState extends State<HomeDefScreen> {
                           height: 15,
                         ),
                         ElevatedButton(
-                          onPressed: () {},
+                          onPressed: () {
+                            if (formkey.currentState!.validate()) {
+                              if (departurevalue == destinationvalue) {
+                                final snackBar = SnackBar(
+                                  backgroundColor:
+                                      Color.fromARGB(255, 226, 5, 12),
+                                  elevation: 10,
+                                  duration: Duration(milliseconds: 3000),
+                                  content: const Text(
+                                    "Departure and Destination must be different",
+                                    style: TextStyle(fontSize: 20),
+                                  ),
+                                );
+                                ScaffoldMessenger.of(context)
+                                    .showSnackBar(snackBar);
+                              } else {
+                                // Navigator.push(context, route)
+                              }
+                            } else {}
+                          },
                           child: Text(
                             'Search Bus',
                             style: TextStyle(
@@ -214,69 +235,69 @@ class _HomeDefScreenState extends State<HomeDefScreen> {
                       ],
                     ),
                   ),
-                  SizedBox(
-                    height: 20,
-                  ),
-                  SizedBox(
-                    height: 260.0,
-                    child: ListView.builder(
-                      physics: BouncingScrollPhysics(
-                        parent: AlwaysScrollableScrollPhysics(),
-                      ),
-                      // ClampingScrollPhysics(),
-                      shrinkWrap: true,
-                      scrollDirection: Axis.horizontal,
-                      itemCount: dataItems.length,
-                      itemBuilder: (BuildContext context, int index) => Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Card(
-                          child: Container(
-                              height: 200,
-                              width: 300,
-                              child: Column(
-                                // mainAxisAlignment: MainAxisAlignment.start,
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(
-                                    "   ${dataItems[index]["frequency"].toString()}",
-                                    style: textStyle,
-                                  ),
-                                  Container(
-                                    width: MediaQuery.of(context).size.width,
-                                    height: 120,
-                                    color: Color.fromARGB(255, 153, 203, 238),
-                                    child: Text(
-                                        dataItems[index]["product"].toString(),
-                                        style: textStyle,
-                                        textAlign: TextAlign.center),
-                                  ),
-                                  Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceEvenly,
-                                    // crossAxisAlignment: CrossAxisAlignment.end,
-                                    children: [
-                                      ElevatedButton(
-                                          onPressed: () {
-                                            Navigator.push(
-                                                context,
-                                                MaterialPageRoute(
-                                                    builder: (context) =>
-                                                        const bookSeat()));
-                                          },
-                                          child: Text(
-                                            'Book Now',
-                                            style: textStyle,
-                                          )),
-                                    ],
-                                  )
-                                ],
-                              )),
-                        ),
+                ),
+                SizedBox(
+                  height: 20,
+                ),
+                SizedBox(
+                  height: 260.0,
+                  child: ListView.builder(
+                    physics: BouncingScrollPhysics(
+                      parent: AlwaysScrollableScrollPhysics(),
+                    ),
+                    // ClampingScrollPhysics(),
+                    shrinkWrap: true,
+                    scrollDirection: Axis.horizontal,
+                    itemCount: dataItems.length,
+                    itemBuilder: (BuildContext context, int index) => Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Card(
+                        child: Container(
+                            height: 200,
+                            width: 300,
+                            child: Column(
+                              // mainAxisAlignment: MainAxisAlignment.start,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  "   ${dataItems[index]["frequency"].toString()}",
+                                  style: textStyle,
+                                ),
+                                Container(
+                                  width: MediaQuery.of(context).size.width,
+                                  height: 120,
+                                  color: Color.fromARGB(255, 153, 203, 238),
+                                  child: Text(
+                                      dataItems[index]["product"].toString(),
+                                      style: textStyle,
+                                      textAlign: TextAlign.center),
+                                ),
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceEvenly,
+                                  // crossAxisAlignment: CrossAxisAlignment.end,
+                                  children: [
+                                    ElevatedButton(
+                                        onPressed: () {
+                                          Navigator.push(
+                                              context,
+                                              MaterialPageRoute(
+                                                  builder: (context) =>
+                                                      const bookSeat()));
+                                        },
+                                        child: Text(
+                                          'Book Now',
+                                          style: textStyle,
+                                        )),
+                                  ],
+                                )
+                              ],
+                            )),
                       ),
                     ),
                   ),
-                ],
-              ),
+                ),
+              ],
             ),
           ),
         ),

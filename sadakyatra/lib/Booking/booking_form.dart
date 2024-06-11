@@ -1,4 +1,4 @@
-// ignore_for_file: camel_case_types, prefer_const_constructors, prefer_const_literals_to_create_immutables, sort_child_properties_last
+// ignore_for_file: camel_case_types, prefer_const_constructors, prefer_const_literals_to_create_immutables, sort_child_properties_last, sized_box_for_whitespace
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -96,6 +96,12 @@ class _bookSeatState extends State<bookSeat> {
                             label: "Full Name",
                             keypad: TextInputType.text,
                             controller: namecontroller,
+                            inputFormat: [
+                              FilteringTextInputFormatter.allow(
+                                RegExp(r'[a-zA-z]'),
+                              ),
+                              LengthLimitingTextInputFormatter(50),
+                            ],
                             validator: (value) => provider.validator(
                                 value, "full Name is required"),
                           ),

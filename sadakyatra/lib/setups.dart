@@ -5,9 +5,9 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 
-const backgroundColor = Color.fromARGB(255, 107, 173, 240);
+const backgroundColor = Color.fromARGB(255, 225, 203, 233);
 const textcolor = Color.fromARGB(255, 17, 16, 17);
-const appbarcolor = Color.fromARGB(255, 206, 194, 218);
+const appbarcolor = Color.fromARGB(255, 168, 106, 231);
 const appbarfontcolor = Color.fromARGB(255, 17, 16, 17);
 
 const TextStyle textStyle = TextStyle(
@@ -20,7 +20,8 @@ const TextStyle textStyleappbar = TextStyle(
   fontSize: 20,
   fontWeight: FontWeight.bold,
 );
-
+const buttonStyle = TextStyle(fontSize: 15, color: Colors.black);
+const textSize = TextStyle(fontSize: 18);
 Future<File?> PickImageFromGallery(BuildContext contex) async {
   File? image;
   try {
