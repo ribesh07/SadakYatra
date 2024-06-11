@@ -14,6 +14,8 @@ class HomeDefScreen extends StatefulWidget {
 }
 
 class _HomeDefScreenState extends State<HomeDefScreen> {
+  var departurevalue = -1;
+  var toevalue = -1;
   List<dynamic> dataItems = [
     {"product": "hi", "frequency": 1},
     {"product": "hello", "frequency": 2},
@@ -53,24 +55,12 @@ class _HomeDefScreenState extends State<HomeDefScreen> {
                           padding: EdgeInsets.only(left: 15, right: 15),
                           validator: (value) {
                             if (value == -1) {
-                              return "please select pickup point";
+                              return "Please select pickup point";
                             } else {
                               return null;
                             }
                           },
                           decoration: InputDecoration(
-                              // enabledBorder: OutlineInputBorder(
-                              //   borderRadius: BorderRadius.circular(5),
-                              //   borderSide: BorderSide(
-                              //       color: Colors.grey.withOpacity(0.5),
-                              //       width: 1.5),
-                              // ),
-                              // focusedBorder: OutlineInputBorder(
-                              //   borderRadius: BorderRadius.circular(5),
-                              //   borderSide: BorderSide(
-                              //       color: Colors.blue.withOpacity(1),
-                              //       width: 2),
-                              // ),
                               errorBorder: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(5),
                                 borderSide: BorderSide(
@@ -84,17 +74,16 @@ class _HomeDefScreenState extends State<HomeDefScreen> {
                               ),
                               prefixIcon:
                                   Icon(Icons.add_location_alt_outlined)),
-                          value: _value,
+                          //from destination
+                          value: departurevalue,
                           onChanged: (value) {
                             setState(() {
-                              _value = value as int;
+                              departurevalue = value as int;
                               print(_value);
                             });
                           },
                           items: [
-                            DropdownMenuItem(
-                                child: Text("--Choose PickUp Point--"),
-                                value: -1),
+                            DropdownMenuItem(child: Text("From"), value: -1),
                             DropdownMenuItem(child: Text("Tinkune"), value: 1),
                             DropdownMenuItem(child: Text("Gaushala"), value: 2),
                             DropdownMenuItem(child: Text("Kalanki"), value: 3),
@@ -116,18 +105,6 @@ class _HomeDefScreenState extends State<HomeDefScreen> {
                             }
                           },
                           decoration: InputDecoration(
-                              // enabledBorder: OutlineInputBorder(
-                              //   borderRadius: BorderRadius.circular(5),
-                              //   borderSide: BorderSide(
-                              //       color: Colors.grey.withOpacity(0.5),
-                              //       width: 1.5),
-                              // ),
-                              // focusedBorder: OutlineInputBorder(
-                              //   borderRadius: BorderRadius.circular(5),
-                              //   borderSide: BorderSide(
-                              //       color: Colors.blue.withOpacity(1),
-                              //       width: 2),
-                              // ),
                               errorBorder: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(5),
                                 borderSide: BorderSide(
@@ -141,17 +118,15 @@ class _HomeDefScreenState extends State<HomeDefScreen> {
                               ),
                               prefixIcon:
                                   Icon(Icons.add_location_alt_outlined)),
-                          value: _value,
+                          value: toevalue,
                           onChanged: (value) {
                             setState(() {
-                              _value = value as int;
+                              toevalue = value as int;
                               print(_value);
                             });
                           },
                           items: [
-                            DropdownMenuItem(
-                                child: Text("--Choose PickUp Point--"),
-                                value: -1),
+                            DropdownMenuItem(child: Text("To"), value: -1),
                             DropdownMenuItem(child: Text("Tinkune"), value: 1),
                             DropdownMenuItem(child: Text("Gaushala"), value: 2),
                             DropdownMenuItem(child: Text("Kalanki"), value: 3),

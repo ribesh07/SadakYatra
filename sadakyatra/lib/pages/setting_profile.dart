@@ -1,6 +1,7 @@
 // ignore_for_file: prefer_const_literals_to_create_immutables, prefer_const_constructors, avoid_unnecessary_containers, camel_case_types
 
 import 'package:flutter/material.dart';
+import 'package:sadakyatra/EditDetails/edit-details.dart';
 // import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:sadakyatra/pages/account._page.dart';
 import 'package:sadakyatra/setups.dart';
@@ -64,23 +65,31 @@ class _profileSettingState extends State<profileSetting> {
                     );
                   },
                   child: FittedBox(
-                    child: Card(
-                      elevation: 10,
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceAround,
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.all(10.0),
-                            child: Text(
-                              'Edit Profile',
-                              style: TextStyle(fontSize: 25),
+                    child: GestureDetector(
+                      onTap: () {
+                        Navigator.pushReplacement(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => const editDetails()));
+                      },
+                      child: Card(
+                        elevation: 10,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceAround,
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.all(10.0),
+                              child: Text(
+                                'Edit Profile',
+                                style: TextStyle(fontSize: 25),
+                              ),
                             ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.only(left: 210),
-                            child: Icon(Icons.arrow_forward_ios),
-                          ),
-                        ],
+                            Padding(
+                              padding: const EdgeInsets.only(left: 210),
+                              child: Icon(Icons.arrow_forward_ios),
+                            ),
+                          ],
+                        ),
                       ),
                     ),
                   ),

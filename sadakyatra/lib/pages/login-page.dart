@@ -9,6 +9,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'package:sadakyatra/Booking/input_field.dart';
 import 'package:sadakyatra/Booking/provide.dart';
+import 'package:sadakyatra/pages/ForgotPassword.dart';
 import 'package:sadakyatra/pages/signup-page.dart';
 import 'package:sadakyatra/setups.dart';
 
@@ -147,6 +148,14 @@ class _Login_pageState extends State<Login_page> {
                       ),
                     ],
                   ),
+                  TextButton(
+                      onPressed: () {
+                        Navigator.pushReplacement(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => const ForgotPassword()));
+                      },
+                      child: Text("Forgot Password ??")),
                   Padding(
                     padding: const EdgeInsets.only(top: 30),
                     child: ElevatedButton(

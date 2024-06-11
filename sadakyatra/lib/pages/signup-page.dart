@@ -89,7 +89,7 @@ class _Signup_pageState extends State<Signup_page> {
               child: Column(
                 children: [
                   const SizedBox(
-                    height: 40,
+                    height: 10,
                   ),
                   Stack(
                     children: [
@@ -130,7 +130,7 @@ class _Signup_pageState extends State<Signup_page> {
                     ],
                   ),
                   const SizedBox(
-                    height: 26,
+                    height: 15,
                   ),
                   image == null
                       ? const Text(
@@ -142,7 +142,7 @@ class _Signup_pageState extends State<Signup_page> {
                           style: textStyle,
                         ),
                   const SizedBox(
-                    height: 20,
+                    height: 15,
                   ),
                   InputField(
                     label: "Email",
@@ -222,7 +222,9 @@ class _Signup_pageState extends State<Signup_page> {
                                   height: 200,
                                   width: 200,
                                   child: Column(
-                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    // mainAxisAlignment: MainAxisAlignment.start,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
                                     children: [
                                       Text("•Minimun 8 character"),
                                       Text("• Maximum 8 Character"),
@@ -243,7 +245,7 @@ class _Signup_pageState extends State<Signup_page> {
                     icon: Icon(Icons.privacy_tip_outlined),
                   ),
                   Padding(
-                    padding: const EdgeInsets.only(top: 30),
+                    padding: const EdgeInsets.only(top: 15),
                     child: ElevatedButton(
                       onPressed: () {
                         if (formkey.currentState!.validate()) {

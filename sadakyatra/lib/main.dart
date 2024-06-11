@@ -5,7 +5,6 @@ import 'package:sadakyatra/Booking/booking_form.dart';
 import 'package:sadakyatra/EditDetails/edit-details.dart';
 import 'package:sadakyatra/pages/Home_screen.dart';
 import 'package:sadakyatra/pages/botton_nav_bar.dart';
-//import 'package:sadakyatra/pages/edit_details.dart';
 import 'package:sadakyatra/pages/login-page.dart';
 import 'package:sadakyatra/pages/seat.dart';
 //import 'package:sadakyatra/pages/seat_plan.dart';
