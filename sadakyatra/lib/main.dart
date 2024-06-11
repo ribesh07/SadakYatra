@@ -1,5 +1,7 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:sadakyatra/Booking/booking_form.dart';
+import 'package:sadakyatra/firebase_options.dart';
 import 'package:sadakyatra/pages/Home_screen.dart';
 import 'package:sadakyatra/pages/botton_nav_bar.dart';
 import 'package:sadakyatra/pages/login-page.dart';
@@ -12,9 +14,9 @@ import 'package:sadakyatra/payments/khalti-pay.dart';
 import 'package:sadakyatra/setups.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-void main() {
-  //  WidgetsFlutterBinding.ensureInitialized();
-  // runApp(const MyApp());
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   runApp(ProviderScope(child: App()));
 }
 
