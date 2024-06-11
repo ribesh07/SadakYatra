@@ -18,20 +18,20 @@ class bookSeat extends StatefulWidget {
 class _bookSeatState extends State<bookSeat> {
   var _value = -1;
   final double toPay = 0.0;
-  final fullName = TextEditingController();
+  final namecontroller = TextEditingController();
   final provider = settingProvider();
-  final phone = TextEditingController();
+  final phonecontroller = TextEditingController();
   final formkey = GlobalKey<FormState>();
-  final email = TextEditingController();
+  final mailcontroller = TextEditingController();
 
   void initState() {
     super.initState();
   }
 
   void dispose() {
-    fullName.dispose();
-    phone.dispose();
-    email.dispose();
+    namecontroller.dispose();
+    phonecontroller.dispose();
+    mailcontroller.dispose();
     provider.dispose();
     super.dispose();
   }
@@ -59,7 +59,7 @@ class _bookSeatState extends State<bookSeat> {
           backgroundColor: Color.fromARGB(255, 56, 149, 225),
         ),
         body: Container(
-          width: double.infinity,
+          width: MediaQuery.of(context).size.width,
           height: double.infinity,
           color: Color.fromARGB(255, 158, 207, 248),
           child: Form(
@@ -95,7 +95,7 @@ class _bookSeatState extends State<bookSeat> {
                             icon: Icons.person,
                             label: "Full Name",
                             keypad: TextInputType.text,
-                            controller: fullName,
+                            controller: namecontroller,
                             validator: (value) => provider.validator(
                                 value, "full Name is required"),
                           ),
@@ -105,7 +105,7 @@ class _bookSeatState extends State<bookSeat> {
                             icon: Icons.phone,
                             label: "+977",
                             keypad: TextInputType.number,
-                            controller: phone,
+                            controller: phonecontroller,
                             inputFormat: [
                               FilteringTextInputFormatter.digitsOnly,
                               LengthLimitingTextInputFormatter(10),
@@ -116,7 +116,7 @@ class _bookSeatState extends State<bookSeat> {
                           InputField(
                             icon: Icons.mail,
                             label: "Email",
-                            controller: email,
+                            controller: mailcontroller,
                             validator: (value) =>
                                 provider.emailValidator(value),
                           ),
@@ -136,6 +136,8 @@ class _bookSeatState extends State<bookSeat> {
                           Padding(
                             padding: const EdgeInsets.all(8.0),
                             child: DropdownButtonFormField(
+                              autovalidateMode:
+                                  AutovalidateMode.onUserInteraction,
                               validator: (value) {
                                 if (value == -1) {
                                   return "please select pickup point";
@@ -179,7 +181,7 @@ class _bookSeatState extends State<bookSeat> {
                               },
                               items: [
                                 DropdownMenuItem(
-                                    child: Text("--Choose PickUp Point--"),
+                                    child: Text("--Choose Pickup Point"),
                                     value: -1),
                                 DropdownMenuItem(
                                     child: Text("Tinkune"), value: 1),
@@ -239,7 +241,7 @@ class _bookSeatState extends State<bookSeat> {
                           onPressed: () {
                             if (formkey.currentState!.validate()) {
                             } else {}
-                            print(fullName);
+                            print(namecontroller);
                           },
                           child: Text(
                             "Pay Now",

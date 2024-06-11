@@ -18,22 +18,24 @@ class TicketScreen extends StatefulWidget {
 class _TicketScreenState extends State<TicketScreen> {
   var _value = -1;
   //final double toPay = 0.0;
-  final fullName = TextEditingController();
+  final namecontroller = TextEditingController();
   final provider = settingProvider();
-  final phone = TextEditingController();
+  final phonecontroller = TextEditingController();
   final formkey = GlobalKey<FormState>();
-  final email = TextEditingController();
-  final depart = TextEditingController();
-  final destination = TextEditingController();
+  final emailcontroller = TextEditingController();
+  final departcontroller = TextEditingController();
+  final destinationcontroller = TextEditingController();
 
   void initState() {
     super.initState();
   }
 
   void dispose() {
-    fullName.dispose();
-    phone.dispose();
-    email.dispose();
+    namecontroller.dispose();
+    phonecontroller.dispose();
+    emailcontroller.dispose();
+    departcontroller.dispose();
+    destinationcontroller.dispose();
     provider.dispose();
     super.dispose();
   }
@@ -66,7 +68,7 @@ class _TicketScreenState extends State<TicketScreen> {
                           icon: Icons.person,
                           label: "Full Name",
                           keypad: TextInputType.text,
-                          controller: fullName,
+                          controller: namecontroller,
                           validator: (value) => provider.validator(
                               value, "full Name is required"),
                         ),
@@ -76,7 +78,7 @@ class _TicketScreenState extends State<TicketScreen> {
                           icon: Icons.phone,
                           label: "+977",
                           keypad: TextInputType.number,
-                          controller: phone,
+                          controller: phonecontroller,
                           inputFormat: [
                             FilteringTextInputFormatter.digitsOnly,
                             LengthLimitingTextInputFormatter(10),
@@ -86,7 +88,7 @@ class _TicketScreenState extends State<TicketScreen> {
                         InputField(
                           icon: Icons.mail,
                           label: "Email",
-                          controller: email,
+                          controller: emailcontroller,
                           validator: (value) => provider.emailValidator(value),
                         ),
                       ],
@@ -105,6 +107,8 @@ class _TicketScreenState extends State<TicketScreen> {
                         Padding(
                           padding: const EdgeInsets.all(8.0),
                           child: DropdownButtonFormField(
+                            autovalidateMode:
+                                AutovalidateMode.onUserInteraction,
                             validator: (value) {
                               if (value == -1) {
                                 return "please select vehicle type";
@@ -174,7 +178,7 @@ class _TicketScreenState extends State<TicketScreen> {
                           icon: Icons.add_location_alt_outlined,
                           label: "From",
                           keypad: TextInputType.text,
-                          controller: depart,
+                          controller: departcontroller,
                           validator: (value) => provider.validator(
                               value, "please enter departure location"),
                         ),
@@ -182,7 +186,7 @@ class _TicketScreenState extends State<TicketScreen> {
                           icon: Icons.add_location_alt_outlined,
                           label: "To",
                           keypad: TextInputType.text,
-                          controller: destination,
+                          controller: destinationcontroller,
                           validator: (value) => provider.validator(
                               value, "please enter Destination location"),
                         ),
@@ -231,8 +235,7 @@ class _TicketScreenState extends State<TicketScreen> {
                       child: TextButton(
                         onPressed: () {
                           if (formkey.currentState!.validate()) {
-                          } else {}
-                          showDialog(
+                            showDialog(
                               context: context,
                               builder: (_) {
                                 return AlertDialog(
@@ -245,6 +248,8 @@ class _TicketScreenState extends State<TicketScreen> {
                                     TextButton(
                                       onPressed: () {
                                         //main Logic
+                                        if (formkey.currentState!.validate()) {
+                                        } else {}
 
                                         final snackBar = SnackBar(
                                           backgroundColor: Colors.green,
@@ -263,14 +268,58 @@ class _TicketScreenState extends State<TicketScreen> {
                                       child: Text("Ok"),
                                     ),
                                     TextButton(
-                                        onPressed: () {
-                                          Navigator.pop(context);
-                                        },
-                                        child: Text("Cancel"))
+                                      onPressed: () {
+                                        Navigator.pop(context);
+                                      },
+                                      child: Text("Cancel"),
+                                    ),
                                   ],
                                 );
-                              });
-                          print(fullName);
+                              },
+                            );
+                            print(namecontroller);
+                          } else {}
+                          // showDialog(
+                          //   context: context,
+                          //   builder: (_) {
+                          //     return AlertDialog(
+                          //       shape: RoundedRectangleBorder(
+                          //         borderRadius: BorderRadius.circular(10),
+                          //       ),
+                          //       title: Text("Conformation"),
+                          //       content: Text("Confirm Reservation"),
+                          //       actions: [
+                          //         TextButton(
+                          //           onPressed: () {
+                          //             //main Logic
+                          //             if (formkey.currentState!.validate()) {
+                          //             } else {}
+
+                          //             final snackBar = SnackBar(
+                          //               backgroundColor: Colors.green,
+                          //               elevation: 10,
+                          //               duration: Duration(milliseconds: 3000),
+                          //               content: const Text(
+                          //                 "we will contact you soon",
+                          //                 style: TextStyle(fontSize: 20),
+                          //               ),
+                          //             );
+                          //             ScaffoldMessenger.of(context)
+                          //                 .showSnackBar(snackBar);
+                          //             Navigator.pop(context);
+                          //           },
+                          //           child: Text("Ok"),
+                          //         ),
+                          //         TextButton(
+                          //             onPressed: () {
+                          //               Navigator.pop(context);
+                          //             },
+                          //             child: Text("Cancel"))
+                          //       ],
+                          //     );
+                          //   },
+                          // );
+                          // print(fullName);
                         },
                         child: Text(
                           "Submit",

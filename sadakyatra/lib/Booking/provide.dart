@@ -5,10 +5,32 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class settingProvider extends ChangeNotifier {
+  static final RegExp passValid = RegExp(
+      r'^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,16}$');
   // general validator
-  validator(String value, String Message) {
+  validator(String value, String message) {
     if (value.isEmpty) {
-      return Message;
+      return message;
+    } else {
+      return null;
+    }
+  }
+
+  passwordValidator(String value) {
+    if (value.isEmpty) {
+      return "Enter password";
+    } else if (!passValid.hasMatch(value)) {
+      return "Password is not Strong enough";
+    } else {
+      return null;
+    }
+  }
+
+  cpasswordValidator(String value1, String value2) {
+    if (value2.isEmpty) {
+      return "Re-Enter password";
+    } else if (value1 != value2) {
+      return "Passwords don't match";
     } else {
       return null;
     }

@@ -4,12 +4,15 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:sadakyatra/Booking/booking_form.dart';
+//import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class InputField extends StatelessWidget {
   final String label;
   final IconData? icon;
-  //final String? keypad;
+  //final IconData? hola;
+  final IconButton? eyeButton;
+  final bool isvisible;
   final TextInputType? keypad;
   final TextEditingController? controller;
   final FormFieldValidator? validator;
@@ -24,6 +27,8 @@ class InputField extends StatelessWidget {
     this.validator,
     this.inputFormat,
     this.keypad,
+    this.eyeButton,
+    this.isvisible = false,
   });
 
   @override
@@ -35,18 +40,25 @@ class InputField extends StatelessWidget {
           //print('onTapOutside');
           FocusManager.instance.primaryFocus?.unfocus();
         },
+
         validator: validator,
         controller: controller,
+        obscureText: isvisible,
         inputFormatters: inputFormat,
         keyboardType: keypad,
         autovalidateMode:
             AutovalidateMode.onUserInteraction, //validation while typing
         // keyboardType:
         //     (keypad != null) ? TextInputType.number : TextInputType.text,
+
         decoration: InputDecoration(
           label: Text(label),
           prefixIcon: Icon(icon),
+          suffixIcon: eyeButton,
+
           hintText: label,
+
+          //
           enabledBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(5),
             borderSide:

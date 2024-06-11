@@ -26,19 +26,19 @@ class _accountUpdateState extends State<accountUpdate> {
 
   void storeUserData() async {
     String email = emailcontroller.text.trim();
-    // String password = passcontroller.text.trim();
-    // String cpassword = cpasscontroller.text.trim();
+    String password = passcontroller.text.trim();
+    String cpassword = cpasscontroller.text.trim();
     String username = usernamecontroller.text.trim();
     String contactnum = contactnumcontroller.text.trim();
 
     if (image != null) {
-      // if (password == cpassword) {
-      //   if (email.isNotEmpty && password.isNotEmpty) {
-      //     // ref
-      //     //     .read(authControllerProvider)
-      //     //     .saveUserDataToFirebase(context, name, email, password, image);
-      //   }
-      // }
+      if (password == cpassword) {
+        if (email.isNotEmpty && password.isNotEmpty) {
+          // ref
+          //     .read(authControllerProvider)
+          //     .saveUserDataToFirebase(context, name, email, password, image);
+        }
+      }
     }
   }
 

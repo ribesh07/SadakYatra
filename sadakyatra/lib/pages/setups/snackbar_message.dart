@@ -7,7 +7,7 @@ void showSnackBarMsg({
 }) {
   final snackbar = SnackBar(
       backgroundColor: bgColor,
-      duration: const Duration(milliseconds: 1000),
+      duration: const Duration(milliseconds: 5000),
       elevation: 0,
       content: Text(
         message,

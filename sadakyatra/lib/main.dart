@@ -1,10 +1,14 @@
+// ignore_for_file: prefer_const_constructors
+
 import 'package:flutter/material.dart';
 import 'package:sadakyatra/Booking/booking_form.dart';
+import 'package:sadakyatra/EditDetails/edit-details.dart';
 import 'package:sadakyatra/pages/Home_screen.dart';
 import 'package:sadakyatra/pages/botton_nav_bar.dart';
+//import 'package:sadakyatra/pages/edit_details.dart';
 import 'package:sadakyatra/pages/login-page.dart';
 import 'package:sadakyatra/pages/seat.dart';
-import 'package:sadakyatra/pages/seat_plan.dart';
+//import 'package:sadakyatra/pages/seat_plan.dart';
 import 'package:sadakyatra/payments/App_khalti.dart';
 import 'package:sadakyatra/payments/esewa-pay.dart';
 import 'package:sadakyatra/payments/khalti-pay.dart';
@@ -170,6 +174,17 @@ class _MyHomePageState extends State<MyHomePage> {
                           },
                           child: const Text(
                             "Bookseat",
+                            style: textStyle,
+                          )),
+                      ElevatedButton(
+                          onPressed: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => editDetails()));
+                          },
+                          child: const Text(
+                            "Edit profile",
                             style: textStyle,
                           )),
                     ],
