@@ -1,6 +1,9 @@
-// ignore_for_file: prefer_const_constructors
+// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
 
 import 'package:flutter/material.dart';
+import 'package:sadakyatra/pages/tickets/cancelled_tickets.dart';
+import 'package:sadakyatra/pages/tickets/completed_tickets.dart';
+import 'package:sadakyatra/pages/tickets/upcoming_tickets.dart';
 import 'package:sadakyatra/setups.dart';
 
 class MyTabbedPage extends StatefulWidget {
@@ -11,11 +14,11 @@ class MyTabbedPage extends StatefulWidget {
 
 class _MyTabbedPageState extends State<MyTabbedPage>
     with SingleTickerProviderStateMixin {
-  static const List<Tab> myTabs = <Tab>[
-    Tab(text: 'Upcoming'),
-    Tab(text: 'completed'),
-    Tab(text: 'cancelled'),
-  ];
+  // static const List<Tab> myTabs = <Tab>[
+  //   Tab(text: 'Upcominghvhkk'),
+  //   Tab(text: 'completed'),
+  //   Tab(text: 'cancelled'),
+  // ];
 
   late TabController _tabController;
 
@@ -68,7 +71,7 @@ class _MyTabbedPageState extends State<MyTabbedPage>
               tabs: [
                 Tab(
                   child: Text(
-                    '  Upcoming    ',
+                    '  Upcoming ',
                   ),
                 ),
                 Tab(
@@ -88,18 +91,9 @@ class _MyTabbedPageState extends State<MyTabbedPage>
               child: TabBarView(
             controller: _tabController,
             children: [
-              Text(
-                '  Upcoming    ',
-                style: textStyle,
-              ),
-              Text(
-                ' Completed   ',
-                style: textStyle,
-              ),
-              Text(
-                ' Cancelled ',
-                style: textStyle,
-              ),
+              ticketUpcoming(),
+              CompletedTickets(),
+              CancelledTickets(),
             ],
           )),
         ], //childrens

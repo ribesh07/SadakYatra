@@ -716,7 +716,7 @@ class _SeatSState extends State<SeatS> {
         padding: const EdgeInsets.only(top: 70, left: 8, right: 8),
         child: Container(
           height: 720,
-          width: 400,
+          width: MediaQuery.of(context).size.width / 0.2,
           child: Card(
             elevation: 50,
             child: Padding(
@@ -725,13 +725,15 @@ class _SeatSState extends State<SeatS> {
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
                   Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    
                     children: [
                       Container(
                         child: Row(
                           children: [
                             Text(
-                              "Available: ",
-                              style: textStyle,
+                              "Available:  ",
+                              style: TextStyle(fontSize: 15),
                             ),
                             Container(
                                 height: 20,
@@ -747,8 +749,8 @@ class _SeatSState extends State<SeatS> {
                       ),
                       Container(
                         child: Text(
-                          "  Booked: ",
-                          style: textStyle,
+                          " Booked:",
+                          style: TextStyle(fontSize: 15),
                         ),
                       ),
                       Container(
@@ -761,8 +763,8 @@ class _SeatSState extends State<SeatS> {
                           )),
                       Container(
                         child: Text(
-                          "   Selected: ",
-                          style: textStyle,
+                          "  Selected:",
+                          style: TextStyle(fontSize: 15),
                         ),
                       ),
                       Container(
@@ -824,7 +826,7 @@ class _SeatSState extends State<SeatS> {
                         ),
                       ),
                       SizedBox(
-                        width: 90,
+                        width: 80,
                       ),
                       // 1st Row right
                       GestureDetector(
@@ -913,7 +915,7 @@ class _SeatSState extends State<SeatS> {
                         ),
                       ),
                       SizedBox(
-                        width: 90,
+                        width: 80,
                       ),
                       // 2nd Row right
                       GestureDetector(
@@ -1004,7 +1006,7 @@ class _SeatSState extends State<SeatS> {
                         ),
                       ),
                       SizedBox(
-                        width: 90,
+                        width: 80,
                       ),
                       // 3rd Row right
                       GestureDetector(
@@ -1094,7 +1096,7 @@ class _SeatSState extends State<SeatS> {
                         ),
                       ),
                       SizedBox(
-                        width: 90,
+                        width: 80,
                       ),
                       // 4th Row right
                       GestureDetector(
@@ -1183,7 +1185,7 @@ class _SeatSState extends State<SeatS> {
                         ),
                       ),
                       SizedBox(
-                        width: 90,
+                        width: 80,
                       ),
                       // 5th Row right
                       GestureDetector(
@@ -1274,7 +1276,7 @@ class _SeatSState extends State<SeatS> {
                         ),
                       ),
                       SizedBox(
-                        width: 90,
+                        width: 80,
                       ),
                       // 6th Row right
                       GestureDetector(
@@ -1367,7 +1369,7 @@ class _SeatSState extends State<SeatS> {
                       ),
 
                       SizedBox(
-                        width: 15,
+                        width: 10,
                       ),
                       // last Row center
                       GestureDetector(
@@ -1376,8 +1378,8 @@ class _SeatSState extends State<SeatS> {
                         },
                         child: Container(
                           child: SeatsLayout(ID: 'C1'),
-                          height: 60,
-                          width: 60,
+                          height: 50,
+                          width: 50,
                           decoration: BoxDecoration(
                               border: Border.all(color: Colors.transparent),
                               borderRadius: BorderRadius.circular(18),
