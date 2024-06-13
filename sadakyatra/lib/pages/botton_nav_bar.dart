@@ -1,5 +1,6 @@
 import 'package:fluentui_icons/fluentui_icons.dart';
 import 'package:flutter/material.dart';
+import 'package:sadakyatra/pages/HomeDefScreen.dart';
 import 'package:sadakyatra/pages/Home_screen.dart';
 import 'package:sadakyatra/pages/history.dart';
 import 'package:sadakyatra/pages/setting_profile.dart';
@@ -25,12 +26,37 @@ class _BottomBarState extends State<BottomBar> {
     });
   }
 
+  void backtoFirstnavbar(int Index) {
+    setState(
+      () {
+        if (_selectedIndex == 0) {
+          Navigator.pop(context);
+        } else {
+          _selectedIndex = 0;
+        }
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
         title: const Text('SadakYatra'),
+        centerTitle: true,
+        //automaticallyImplyLeading: false,
+        //forceMaterialTransparency: true,
+        leading: Builder(
+          builder: (BuildContext context) {
+            return IconButton(
+              icon: const Icon(Icons.arrow_back_ios_new),
+              onPressed: () {
+                backtoFirstnavbar(_selectedIndex);
+              },
+            );
+          },
+        ),
       ),
       body: Center(
         child: _widgetOptions[_selectedIndex],

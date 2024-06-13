@@ -1,5 +1,6 @@
 // ignore_for_file: file_names
 
+//import 'package:esewa_flutter_sdk/esewa_config.dart';
 import 'package:flutter/material.dart';
 import 'package:khalti_flutter/khalti_flutter.dart';
 import 'package:sadakyatra/pages/setups/snackbar_message.dart';
@@ -15,7 +16,7 @@ class PaymentKhalti extends StatefulWidget {
 class _PaymentKhaltiState extends State<PaymentKhalti> {
   void openKhaltiPaymentView() {
     final config = PaymentConfig(
-      amount: 100 * 100,
+      amount: 100 * 10,
       productIdentity: 'ML123',
       productName: 'productName',
       productUrl: 'https://www.khalti.com/#/bazaar',
@@ -24,9 +25,11 @@ class _PaymentKhaltiState extends State<PaymentKhalti> {
       },
       mobileReadOnly: false,
     );
+
     // KhaltiButton(
     //or manual as below
     KhaltiScope.of(context).pay(
+      //  enabledDebugging: true,
       config: config,
       preferences: const [
         PaymentPreference.khalti,

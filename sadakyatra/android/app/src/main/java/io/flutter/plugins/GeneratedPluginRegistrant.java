@@ -31,6 +31,11 @@ public final class GeneratedPluginRegistrant {
       Log.e(TAG, "Error registering plugin esewa_flutter_sdk, com.f1soft.esewa.esewa_flutter_sdk.EsewaFlutterSdkPlugin", e);
     }
     try {
+      flutterEngine.getPlugins().add(new com.example.launchexternalapp.LaunchexternalappPlugin());
+    } catch (Exception e) {
+      Log.e(TAG, "Error registering plugin external_app_launcher, com.example.launchexternalapp.LaunchexternalappPlugin", e);
+    }
+    try {
       flutterEngine.getPlugins().add(new io.flutter.plugins.firebase.auth.FlutterFirebaseAuthPlugin());
     } catch (Exception e) {
       Log.e(TAG, "Error registering plugin firebase_auth, io.flutter.plugins.firebase.auth.FlutterFirebaseAuthPlugin", e);

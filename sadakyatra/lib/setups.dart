@@ -20,7 +20,11 @@ const TextStyle textStyleappbar = TextStyle(
   fontSize: 20,
   fontWeight: FontWeight.bold,
 );
-const buttonStyle = TextStyle(fontSize: 15, color: Colors.black);
+const buttonColor = Colors.blue;
+const buttonStyle = TextStyle(
+    fontSize: 15,
+    color: Color.fromARGB(255, 0, 140, 255),
+    fontWeight: FontWeight.w700);
 const textSize = TextStyle(fontSize: 18);
 Future<File?> PickImageFromGallery(BuildContext contex) async {
   File? image;
@@ -34,4 +38,17 @@ Future<File?> PickImageFromGallery(BuildContext contex) async {
     debugPrint(e.toString());
   }
   return image;
+}
+
+Card CustomTextButton(String buttonName, Onpressed()) {
+  return Card(
+    color: Color.fromARGB(255, 154, 199, 236),
+    child: TextButton(
+      onPressed: Onpressed,
+      child: Text(
+        buttonName,
+        style: TextStyle(color: Colors.black, fontSize: 18),
+      ),
+    ),
+  );
 }

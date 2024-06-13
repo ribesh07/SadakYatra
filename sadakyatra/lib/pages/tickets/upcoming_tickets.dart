@@ -10,10 +10,10 @@ class ticketUpcoming extends StatefulWidget {
 
 class _ticketUpcomingState extends State<ticketUpcoming> {
   List<dynamic> dataItems = [
-    {"product": "hi", "frequency": 1},
-    {"product": "hello", "frequency": 2},
-    {"product": "hey", "frequency": 3},
-    {"product": "hola", "frequency": 4}
+    {"product": "[Trip Details1]", "frequency": "[Trip id1]"},
+    {"product": "[Trip Details2]", "frequency": "[Trip id2]"},
+    {"product": "[Trip Details3]", "frequency": "[Trip id3]"},
+    {"product": "[Trip Details4]", "frequency": "[Trip id4]"}
   ];
   @override
   Widget build(BuildContext context) {
@@ -29,32 +29,58 @@ class _ticketUpcomingState extends State<ticketUpcoming> {
         itemCount: dataItems.length,
         itemBuilder: (BuildContext context, int index) => Padding(
           padding: const EdgeInsets.all(8.0),
-          child: Card(
-            child: Container(
-                height: 200,
-                width: 300,
-                child: Column(
-                  // mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      "   ${dataItems[index]["frequency"].toString()}",
-                      style: textStyle,
-                    ),
-                    Container(
-                      width: MediaQuery.of(context).size.width,
-                      height: 120,
-                      color: Color.fromARGB(255, 153, 203, 238),
-                      child: Text(dataItems[index]["product"].toString(),
-                          style: textStyle, textAlign: TextAlign.center),
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      // crossAxisAlignment: CrossAxisAlignment.end,
-                      children: [],
-                    )
-                  ],
-                )),
+          child: FittedBox(
+            child: Card(
+              child: Container(
+                  width: MediaQuery.of(context).size.width,
+                  child: Column(
+                    // mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        "   ${dataItems[index]["frequency"].toString()}",
+                        style: textStyle,
+                      ),
+                      Container(
+                        width: MediaQuery.of(context).size.width,
+                        height: 120,
+                        color: Color.fromARGB(255, 201, 231, 246),
+                        child: Text(dataItems[index]["product"].toString(),
+                            style: textStyle, textAlign: TextAlign.center),
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          // Card(
+                          //   color: Color.fromARGB(255, 154, 199, 236),
+                          //   child: TextButton(
+                          //     onPressed: () {},
+                          //     child: Text(
+                          //       'Book',
+                          //       style: TextStyle(
+                          //           color: Colors.black, fontSize: 18),
+                          //     ),
+                          //   ),
+                          // ),
+                          // CustomTextButton("View Details"),
+
+                          TextButton(
+                            onPressed: () {},
+                            child: Text('View Details', style: buttonStyle),
+                          ),
+
+                          TextButton(
+                            onPressed: () {},
+                            child: Text(
+                              'Cancel',
+                              style: buttonStyle,
+                            ),
+                          ),
+                        ],
+                      )
+                    ],
+                  )),
+            ),
           ),
         ),
       ),

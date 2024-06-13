@@ -12,10 +12,10 @@ class CancelledTickets extends StatefulWidget {
 
 class _CancelledTicketsState extends State<CancelledTickets> {
   List<dynamic> dataItems = [
-    {"product": "hi", "frequency": 1},
-    {"product": "hello", "frequency": 2},
-    {"product": "hey", "frequency": 3},
-    {"product": "hola", "frequency": 4}
+    {"product": "[Description1]", "frequency": "[Trip id1]"},
+    {"product": "[Description1]", "frequency": "[Trip id2]"},
+    {"product": "[Description1]", "frequency": "[Trip id3]"},
+    {"product": "[Description1]", "frequency": "[Trip id4]"}
   ];
   @override
   Widget build(BuildContext context) {

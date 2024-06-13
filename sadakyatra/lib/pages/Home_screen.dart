@@ -1,5 +1,8 @@
 // ignore_for_file: prefer_const_literals_to_create_immutables, prefer_const_constructors, sized_box_for_whitespace, file_names
 
+import 'dart:ui';
+
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:sadakyatra/pages/HomeDefScreen.dart';
 // import 'package:sadakyatra/main.dart';
@@ -19,7 +22,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
   @override
   void initState() {
     super.initState();
-    _tabController = TabController(length: 3, vsync: this);
+    _tabController = TabController(length: 3, vsync: this, initialIndex: 0);
   }
 
   @override
@@ -39,87 +42,97 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
       //   backgroundColor: appbarcolor,
       // ),
       body: Container(
-        color: Color.fromARGB(255, 230, 165, 240),
+        color: Color.fromARGB(255, 224, 196, 250),
         child: Column(
           children: [
             SizedBox(
               height: 15,
             ),
-            Padding(
-              padding: const EdgeInsets.only(left: 18.0, right: 18),
-              child: Container(
-                height: 100,
-                width: MediaQuery.of(context).size.width,
+            Container(
+              height: 100,
+              width: MediaQuery.of(context).size.width,
+              child: Padding(
+                padding:
+                    const EdgeInsets.only(left: 18.0, right: 18, bottom: 15),
                 child: Card(
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(12)),
-                  elevation: 5,
+                  //elevation: 5,
                   child: Container(
                     decoration: BoxDecoration(
-                      color: Colors.black.withOpacity(0.1),
+                      color: Colors.white.withOpacity(0.8),
                       borderRadius: BorderRadius.circular(12),
                     ),
                     child: TabBar(
-                      indicator: BoxDecoration(
-                          borderRadius: BorderRadius.circular(6),
-                          color: appbarcolor),
+                      // indicator: BoxDecoration(
+                      //     borderRadius: BorderRadius.circular(6),
+                      //     color: Color.fromARGB(255, 225, 138, 240)),
                       controller: _tabController,
                       //isScrollable: true,
                       labelPadding: EdgeInsets.only(right: 10, left: 10),
+                      labelColor: Color.fromARGB(255, 95, 94, 96),
                       indicatorPadding: EdgeInsets.only(top: 5, bottom: 5),
+                      indicatorColor: Color.fromARGB(255, 83, 82, 84),
+
                       //padding: EdgeInsets.symmetric(),
                       tabs: [
-                        Container(
-                          width: 100,
-                          child: Tab(
-                            height: 60,
-                            child: Column(
-                              children: [
-                                Icon(
-                                  Icons.directions_bus_filled_outlined,
-                                  size: 30,
-                                ),
-                                Text(
-                                  'Bus Tickets',
-                                  style: TextStyle(fontSize: 18),
-                                ),
-                              ],
+                        FittedBox(
+                          child: Container(
+                            width: 100,
+                            child: Tab(
+                              height: 60,
+                              child: Column(
+                                children: [
+                                  Icon(
+                                    Icons.directions_bus_filled_outlined,
+                                    size: 30,
+                                  ),
+                                  Text(
+                                    'Bus Tickets',
+                                    style: TextStyle(fontSize: 18),
+                                  ),
+                                ],
+                              ),
                             ),
                           ),
                         ),
-                        Container(
-                          width: 100,
-                          child: Tab(
-                            height: 60,
-                            child: Column(
-                              children: [
-                                Icon(
-                                  Icons.airport_shuttle_outlined,
-                                  size: 30,
-                                ),
-                                Text(
-                                  'Reservation',
-                                  style: TextStyle(fontSize: 18),
-                                ),
-                              ],
+                        FittedBox(
+                          child: Container(
+                            width: 100,
+                            child: Tab(
+                              height: 60,
+                              child: Column(
+                                children: [
+                                  Icon(
+                                    Icons.airport_shuttle_outlined,
+                                    size: 30,
+                                  ),
+                                  Text(
+                                    'Reservation',
+                                    style: TextStyle(fontSize: 18),
+                                  ),
+                                ],
+                              ),
                             ),
                           ),
                         ),
-                        Container(
-                          width: 100,
-                          child: Tab(
-                            height: 60,
-                            child: Column(
-                              children: [
-                                Icon(
-                                  Icons.surfing_outlined,
-                                  size: 30,
-                                ),
-                                Text(
-                                  'Packages',
-                                  style: TextStyle(fontSize: 18),
-                                ),
-                              ],
+                        FittedBox(
+                          child: Container(
+                            width: 100,
+                            child: Tab(
+                              height: 60,
+                              child: Column(
+                                children: [
+                                  Icon(
+                                    Icons.surfing_outlined,
+                                    size: 30,
+                                  ),
+                                  Text(
+                                    'Packages',
+                                    style: TextStyle(fontSize: 18),
+                                  ),
+                                ],
+                              ),
                             ),
                           ),
                         ),

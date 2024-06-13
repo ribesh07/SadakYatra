@@ -1,8 +1,9 @@
 // ignore_for_file: camel_case_types, sized_box_for_whitespace, prefer_const_constructors, prefer_const_literals_to_create_immutables
 
 import 'package:flutter/material.dart';
-import 'package:sadakyatra/Booking/booking_form.dart';
+// import 'package:sadakyatra/Booking/booking_form.dart';
 import 'package:sadakyatra/EditDetails/change_profile_pic.dart';
+import 'package:sadakyatra/EditDetails/edit_email.dart';
 import 'package:sadakyatra/setups.dart';
 
 class editDetails extends StatefulWidget {
@@ -21,11 +22,18 @@ class _editDetailsState extends State<editDetails> {
           'Edit details',
           style: textStyleappbar,
         ),
-        backgroundColor: Color.fromARGB(255, 205, 225, 243),
+        leading: IconButton(
+          onPressed: () {
+            Navigator.pop(context);
+          },
+          icon: Icon(Icons.arrow_back_ios_new),
+        ),
+        backgroundColor: Color.fromARGB(255, 227, 235, 242),
       ),
       body: Container(
         height: double.infinity,
         width: MediaQuery.of(context).size.width,
+        color: Color.fromARGB(255, 230, 236, 237),
         child: SingleChildScrollView(
           physics: BouncingScrollPhysics(
             parent: AlwaysScrollableScrollPhysics(),
@@ -39,71 +47,113 @@ class _editDetailsState extends State<editDetails> {
                     MaterialPageRoute(builder: (context) => changeProfilePic()),
                   );
                 },
-                child: FittedBox(
-                  child: Card(
-                    elevation: 10,
-                    child: Row(
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Text(
-                            "Change Profile Picture",
-                            style: TextStyle(fontSize: 25),
+                child: Container(
+                  width: MediaQuery.of(context).size.width,
+                  child: Padding(
+                    padding: const EdgeInsets.only(top: 20, left: 8, right: 8),
+                    child: FittedBox(
+                      child: Container(
+                        // width: MediaQuery.of(context).size.width,
+                        height: 60,
+                        child: Card(
+                          // elevation: 10,
+                          child: Row(
+                            children: [
+                              SizedBox(
+                                width: 10,
+                              ),
+                              Icon(
+                                Icons.person,
+                                size: 30,
+                              ),
+                              SizedBox(
+                                width: 10,
+                              ),
+                              Container(
+                                width: 290,
+                                child: Text(
+                                  "Profile pic",
+                                  style: TextStyle(fontSize: 25),
+                                ),
+                              ),
+                              Icon(Icons.arrow_forward_ios),
+                            ],
                           ),
                         ),
-                        Padding(
-                          padding: const EdgeInsets.only(left: 90),
-                          child: Icon(Icons.arrow_forward_ios),
-                        ),
-                      ],
+                      ),
                     ),
                   ),
                 ),
               ),
               GestureDetector(
-                child: FittedBox(
-                  child: Card(
-                    elevation: 10,
-                    child: Row(
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Text(
-                            "Change Email",
-                            style: TextStyle(fontSize: 25),
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => EditEmail(),
+                    ),
+                  );
+                },
+                child: Container(
+                  width: MediaQuery.of(context).size.width,
+                  child: Padding(
+                    padding: const EdgeInsets.only(top: 2, left: 8, right: 8),
+                    child: FittedBox(
+                      child: Container(
+                        // width: MediaQuery.of(context).size.width,
+                        height: 60,
+                        child: Card(
+                          // elevation: 10,
+                          child: Row(
+                            children: [
+                              SizedBox(
+                                width: 10,
+                              ),
+                              Icon(
+                                Icons.sticky_note_2,
+                                size: 30,
+                              ),
+                              SizedBox(
+                                width: 10,
+                              ),
+                              Container(
+                                width: 290,
+                                child: Text(
+                                  "Email & Name",
+                                  style: TextStyle(fontSize: 25),
+                                ),
+                              ),
+                              Icon(Icons.arrow_forward_ios),
+                            ],
                           ),
                         ),
-                        Padding(
-                          padding: const EdgeInsets.only(left: 183),
-                          child: Icon(Icons.arrow_forward_ios),
-                        ),
-                      ],
+                      ),
                     ),
                   ),
                 ),
               ),
-              GestureDetector(
-                child: FittedBox(
-                  child: Card(
-                    elevation: 10,
-                    child: Row(
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Text(
-                            "Change Username",
-                            style: TextStyle(fontSize: 25),
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.only(left: 130),
-                          child: Icon(Icons.arrow_forward_ios),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-              ),
+              // GestureDetector(
+              //   child: FittedBox(
+              //     child: Card(
+              //       elevation: 10,
+              //       child: Row(
+              //         children: [
+              //           Padding(
+              //             padding: const EdgeInsets.all(8.0),
+              //             child: Text(
+              //               "Change Username",
+              //               style: TextStyle(fontSize: 25),
+              //             ),
+              //           ),
+              //           Padding(
+              //             padding: const EdgeInsets.only(left: 130),
+              //             child: Icon(Icons.arrow_forward_ios),
+              //           ),
+              //         ],
+              //       ),
+              //     ),
+              //   ),
+              // ),
             ],
           ),
         ),

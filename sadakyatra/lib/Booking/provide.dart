@@ -28,7 +28,7 @@ class settingProvider extends ChangeNotifier {
 
   cpasswordValidator(String value1, String value2) {
     if (value2.isEmpty) {
-      return "Re-Enter password";
+      return "Enter password first";
     } else if (value1 != value2) {
       return "Passwords don't match";
     } else {
@@ -41,6 +41,14 @@ class settingProvider extends ChangeNotifier {
       return "phone number is required";
     } else if (value.length < 10) {
       return "at least 10 digits are required";
+    } else {
+      return null;
+    }
+  }
+
+  passValidator(String value) {
+    if (value.isEmpty) {
+      return "Enter password";
     } else {
       return null;
     }

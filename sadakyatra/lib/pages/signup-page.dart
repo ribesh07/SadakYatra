@@ -51,6 +51,11 @@ class _Signup_pageState extends State<Signup_page> {
   }
 
   @override
+  void initState() {
+    super.initState();
+  }
+
+  @override
   void dispose() {
     emailcontroller.dispose();
     passcontroller.dispose();
@@ -152,7 +157,7 @@ class _Signup_pageState extends State<Signup_page> {
                   ),
                   InputField(
                     icon: Icons.person,
-                    label: "UserName",
+                    label: "Full Name",
                     controller: usernamecontroller,
                     inputFormat: [
                       FilteringTextInputFormatter.allow(
@@ -161,7 +166,7 @@ class _Signup_pageState extends State<Signup_page> {
                       LengthLimitingTextInputFormatter(50),
                     ],
                     validator: (value) =>
-                        provider.validator(value, "provide username"),
+                        provider.validator(value, "Fullname Required"),
                   ),
                   InputField(
                     icon: Icons.phone,
@@ -194,12 +199,17 @@ class _Signup_pageState extends State<Signup_page> {
                     validator: (value) => provider.passwordValidator(value),
                   ),
                   InputField(
-                    label: 'confirm Password',
+                    label: 'Confirm password',
                     icon: Icons.lock,
                     controller: cpasscontroller,
                     isvisible: confirmpasswordObsecured,
                     eyeButton: IconButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          setState(() {
+                            confirmpasswordObsecured =
+                                !confirmpasswordObsecured;
+                          });
+                        },
                         icon: Icon(confirmpasswordObsecured
                             ? Icons.visibility_off
                             : Icons.visibility)),

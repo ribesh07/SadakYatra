@@ -1,23 +1,26 @@
-// ignore_for_file: prefer_const_constructors
+// ignore_for_file: sized_box_for_whitespace, prefer_const_constructors
 
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:sadakyatra/Booking/booking_form.dart';
 import 'package:sadakyatra/EditDetails/edit-details.dart';
-import 'package:sadakyatra/pages/Home_screen.dart';
+import 'package:sadakyatra/firebase_options.dart';
+//import 'package:sadakyatra/pages/Home_screen.dart';
 import 'package:sadakyatra/pages/botton_nav_bar.dart';
 import 'package:sadakyatra/pages/login-page.dart';
 import 'package:sadakyatra/pages/seat.dart';
-//import 'package:sadakyatra/pages/seat_plan.dart';
+// import 'package:sadakyatra/pages/seat_plan.dart';
 import 'package:sadakyatra/payments/App_khalti.dart';
 import 'package:sadakyatra/payments/esewa-pay.dart';
 import 'package:sadakyatra/payments/khalti-pay.dart';
 // import 'package:sadakyatra/payments/test_khalti.dart';
 import 'package:sadakyatra/setups.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:sadakyatra/test2/extapp.dart';
 
-void main() {
-  //  WidgetsFlutterBinding.ensureInitialized();
-  // runApp(const MyApp());
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   runApp(ProviderScope(child: App()));
 }
 
@@ -152,11 +155,11 @@ class _MyHomePageState extends State<MyHomePage> {
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) => const HomeScreen()));
+                                    builder: (context) => const ExtApp()));
                             // builder: (context) => const KhaltiSDKDemo()));
                           },
                           child: const Text(
-                            "HomeScreen",
+                            "extapp",
                             style: textStyle,
                           )),
                     ],

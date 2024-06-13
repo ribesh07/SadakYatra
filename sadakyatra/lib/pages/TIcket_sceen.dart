@@ -25,11 +25,12 @@ class _TicketScreenState extends State<TicketScreen> {
   final emailcontroller = TextEditingController();
   final departcontroller = TextEditingController();
   final destinationcontroller = TextEditingController();
-
+  @override
   void initState() {
     super.initState();
   }
 
+  @override
   void dispose() {
     namecontroller.dispose();
     phonecontroller.dispose();

@@ -23,11 +23,13 @@ class _bookSeatState extends State<bookSeat> {
   final phonecontroller = TextEditingController();
   final formkey = GlobalKey<FormState>();
   final mailcontroller = TextEditingController();
-
+  String trippin = 'titu mama';
+  @override
   void initState() {
     super.initState();
   }
 
+  @override
   void dispose() {
     namecontroller.dispose();
     phonecontroller.dispose();
@@ -51,7 +53,7 @@ class _bookSeatState extends State<bookSeat> {
               onPressed: () {
                 Navigator.pop(context, "hello");
               },
-              icon: Icon(Icons.arrow_back_ios_new_sharp)),
+              icon: Icon(Icons.arrow_back)),
           // actions: [
           //    IconButton(onPressed: (){}, icon: Icon(Icons.arrow_back_ios_new_sharp)),
           //   Text("data"),
@@ -77,10 +79,15 @@ class _bookSeatState extends State<bookSeat> {
                       child: Container(
                         height: 100,
                         width: MediaQuery.of(context).size.width,
-                        child: Text(
-                          'Trip Details',
-                          style: textStyle,
-                          textAlign: TextAlign.center,
+                        child: Column(
+                          children: [
+                            Text(
+                              'Trip Details',
+                              style: textStyle,
+                              textAlign: TextAlign.center,
+                            ),
+                            Text('${trippin}'),
+                          ],
                         ),
                       ),
                     ),

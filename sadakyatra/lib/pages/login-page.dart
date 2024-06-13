@@ -26,6 +26,10 @@ class _Login_pageState extends State<Login_page> {
   final emailcontroller = TextEditingController();
   final passcontroller = TextEditingController();
   final formkey = GlobalKey<FormState>();
+  @override
+  void initState() {
+    super.initState();
+  }
 
   @override
   void dispose() {
