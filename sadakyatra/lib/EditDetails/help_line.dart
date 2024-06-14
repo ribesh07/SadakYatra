@@ -25,6 +25,7 @@ class _HelplineState extends State<Helpline> {
     return Scaffold(
       appBar: AppBar(
         title: Text('Customer Support'),
+        centerTitle: true,
         backgroundColor: Color.fromARGB(255, 244, 188, 251),
       ),
       body: Container(
@@ -163,18 +164,26 @@ class _HelplineState extends State<Helpline> {
                                       color: Colors.blue,
                                     ))
                               ],
-                            )
+                            ),
                           ],
                         ),
                       ),
                     ),
                   ),
                 ),
-              )
+              ),
+              SizedBox(
+                height: 20,
+              ),
             ],
           ),
         ),
       ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {},
+        child: Icon(Icons.chat),
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
     );
   }
 }

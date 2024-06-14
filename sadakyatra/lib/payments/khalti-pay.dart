@@ -16,7 +16,7 @@ class PaymentKhalti extends StatefulWidget {
 class _PaymentKhaltiState extends State<PaymentKhalti> {
   void openKhaltiPaymentView() {
     final config = PaymentConfig(
-      amount: 100 * 10,
+      amount: 1000 * 100,
       productIdentity: 'ML123',
       productName: 'productName',
       productUrl: 'https://www.khalti.com/#/bazaar',
@@ -75,11 +75,20 @@ class _PaymentKhaltiState extends State<PaymentKhalti> {
         ),
         body: Container(
           child: Center(
-            child: ElevatedButton(
-                onPressed: () {
-                  openKhaltiPaymentView();
-                },
-                child: Text("Pay with khalti")),
+            child: GestureDetector(
+              onTap: () {
+                openKhaltiPaymentView();
+              },
+              child: Column(
+                children: [
+                  Icon(
+                    Icons.paid,
+                    size: 300,
+                  ),
+                  Text("Pay with khalti")
+                ],
+              ),
+            ),
           ),
         ),
       ),

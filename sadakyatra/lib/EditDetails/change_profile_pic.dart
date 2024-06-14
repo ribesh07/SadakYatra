@@ -58,8 +58,8 @@ class _changeProfilePicState extends State<changeProfilePic> {
       appBar: AppBar(
         title: Text(
           'Change Profile Pic',
-          style: textStyleappbar,
         ),
+        centerTitle: true,
         backgroundColor: Color.fromARGB(255, 137, 196, 248),
       ),
       body: Container(

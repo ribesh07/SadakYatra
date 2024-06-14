@@ -3,7 +3,7 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
-import 'package:sadakyatra/Booking/booking_form.dart';
+import 'package:sadakyatra/Booking/seatbooking_form.dart';
 import 'package:sadakyatra/Booking/package_booking.dart';
 import 'package:sadakyatra/setups.dart';
 

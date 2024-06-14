@@ -201,7 +201,8 @@ class _CompletedTicketsState extends State<CompletedTickets> {
                             print(rating);
                           },
                           allowHalfRating: true,
-                          //updateOnDrag: true,
+                          tapOnlyMode: true,
+                          glow: false,
                         ),
                       ],
                     )

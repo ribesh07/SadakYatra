@@ -2,7 +2,7 @@
 
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:sadakyatra/Booking/booking_form.dart';
+import 'package:sadakyatra/Booking/seatbooking_form.dart';
 import 'package:sadakyatra/EditDetails/edit-details.dart';
 import 'package:sadakyatra/firebase_options.dart';
 //import 'package:sadakyatra/pages/Home_screen.dart';
@@ -13,6 +13,7 @@ import 'package:sadakyatra/pages/seat.dart';
 import 'package:sadakyatra/payments/App_khalti.dart';
 import 'package:sadakyatra/payments/esewa-pay.dart';
 import 'package:sadakyatra/payments/khalti-pay.dart';
+import 'package:sadakyatra/payments/payment_options.dart';
 // import 'package:sadakyatra/payments/test_khalti.dart';
 import 'package:sadakyatra/setups.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -144,7 +145,7 @@ class _MyHomePageState extends State<MyHomePage> {
                             // builder: (context) => const KhaltiSDKDemo()));
                           },
                           child: const Text(
-                            "BottomNavBar",
+                            "MainPage",
                             style: textStyle,
                           )),
                       const SizedBox(
@@ -155,7 +156,8 @@ class _MyHomePageState extends State<MyHomePage> {
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) => const ExtApp()));
+                                    builder: (context) =>
+                                        const PaymentOptions()));
                             // builder: (context) => const KhaltiSDKDemo()));
                           },
                           child: const Text(

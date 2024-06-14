@@ -4,7 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
-import 'package:sadakyatra/Booking/booking_form.dart';
+import 'package:sadakyatra/Booking/seatbooking_form.dart';
 //import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class InputField extends StatelessWidget {

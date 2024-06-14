@@ -20,6 +20,16 @@ const TextStyle textStyleappbar = TextStyle(
   fontSize: 20,
   fontWeight: FontWeight.bold,
 );
+
+const TextStyle dropDownTextStyle =
+    TextStyle(color: Colors.black, fontSize: 20, fontWeight: FontWeight.w500);
+
+TextStyle dropDownFirststyle = TextStyle(
+  fontStyle: FontStyle.italic,
+  color: Colors.black.withOpacity(0.6),
+  fontSize: 20,
+);
+
 const buttonColor = Colors.blue;
 const buttonStyle = TextStyle(
     fontSize: 15,

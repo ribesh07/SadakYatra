@@ -3,7 +3,7 @@
 //import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:sadakyatra/Booking/booking_form.dart';
+import 'package:sadakyatra/Booking/seatbooking_form.dart';
 import 'package:sadakyatra/pages/setups/seats_layout.dart';
 
 import 'package:sadakyatra/setups.dart';

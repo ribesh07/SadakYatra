@@ -2,7 +2,8 @@
 
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:sadakyatra/Booking/booking_form.dart';
+import 'package:sadakyatra/Booking/seatbooking_form.dart';
+import 'package:sadakyatra/Booking/search_bus.dart';
 //import 'package:sadakyatra/Booking/input_field.dart';
 import 'package:sadakyatra/setups.dart';
 
@@ -25,7 +26,7 @@ class _HomeDefScreenState extends State<HomeDefScreen> {
   ];
 
   var _value = -1;
-  var departureDate = "select date";
+  var departureDate = "${DateFormat("dd/MM/yyyy").format(DateTime.now())}";
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -77,8 +78,9 @@ class _HomeDefScreenState extends State<HomeDefScreen> {
                                       color: Colors.red.withOpacity(1),
                                       width: 2),
                                 ),
-                                prefixIcon:
-                                    Icon(Icons.add_location_alt_outlined)),
+                                prefixIcon: Icon(departurevalue == -1
+                                    ? Icons.add_location_alt_outlined
+                                    : Icons.add_location_alt_sharp)),
                             //from destination
                             value: departurevalue,
                             onChanged: (value) {
@@ -88,13 +90,30 @@ class _HomeDefScreenState extends State<HomeDefScreen> {
                               });
                             },
                             items: [
-                              DropdownMenuItem(child: Text("From"), value: -1),
                               DropdownMenuItem(
-                                  child: Text("Tinkune"), value: 1),
+                                  child: Text(
+                                    "From",
+                                    style: dropDownFirststyle,
+                                  ),
+                                  value: -1),
                               DropdownMenuItem(
-                                  child: Text("Gaushala"), value: 2),
+                                  child: Text(
+                                    "Kathmandu",
+                                    style: dropDownTextStyle,
+                                  ),
+                                  value: 1),
                               DropdownMenuItem(
-                                  child: Text("Kalanki"), value: 3),
+                                  child: Text(
+                                    "Pokhara",
+                                    style: dropDownTextStyle,
+                                  ),
+                                  value: 2),
+                              DropdownMenuItem(
+                                  child: Text(
+                                    "Janakpur",
+                                    style: dropDownTextStyle,
+                                  ),
+                                  value: 3),
                             ],
                           ),
 
@@ -125,8 +144,9 @@ class _HomeDefScreenState extends State<HomeDefScreen> {
                                       color: Colors.red.withOpacity(1),
                                       width: 2),
                                 ),
-                                prefixIcon:
-                                    Icon(Icons.add_location_alt_outlined)),
+                                prefixIcon: Icon(destinationvalue == -1
+                                    ? Icons.add_location_alt_outlined
+                                    : Icons.add_location_alt_sharp)),
                             value: destinationvalue,
                             onChanged: (value) {
                               setState(() {
@@ -135,13 +155,30 @@ class _HomeDefScreenState extends State<HomeDefScreen> {
                               });
                             },
                             items: [
-                              DropdownMenuItem(child: Text("To"), value: -1),
                               DropdownMenuItem(
-                                  child: Text("Tinkune"), value: 1),
+                                  child: Text(
+                                    "To",
+                                    style: dropDownFirststyle,
+                                  ),
+                                  value: -1),
                               DropdownMenuItem(
-                                  child: Text("Gaushala"), value: 2),
+                                  child: Text(
+                                    "Kathmandu",
+                                    style: dropDownTextStyle,
+                                  ),
+                                  value: 1),
                               DropdownMenuItem(
-                                  child: Text("Kalanki"), value: 3),
+                                  child: Text(
+                                    "Pokhara",
+                                    style: dropDownTextStyle,
+                                  ),
+                                  value: 2),
+                              DropdownMenuItem(
+                                  child: Text(
+                                    "Janakpur",
+                                    style: dropDownTextStyle,
+                                  ),
+                                  value: 3),
                             ],
                           ),
                           SizedBox(
@@ -232,9 +269,15 @@ class _HomeDefScreenState extends State<HomeDefScreen> {
                                   );
                                   ScaffoldMessenger.of(context)
                                       .showSnackBar(snackBar);
-                                } else {
-                                  // Navigator.push(context, route)
-                                }
+                                } else if (departurevalue == 1 &&
+                                    destinationvalue == 2) {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) => SearchBus(),
+                                    ),
+                                  );
+                                } else {}
                               } else {}
                             },
                             child: Text(

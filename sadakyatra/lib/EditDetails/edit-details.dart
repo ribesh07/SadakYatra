@@ -19,21 +19,21 @@ class _editDetailsState extends State<editDetails> {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          'Edit details',
-          style: textStyleappbar,
+          'Edit Details',
         ),
+        centerTitle: true,
         leading: IconButton(
           onPressed: () {
             Navigator.pop(context);
           },
           icon: Icon(Icons.arrow_back_ios_new),
         ),
-        backgroundColor: Color.fromARGB(255, 227, 235, 242),
+        backgroundColor: appbarcolor,
       ),
       body: Container(
         height: double.infinity,
         width: MediaQuery.of(context).size.width,
-        color: Color.fromARGB(255, 230, 236, 237),
+        color: Color.fromARGB(255, 196, 228, 244),
         child: SingleChildScrollView(
           physics: BouncingScrollPhysics(
             parent: AlwaysScrollableScrollPhysics(),

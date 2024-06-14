@@ -70,9 +70,10 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                       controller: _tabController,
                       //isScrollable: true,
                       labelPadding: EdgeInsets.only(right: 10, left: 10),
-                      labelColor: Color.fromARGB(255, 95, 94, 96),
+                      labelColor: Color.fromARGB(255, 78, 72, 72),
+                      unselectedLabelColor: Color.fromARGB(255, 135, 131, 131),
                       indicatorPadding: EdgeInsets.only(top: 5, bottom: 5),
-                      indicatorColor: Color.fromARGB(255, 83, 82, 84),
+                      indicatorColor: Color.fromARGB(255, 78, 72, 72),
 
                       //padding: EdgeInsets.symmetric(),
                       tabs: [
