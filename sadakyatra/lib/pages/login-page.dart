@@ -23,7 +23,7 @@ class Login_page extends StatefulWidget {
 class _Login_pageState extends State<Login_page> {
   bool passObsecure = true;
   final provider = settingProvider();
-  final emailcontroller = TextEditingController();
+  final phonecontroller = TextEditingController();
   final passcontroller = TextEditingController();
   final formkey = GlobalKey<FormState>();
   @override
@@ -33,7 +33,7 @@ class _Login_pageState extends State<Login_page> {
 
   @override
   void dispose() {
-    emailcontroller.dispose();
+    phonecontroller.dispose();
     passcontroller.dispose();
     // cpasscontroller.dispose();
     super.dispose();
@@ -95,10 +95,15 @@ class _Login_pageState extends State<Login_page> {
                     padding: const EdgeInsets.only(
                         top: 8, bottom: 10, left: 18, right: 18),
                     child: InputField(
-                      label: "Email",
-                      icon: Icons.mail,
-                      controller: emailcontroller,
-                      validator: (value) => provider.emailValidator(value),
+                      label: "+977",
+                      icon: Icons.phone,
+                      keypad: TextInputType.number,
+                      inputFormat: [
+                        FilteringTextInputFormatter.digitsOnly,
+                        LengthLimitingTextInputFormatter(10),
+                      ],
+                      controller: phonecontroller,
+                      validator: (value) => provider.phoneValidator(value),
                     ),
                   ),
                   // const SizedBox(height: 20,),
@@ -166,7 +171,7 @@ class _Login_pageState extends State<Login_page> {
                       onPressed: () {
                         if (formkey.currentState!.validate()) {
                         } else {}
-                        debugPrint(emailcontroller.text);
+                        debugPrint(phonecontroller.text);
                         debugPrint(passcontroller.text);
                       },
                       child: const Text(

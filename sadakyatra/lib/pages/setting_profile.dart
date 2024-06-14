@@ -44,8 +44,8 @@ class _profileSettingState extends State<profileSetting> {
               Row(
                 children: [
                   Padding(
-                    padding: const EdgeInsets.only(
-                        left: 230, right: 20, top: 5, bottom: 10),
+                    padding:
+                        const EdgeInsets.only(left: 290, top: 5, bottom: 10),
                     child: FittedBox(
                       child: ToggleSwitch(
                         minWidth: 50.0,

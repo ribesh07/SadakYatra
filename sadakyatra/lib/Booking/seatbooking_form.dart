@@ -268,7 +268,7 @@ class _bookSeatState extends State<bookSeat> {
                           ),
                         ),
                       ),
-                    )
+                    ),
                   ],
                 ),
               ),

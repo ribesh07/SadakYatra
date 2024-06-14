@@ -100,7 +100,9 @@ class _CompletedTicketsState extends State<CompletedTickets> {
                                                 TextFormField(
                                                   controller: reviewcontroller,
                                                   maxLines: null,
-                                                  minLines: 10,
+                                                  minLines: 8,
+                                                  style:
+                                                      TextStyle(fontSize: 25),
                                                   keyboardType:
                                                       TextInputType.multiline,
                                                   inputFormatters: [
@@ -169,10 +171,21 @@ class _CompletedTicketsState extends State<CompletedTickets> {
                                                     TextButton(
                                                       onPressed: () {
                                                         Navigator.pop(context);
+                                                        setState(() {
+                                                          reviewcontroller
+                                                              .text = "";
+                                                        });
                                                       },
                                                       child: Text(
                                                         'Discard',
-                                                        style: buttonStyle,
+                                                        style: TextStyle(
+                                                            fontSize: 20,
+                                                            color:
+                                                                Color.fromARGB(
+                                                                    255,
+                                                                    4,
+                                                                    80,
+                                                                    142)),
                                                       ),
                                                     ),
                                                     TextButton(
@@ -181,11 +194,20 @@ class _CompletedTicketsState extends State<CompletedTickets> {
                                                             .currentState!
                                                             .validate()) {
                                                           //send to DB
+                                                          Navigator.pop(
+                                                              context);
                                                         } else {}
                                                       },
                                                       child: Text(
                                                         'Ok',
-                                                        style: buttonStyle,
+                                                        style: TextStyle(
+                                                            fontSize: 20,
+                                                            color:
+                                                                Color.fromARGB(
+                                                                    255,
+                                                                    4,
+                                                                    80,
+                                                                    142)),
                                                       ),
                                                     ),
                                                   ],

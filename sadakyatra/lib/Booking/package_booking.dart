@@ -25,7 +25,7 @@ class _PackageBookingState extends State<PackageBooking> {
   final formkey = GlobalKey<FormState>();
   final mailcontroller = TextEditingController();
   String tripdetails = 'hollla';
-  var departureDate = "Select date";
+  var departureDate = "${DateFormat("dd/MM/yyyy").format(DateTime.now())}";
 
   @override
   void initState() {

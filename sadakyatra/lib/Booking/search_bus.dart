@@ -62,15 +62,8 @@ class _SearchBusState extends State<SearchBus> {
             },
             child: Column(
               children: [
-                Text(
-                  'Our Available Bus',
-                  style: TextStyle(fontSize: 30),
-                ),
                 SizedBox(
-                  height: 20,
-                ),
-                SizedBox(
-                  height: 20,
+                  height: 10,
                 ),
                 ListView.builder(
                   scrollDirection: Axis.vertical,

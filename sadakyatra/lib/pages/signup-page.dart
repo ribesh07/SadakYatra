@@ -237,7 +237,7 @@ class _Signup_pageState extends State<Signup_page> {
                                         CrossAxisAlignment.start,
                                     children: [
                                       Text("•Minimun 8 character"),
-                                      Text("• Maximum 8 Character"),
+                                      Text("•Maximum 8 Character"),
                                       Text(
                                           "•At Least one uppercase English letter [A-Z]"),
                                       Text(

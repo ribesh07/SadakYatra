@@ -70,7 +70,67 @@ class _ticketUpcomingState extends State<ticketUpcoming> {
                           ),
 
                           TextButton(
-                            onPressed: () {},
+                            onPressed: () {
+                              showDialog(
+                                context: context,
+                                builder: (_) {
+                                  return AlertDialog(
+                                      shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(10),
+                                      ),
+                                      title: Text("Are You Sure?"),
+                                      content: FittedBox(
+                                        child: Container(
+                                          height: 100,
+                                          width: 200,
+                                          child: Column(
+                                            children: [
+                                              Text(
+                                                  'Cancellation charges will be applied'),
+                                              SizedBox(height: 10),
+                                              Row(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment.center,
+                                                children: [
+                                                  TextButton(
+                                                    onPressed: () {
+                                                      //update db
+
+                                                      Navigator.pop(context);
+                                                      final snackBar = SnackBar(
+                                                        backgroundColor:
+                                                            Colors.green,
+                                                        elevation: 10,
+                                                        duration: Duration(
+                                                            milliseconds: 3000),
+                                                        content: const Text(
+                                                          "we will contact you soon",
+                                                          style: TextStyle(
+                                                              fontSize: 20),
+                                                        ),
+                                                      );
+                                                      ScaffoldMessenger.of(
+                                                              context)
+                                                          .showSnackBar(
+                                                              snackBar);
+                                                    },
+                                                    child: Text('Yes'),
+                                                  ),
+                                                  TextButton(
+                                                    onPressed: () {
+                                                      Navigator.pop(context);
+                                                    },
+                                                    child: Text('No'),
+                                                  ),
+                                                ],
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                      ));
+                                },
+                              );
+                            },
                             child: Text(
                               'Cancel',
                               style: buttonStyle,

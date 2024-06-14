@@ -1,8 +1,10 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:sadakyatra/Booking/input_field.dart';
 import 'package:sadakyatra/Booking/provide.dart';
+import 'package:sadakyatra/setups.dart';
 
 class ForgotPassword extends StatefulWidget {
   const ForgotPassword({super.key});
@@ -12,7 +14,7 @@ class ForgotPassword extends StatefulWidget {
 }
 
 class _ForgotPasswordState extends State<ForgotPassword> {
-  final emailcontroller = TextEditingController();
+  final phonecontroller = TextEditingController();
   final provider = settingProvider();
   final formkey = GlobalKey<FormState>();
 
@@ -22,51 +24,65 @@ class _ForgotPasswordState extends State<ForgotPassword> {
       appBar: AppBar(
         title: Text('Forgot Password'),
         centerTitle: true,
+        backgroundColor: appbarcolor,
       ),
       body: Container(
+        width: MediaQuery.of(context).size.width,
         height: double.infinity,
-        width: double.infinity,
-        color: Colors.blue,
+        color: Color.fromARGB(255, 254, 254, 254),
         child: Form(
           key: formkey,
-          child: Center(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                SizedBox(
-                  height: 50,
-                ),
-                Text(
-                  "Provide Your Registered Email",
-                  style: TextStyle(color: Colors.white, fontSize: 20),
-                ),
-                SizedBox(
-                  height: 10,
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Card(
-                    elevation: 10,
-                    child: InputField(
-                      label: "Email",
-                      icon: Icons.mail,
-                      controller: emailcontroller,
-                      validator: (value) => provider.emailValidator(value),
+          child: SingleChildScrollView(
+            physics: BouncingScrollPhysics(
+              parent: AlwaysScrollableScrollPhysics(),
+            ),
+            child: Padding(
+              padding: const EdgeInsets.only(top: 20, right: 8, left: 8),
+              child: Card(
+                child: Column(
+                  children: [
+                    SizedBox(
+                      height: 10,
                     ),
-                  ),
+                    InputField(
+                      label: "+977",
+                      icon: Icons.phone,
+                      controller: phonecontroller,
+                      keypad: TextInputType.number,
+                      inputFormat: [
+                        FilteringTextInputFormatter.digitsOnly,
+                        LengthLimitingTextInputFormatter(10),
+                      ],
+                      validator: (value) => provider.phoneValidator(value),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(10.0),
+                      child: Card(
+                        elevation: 8,
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(50)),
+                        child: Container(
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(50),
+                              color: Colors.blue),
+                          child: TextButton(
+                            onPressed: () {
+                              if (formkey.currentState!.validate()) {
+                              } else {}
+                              print(phonecontroller);
+                            },
+                            child: Text(
+                              "Submit",
+                              textAlign: TextAlign.center,
+                              style: textStyle,
+                            ),
+                          ),
+                        ),
+                      ),
+                    )
+                  ],
                 ),
-                SizedBox(
-                  height: 20,
-                ),
-                ElevatedButton(
-                    onPressed: () {
-                      if (formkey.currentState!.validate()) {
-                      } else {}
-                      print("submit invoked !!!");
-                      print(emailcontroller);
-                    },
-                    child: Text("Submit")),
-              ],
+              ),
             ),
           ),
         ),

@@ -33,7 +33,7 @@ TextStyle dropDownFirststyle = TextStyle(
 const buttonColor = Colors.blue;
 const buttonStyle = TextStyle(
     fontSize: 15,
-    color: Color.fromARGB(255, 0, 140, 255),
+    color: Color.fromARGB(255, 14, 109, 186),
     fontWeight: FontWeight.w700);
 const textSize = TextStyle(fontSize: 18);
 Future<File?> PickImageFromGallery(BuildContext contex) async {

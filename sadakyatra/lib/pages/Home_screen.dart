@@ -6,8 +6,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:sadakyatra/pages/HomeDefScreen.dart';
 // import 'package:sadakyatra/main.dart';
-import 'package:sadakyatra/pages/Journey_screen.dart';
-import 'package:sadakyatra/pages/TIcket_sceen.dart';
+import 'package:sadakyatra/pages/package_screen.dart';
+import 'package:sadakyatra/pages/reservation_screen.dart';
 import 'package:sadakyatra/setups.dart';
 
 class HomeScreen extends StatefulWidget {
