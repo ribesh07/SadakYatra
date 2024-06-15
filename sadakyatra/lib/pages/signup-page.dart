@@ -69,15 +69,10 @@ class _Signup_pageState extends State<Signup_page> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Container(
-            alignment: Alignment.center,
-            child: const Padding(
-              padding: EdgeInsets.only(right: 69),
-              child: Text(
-                'SignUp',
-                style: textStyleappbar,
-              ),
-            )),
+        title: Text(
+          'SignUp',
+        ),
+        centerTitle: true,
         backgroundColor: appbarcolor,
       ),
       body: Container(
@@ -237,7 +232,7 @@ class _Signup_pageState extends State<Signup_page> {
                                         CrossAxisAlignment.start,
                                     children: [
                                       Text("•Minimun 8 character"),
-                                      Text("•Maximum 8 Character"),
+                                      Text("Maximum 8 Character"),
                                       Text(
                                           "•At Least one uppercase English letter [A-Z]"),
                                       Text(

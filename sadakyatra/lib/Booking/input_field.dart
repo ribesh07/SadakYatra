@@ -17,7 +17,7 @@ class InputField extends StatelessWidget {
   final TextEditingController? controller;
   final FormFieldValidator? validator;
   final List<TextInputFormatter>? inputFormat;
-  final Function(String)? hola;
+  // final Function(String)? hola;
 
   const InputField({
     super.key,
@@ -30,7 +30,7 @@ class InputField extends StatelessWidget {
     this.keypad,
     this.eyeButton,
     this.isvisible = false,
-    this.hola,
+    //this.hola,
   });
 
   @override
@@ -52,7 +52,7 @@ class InputField extends StatelessWidget {
             AutovalidateMode.onUserInteraction, //validation while typing
         // keyboardType:
         //     (keypad != null) ? TextInputType.number : TextInputType.text,
-        onChanged: hola,
+        //onChanged: hola,
         decoration: InputDecoration(
           label: Text(label),
           prefixIcon: Icon(icon),

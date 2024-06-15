@@ -31,7 +31,7 @@ class _profileSettingState extends State<profileSetting> {
         width: MediaQuery.of(context).size.width,
         height: double.infinity,
         decoration: BoxDecoration(
-          color: Color.fromARGB(255, 206, 226, 239),
+          color: backgroundColor,
           borderRadius: BorderRadius.circular(15),
         ),
         child: SingleChildScrollView(
@@ -43,38 +43,52 @@ class _profileSettingState extends State<profileSetting> {
               SizedBox(height: 20),
               Row(
                 children: [
-                  Padding(
-                    padding:
-                        const EdgeInsets.only(left: 290, top: 5, bottom: 10),
-                    child: FittedBox(
-                      child: ToggleSwitch(
-                        minWidth: 50.0,
-                        minHeight: 40.0,
-                        initialLabelIndex: 0,
-                        cornerRadius: 20.0,
-                        activeFgColor: Colors.white,
-                        inactiveBgColor: Colors.grey,
-                        inactiveFgColor: Colors.white,
-                        totalSwitches: 2,
-                        icons: [
-                          Icons.brightness_2_outlined,
-                          Icons.lightbulb,
+                  Container(
+                    width: MediaQuery.of(context).size.width,
+                    child: Padding(
+                      padding:
+                          const EdgeInsets.only(top: 5, bottom: 10, right: 10),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: [
+                          Container(
+                            width: 90,
+                            child: FittedBox(
+                              child: ToggleSwitch(
+                                minWidth: 50.0,
+                                minHeight: 40.0,
+                                initialLabelIndex: 0,
+                                cornerRadius: 20.0,
+                                activeFgColor: Colors.white,
+                                inactiveBgColor: Colors.grey,
+                                inactiveFgColor: Colors.white,
+                                totalSwitches: 2,
+                                icons: [
+                                  Icons.brightness_2_outlined,
+                                  Icons.lightbulb,
+                                ],
+                                iconSize: 30.0,
+                                activeBgColors: [
+                                  [
+                                    const Color.fromARGB(255, 0, 0, 0),
+                                    Colors.black26
+                                  ],
+                                  [
+                                    Color.fromARGB(255, 235, 175, 115),
+                                    Color.fromARGB(230, 250, 191, 102)
+                                  ]
+                                ],
+                                animate:
+                                    true, // with just animate set to true, default curve = Curves.easeIn
+                                curve: Curves
+                                    .bounceInOut, // animate must be set to true when using custom curve
+                                onToggle: (index) {
+                                  print('switched to: $index');
+                                },
+                              ),
+                            ),
+                          ),
                         ],
-                        iconSize: 30.0,
-                        activeBgColors: [
-                          [const Color.fromARGB(255, 0, 0, 0), Colors.black26],
-                          [
-                            Color.fromARGB(255, 235, 175, 115),
-                            Color.fromARGB(230, 250, 191, 102)
-                          ]
-                        ],
-                        animate:
-                            true, // with just animate set to true, default curve = Curves.easeIn
-                        curve: Curves
-                            .bounceInOut, // animate must be set to true when using custom curve
-                        onToggle: (index) {
-                          print('switched to: $index');
-                        },
                       ),
                     ),
                   ),
@@ -131,11 +145,13 @@ class _profileSettingState extends State<profileSetting> {
                               SizedBox(
                                 width: 10,
                               ),
-                              Container(
-                                width: 290,
-                                child: Text(
-                                  'Edit Profile',
-                                  style: TextStyle(fontSize: 25),
+                              FittedBox(
+                                child: Container(
+                                  width: 290,
+                                  child: Text(
+                                    'Edit Profile',
+                                    style: TextStyle(fontSize: 25),
+                                  ),
                                 ),
                               ),
                               Icon(Icons.arrow_forward_ios),

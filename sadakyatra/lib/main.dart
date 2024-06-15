@@ -34,7 +34,8 @@ class MyApp extends StatelessWidget {
       title: 'SadakYatra',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+        colorScheme:
+            ColorScheme.fromSeed(seedColor: Color.fromARGB(255, 7, 152, 230)),
         useMaterial3: true,
       ),
       home: const MyHomePage(),
@@ -54,13 +55,11 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          backgroundColor: const Color.fromARGB(255, 125, 78, 201),
-          title: Container(
-              alignment: Alignment.center,
-              child: const Text(
-                "SadakYatra",
-                style: textStyleappbar,
-              )),
+          backgroundColor: appbarcolor,
+          title: const Text(
+            "SadakYatra",
+            style: textStyleappbar,
+          ),
         ),
         body: Container(
           width: double.infinity,

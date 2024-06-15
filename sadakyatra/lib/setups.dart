@@ -5,10 +5,11 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 
-const backgroundColor = Color.fromARGB(255, 225, 203, 233);
+const backgroundColor = Color.fromARGB(255, 213, 227, 239);
 const textcolor = Color.fromARGB(255, 17, 16, 17);
-const appbarcolor = Color.fromARGB(255, 168, 106, 231);
+const appbarcolor = Color.fromARGB(255, 39, 136, 228);
 const appbarfontcolor = Color.fromARGB(255, 17, 16, 17);
+const listColor = Color.fromARGB(255, 153, 203, 238);
 
 const TextStyle textStyle = TextStyle(
   color: textcolor,
@@ -33,7 +34,7 @@ TextStyle dropDownFirststyle = TextStyle(
 const buttonColor = Colors.blue;
 const buttonStyle = TextStyle(
     fontSize: 15,
-    color: Color.fromARGB(255, 14, 109, 186),
+    color: Color.fromARGB(255, 5, 82, 176),
     fontWeight: FontWeight.w700);
 const textSize = TextStyle(fontSize: 18);
 Future<File?> PickImageFromGallery(BuildContext contex) async {

@@ -1,6 +1,7 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, sort_child_properties_last
 
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:intl/intl.dart';
 import 'package:sadakyatra/Booking/seatbooking_form.dart';
 import 'package:sadakyatra/Booking/search_bus.dart';
@@ -19,18 +20,248 @@ class _HomeDefScreenState extends State<HomeDefScreen>
   var departurevalue = -1;
   var destinationvalue = -1;
   final formkey = GlobalKey<FormState>();
+  int current = 0;
+  List<dynamic> dataItemsAll = [];
+  List<dynamic> dataItemsBLogs = [
+    {"product": "[Image Blog1]", "frequency": 1},
+    {"product": "[image Blog2]", "frequency": 2},
+    {"product": "[image Blog3]", "frequency": 3},
+    {"product": "[image Blog4]", "frequency": 4}
+  ];
+  List<dynamic> dataItemsNews = [
+    {"product": "[image News1]", "frequency": 1},
+    {"product": "[image News 2]", "frequency": 2},
+    {"product": "[image News 3]", "frequency": 3},
+    {"product": "[image news 4]", "frequency": 4}
+  ];
+
+  @override
+  void initState() {
+    super.initState();
+    for (int i = 0; i < dataItemsBLogs.length; i++) {
+      var temp = {
+        'product': dataItemsBLogs[i]["product"],
+        'frequency': dataItemsBLogs[i]["frequency"],
+      };
+      dataItemsAll.add(temp);
+    }
+    for (int i = 0; i < dataItemsNews.length; i++) {
+      var temp = {
+        'product': dataItemsNews[i]["product"],
+        'frequency': dataItemsNews[i]["frequency"],
+      };
+      dataItemsAll.add(temp);
+    }
+  }
+
+  double changeContainerColor() {
+    switch (current) {
+      case 0:
+        return double.infinity;
+      case 1:
+        return double.infinity;
+      case 2:
+        return double.infinity;
+
+      default:
+        return 0;
+    }
+  }
+
+  Container ChangeLayout() {
+    switch (current) {
+      case 0:
+        return Container(
+          child: SizedBox(
+            height: 240.0,
+            child: ListView.builder(
+              physics: BouncingScrollPhysics(
+                parent: AlwaysScrollableScrollPhysics(),
+              ),
+              // ClampingScrollPhysics(),
+              shrinkWrap: true,
+              scrollDirection: Axis.horizontal,
+              itemCount: dataItemsAll.length,
+              itemBuilder: (BuildContext context, int index) => Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Card(
+                  child: Container(
+                      height: 200,
+                      width: 300,
+                      child: Column(
+                        // mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            "   ${dataItemsAll[index]["frequency"].toString()}",
+                            style: textStyle,
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Container(
+                              width: MediaQuery.of(context).size.width,
+                              height: 120,
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(8),
+                                color: listColor,
+                              ),
+                              child: Text(
+                                  dataItemsAll[index]["product"].toString(),
+                                  style: textStyle,
+                                  textAlign: TextAlign.center),
+                            ),
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            // crossAxisAlignment: CrossAxisAlignment.end,
+                            children: [
+                              TextButton(
+                                  onPressed: () {},
+                                  child: Text(
+                                    'Read',
+                                    style: buttonStyle,
+                                  )),
+                            ],
+                          )
+                        ],
+                      )),
+                ),
+              ),
+            ),
+          ),
+        );
+
+      case 1:
+        return Container(
+          child: SizedBox(
+            height: 240.0,
+            child: ListView.builder(
+              physics: BouncingScrollPhysics(
+                parent: AlwaysScrollableScrollPhysics(),
+              ),
+              // ClampingScrollPhysics(),
+              shrinkWrap: true,
+              scrollDirection: Axis.horizontal,
+              itemCount: dataItemsBLogs.length,
+              itemBuilder: (BuildContext context, int index) => Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Card(
+                  child: Container(
+                      height: 200,
+                      width: 300,
+                      child: Column(
+                        // mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            "   ${dataItemsBLogs[index]["frequency"].toString()}",
+                            style: textStyle,
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Container(
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(8),
+                                color: listColor,
+                              ),
+                              width: MediaQuery.of(context).size.width,
+                              height: 120,
+                              child: Text(
+                                  dataItemsBLogs[index]["product"].toString(),
+                                  style: textStyle,
+                                  textAlign: TextAlign.center),
+                            ),
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            // crossAxisAlignment: CrossAxisAlignment.end,
+                            children: [
+                              TextButton(
+                                  onPressed: () {},
+                                  child: Text(
+                                    'Read',
+                                    style: buttonStyle,
+                                  )),
+                            ],
+                          )
+                        ],
+                      )),
+                ),
+              ),
+            ),
+          ),
+        );
+
+      case 2:
+        return Container(
+          child: SizedBox(
+            height: 240.0,
+            child: ListView.builder(
+              physics: BouncingScrollPhysics(
+                parent: AlwaysScrollableScrollPhysics(),
+              ),
+              // ClampingScrollPhysics(),
+              shrinkWrap: true,
+              scrollDirection: Axis.horizontal,
+              itemCount: dataItemsNews.length,
+              itemBuilder: (BuildContext context, int index) => Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Card(
+                  child: Container(
+                      height: 200,
+                      width: 300,
+                      child: Column(
+                        // mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            "   ${dataItemsNews[index]["frequency"].toString()}",
+                            style: textStyle,
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Container(
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(8),
+                                color: listColor,
+                              ),
+                              width: MediaQuery.of(context).size.width,
+                              height: 120,
+                              child: Text(
+                                  dataItemsNews[index]["product"].toString(),
+                                  style: textStyle,
+                                  textAlign: TextAlign.center),
+                            ),
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            // crossAxisAlignment: CrossAxisAlignment.end,
+                            children: [
+                              TextButton(
+                                  onPressed: () {},
+                                  child: Text(
+                                    'Read',
+                                    style: buttonStyle,
+                                  )),
+                            ],
+                          )
+                        ],
+                      )),
+                ),
+              ),
+            ),
+          ),
+        );
+
+      default:
+        return Container();
+    }
+  }
 
   List<String> TabItem = [
     "All",
     "Blogs",
     "News",
-  ];
-
-  List<dynamic> dataItems = [
-    {"product": "hi", "frequency": 1},
-    {"product": "hello", "frequency": 2},
-    {"product": "hey", "frequency": 3},
-    {"product": "hola", "frequency": 4}
   ];
 
   var _value = -1;
@@ -39,7 +270,7 @@ class _HomeDefScreenState extends State<HomeDefScreen>
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
-        color: const Color.fromARGB(255, 213, 227, 239),
+        color: backgroundColor,
         width: MediaQuery.of(context).size.width,
         height: double.infinity,
         child: SingleChildScrollView(
@@ -51,6 +282,7 @@ class _HomeDefScreenState extends State<HomeDefScreen>
               Form(
                 key: formkey,
                 child: Container(
+                  color: backgroundColor,
                   width: MediaQuery.of(context).size.width,
                   child: Padding(
                     padding: const EdgeInsets.all(8.0),
@@ -261,37 +493,46 @@ class _HomeDefScreenState extends State<HomeDefScreen>
                             // bottom space
                             height: 15,
                           ),
-                          ElevatedButton(
-                            onPressed: () {
-                              if (formkey.currentState!.validate()) {
-                                if (departurevalue == destinationvalue) {
-                                  final snackBar = SnackBar(
-                                    backgroundColor:
-                                        Color.fromARGB(255, 226, 5, 12),
-                                    elevation: 10,
-                                    duration: Duration(milliseconds: 3000),
-                                    content: const Text(
-                                      "Departure and Destination must be different",
-                                      style: TextStyle(fontSize: 20),
-                                    ),
-                                  );
-                                  ScaffoldMessenger.of(context)
-                                      .showSnackBar(snackBar);
-                                } else if (departurevalue == 1 &&
-                                    destinationvalue == 2) {
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (context) => SearchBus(),
-                                    ),
-                                  );
-                                } else {}
-                              } else {}
-                            },
-                            child: Text(
-                              'Search Bus',
-                              style: TextStyle(
-                                  fontSize: 15, fontWeight: FontWeight.bold),
+
+                          Card(
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(50)),
+                            child: Container(
+                              decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(50),
+                                  color: Colors.blue),
+                              child: TextButton(
+                                onPressed: () {
+                                  if (formkey.currentState!.validate()) {
+                                    if (departurevalue == destinationvalue) {
+                                      final snackBar = SnackBar(
+                                        backgroundColor:
+                                            Color.fromARGB(255, 226, 5, 12),
+                                        elevation: 10,
+                                        duration: Duration(milliseconds: 3000),
+                                        content: const Text(
+                                          "Departure and Destination must be different",
+                                          style: TextStyle(fontSize: 20),
+                                        ),
+                                      );
+                                      ScaffoldMessenger.of(context)
+                                          .showSnackBar(snackBar);
+                                    } else if (departurevalue == 1 &&
+                                        destinationvalue == 2) {
+                                      Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (context) => SearchBus(),
+                                        ),
+                                      );
+                                    } else {}
+                                  } else {}
+                                },
+                                child: Text(
+                                  'Search Bus',
+                                  style: textStyle,
+                                ),
+                              ),
                             ),
                           ),
 
@@ -309,25 +550,53 @@ class _HomeDefScreenState extends State<HomeDefScreen>
               ),
 
               Container(
+                width: MediaQuery.of(context).size.width,
+                //height: 100,
                 child: Column(
                   children: [
                     Container(
-                      height: 80,
-                      width: double.infinity,
+                      height: 50,
+                      width: MediaQuery.of(context).size.width,
                       child: ListView.builder(
-                          scrollDirection: Axis.horizontal,
-                          itemCount: TabItem.length,
-                          itemBuilder: (BuildContext context, int index) {
-                            return Card(
-                              child: Container(
-                                margin: EdgeInsets.all(8),
-                                width: 70,
-                                height: 20,
-                                child: Center(child: Text(TabItem[index])),
-                              ),
-                            );
-                          }),
-                    )
+                        shrinkWrap: true,
+                        scrollDirection: Axis.horizontal,
+                        physics: BouncingScrollPhysics(
+                          parent: AlwaysScrollableScrollPhysics(),
+                        ),
+                        itemCount: TabItem.length,
+                        itemBuilder: (BuildContext context, int index) {
+                          return GestureDetector(
+                            onTap: () {
+                              setState(() {
+                                current = index;
+
+                                print(current);
+                              });
+                            },
+                            child: Container(
+                              margin: EdgeInsets.all(8),
+                              decoration: BoxDecoration(
+                                  color: index == current
+                                      ? Colors.blue
+                                      : Colors.white,
+                                  borderRadius: BorderRadius.circular(8)),
+                              width: 70,
+                              child: Center(child: Text(TabItem[index])),
+                            ),
+                          );
+                        },
+                      ),
+                    ),
+                    AnimatedContainer(
+                      //width: MediaQuery.of(context).size.width * 0.5,
+                      width: changeContainerColor(),
+                      //height: MediaQuery.of(context).size.height * 0.08,
+                      duration: Duration(milliseconds: 300),
+                      decoration: BoxDecoration(
+                          //color: const Color.fromARGB(255, 255, 255, 255),
+                          borderRadius: BorderRadius.circular(8)),
+                      child: ChangeLayout(),
+                    ),
                   ],
                 ),
               )

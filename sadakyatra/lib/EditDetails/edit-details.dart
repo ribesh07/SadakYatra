@@ -22,18 +22,12 @@ class _editDetailsState extends State<editDetails> {
           'Edit Details',
         ),
         centerTitle: true,
-        leading: IconButton(
-          onPressed: () {
-            Navigator.pop(context);
-          },
-          icon: Icon(Icons.arrow_back_ios_new),
-        ),
         backgroundColor: appbarcolor,
       ),
       body: Container(
         height: double.infinity,
         width: MediaQuery.of(context).size.width,
-        color: Color.fromARGB(255, 196, 228, 244),
+        color: Colors.white,
         child: SingleChildScrollView(
           physics: BouncingScrollPhysics(
             parent: AlwaysScrollableScrollPhysics(),

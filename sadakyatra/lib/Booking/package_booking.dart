@@ -24,7 +24,7 @@ class _PackageBookingState extends State<PackageBooking> {
   final phonecontroller = TextEditingController();
   final formkey = GlobalKey<FormState>();
   final mailcontroller = TextEditingController();
-  String tripdetails = 'hollla';
+  String tripdetails = '[details]';
   var departureDate = "${DateFormat("dd/MM/yyyy").format(DateTime.now())}";
 
   @override
@@ -49,20 +49,20 @@ class _PackageBookingState extends State<PackageBooking> {
         appBar: AppBar(
           automaticallyImplyLeading: true,
           title: Text(
-            'booking',
-            textAlign: TextAlign.left,
+            'Package Booking',
           ),
+          centerTitle: true,
 
           // actions: [
           //    IconButton(onPressed: (){}, icon: Icon(Icons.arrow_back_ios_new_sharp)),
           //   Text("data"),
           // ],
-          backgroundColor: Color.fromARGB(255, 56, 149, 225),
+          backgroundColor: appbarcolor,
         ),
         body: Container(
           width: MediaQuery.of(context).size.width,
           height: double.infinity,
-          color: Color.fromARGB(255, 158, 207, 248),
+          color: backgroundColor,
           child: Form(
             key: formkey,
             child: SingleChildScrollView(
@@ -242,7 +242,6 @@ class _PackageBookingState extends State<PackageBooking> {
                       height: 10,
                     ),
                     Card(
-                      elevation: 8,
                       shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(50)),
                       child: Container(

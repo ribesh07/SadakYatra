@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:sadakyatra/Booking/input_field.dart';
 import 'package:sadakyatra/Booking/provide.dart';
+import 'package:sadakyatra/setups.dart';
 
 class DeleteAccount extends StatefulWidget {
   const DeleteAccount({super.key});
@@ -35,7 +36,7 @@ class _DeleteAccountState extends State<DeleteAccount> {
       appBar: AppBar(
         title: Text('Delete Account'),
         centerTitle: true,
-        backgroundColor: Color.fromARGB(255, 225, 161, 239),
+        backgroundColor: appbarcolor,
       ),
       body: Container(
         width: MediaQuery.of(context).size.width,

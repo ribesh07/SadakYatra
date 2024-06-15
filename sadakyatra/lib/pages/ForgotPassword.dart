@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:sadakyatra/Booking/input_field.dart';
 import 'package:sadakyatra/Booking/provide.dart';
+import 'package:sadakyatra/pages/forget_otp.dart';
+import 'package:sadakyatra/pages/setups/oottpp.dart';
 import 'package:sadakyatra/setups.dart';
 
 class ForgotPassword extends StatefulWidget {
@@ -37,51 +39,77 @@ class _ForgotPasswordState extends State<ForgotPassword> {
               parent: AlwaysScrollableScrollPhysics(),
             ),
             child: Padding(
-              padding: const EdgeInsets.only(top: 20, right: 8, left: 8),
-              child: Card(
-                child: Column(
-                  children: [
-                    SizedBox(
-                      height: 10,
+              padding: const EdgeInsets.only(top: 80, right: 8, left: 8),
+              child: Column(
+                children: [
+                  SizedBox(
+                    height: 10,
+                  ),
+                  Icon(
+                    Icons.lock,
+                    size: 50,
+                  ),
+                  SizedBox(
+                    height: 10,
+                  ),
+                  FittedBox(
+                    child: Text(
+                      "Forgot Password",
+                      style:
+                          TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
                     ),
-                    InputField(
-                      label: "+977",
-                      icon: Icons.phone,
-                      controller: phonecontroller,
-                      keypad: TextInputType.number,
-                      inputFormat: [
-                        FilteringTextInputFormatter.digitsOnly,
-                        LengthLimitingTextInputFormatter(10),
-                      ],
-                      validator: (value) => provider.phoneValidator(value),
+                  ),
+                  FittedBox(
+                    child: Text(
+                      'Enter your registered mobile number',
+                      style: TextStyle(fontSize: 20),
                     ),
-                    Padding(
-                      padding: const EdgeInsets.all(10.0),
-                      child: Card(
-                        elevation: 8,
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(50)),
-                        child: Container(
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(50),
-                              color: Colors.blue),
-                          child: TextButton(
-                            onPressed: () {
-                              if (formkey.currentState!.validate()) {
-                              } else {}
-                              print(phonecontroller);
-                            },
-                            child: Text(
-                              "Submit",
-                              textAlign: TextAlign.center,
-                              style: textStyle,
-                            ),
+                  ),
+                  SizedBox(
+                    height: 10,
+                  ),
+                  InputField(
+                    label: "+977",
+                    icon: Icons.phone,
+                    controller: phonecontroller,
+                    keypad: TextInputType.number,
+                    inputFormat: [
+                      FilteringTextInputFormatter.digitsOnly,
+                      LengthLimitingTextInputFormatter(10),
+                    ],
+                    validator: (value) => provider.phoneValidator(value),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(10.0),
+                    child: Card(
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(50)),
+                      child: Container(
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(50),
+                            color: Colors.blue),
+                        child: TextButton(
+                          onPressed: () {
+                            if (formkey.currentState!.validate()) {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => ForgetOtp(),
+                                ),
+                              );
+                            } else {}
+                            print(phonecontroller);
+                          },
+                          child: Text(
+                            "Submit",
+                            textAlign: TextAlign.center,
+                            style: textStyle,
                           ),
                         ),
                       ),
-                    )
-                  ],
-                ),
+                    ),
+                  )
+                ],
               ),
             ),
           ),

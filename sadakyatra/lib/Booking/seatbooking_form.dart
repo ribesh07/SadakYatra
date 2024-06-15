@@ -47,9 +47,9 @@ class _bookSeatState extends State<bookSeat> {
         appBar: AppBar(
           automaticallyImplyLeading: false,
           title: Text(
-            'booking',
-            textAlign: TextAlign.left,
+            'Booking',
           ),
+          centerTitle: true,
           leading: IconButton(
               onPressed: () {
                 Navigator.pop(context, "hello");
@@ -59,12 +59,12 @@ class _bookSeatState extends State<bookSeat> {
           //    IconButton(onPressed: (){}, icon: Icon(Icons.arrow_back_ios_new_sharp)),
           //   Text("data"),
           // ],
-          backgroundColor: Color.fromARGB(255, 56, 149, 225),
+          backgroundColor: appbarcolor,
         ),
         body: Container(
           width: MediaQuery.of(context).size.width,
           height: double.infinity,
-          color: Color.fromARGB(255, 158, 207, 248),
+          color: backgroundColor,
           child: Form(
             key: formkey,
             child: SingleChildScrollView(
@@ -244,7 +244,6 @@ class _bookSeatState extends State<bookSeat> {
                       height: 10,
                     ),
                     Card(
-                      elevation: 8,
                       shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(50)),
                       child: Container(

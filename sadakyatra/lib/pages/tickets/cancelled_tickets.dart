@@ -43,12 +43,18 @@ class _CancelledTicketsState extends State<CancelledTickets> {
                       "   ${dataItems[index]["frequency"].toString()}",
                       style: textStyle,
                     ),
-                    Container(
-                      width: MediaQuery.of(context).size.width,
-                      height: 120,
-                      color: Color.fromARGB(255, 153, 203, 238),
-                      child: Text(dataItems[index]["product"].toString(),
-                          style: textStyle, textAlign: TextAlign.center),
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Container(
+                        width: MediaQuery.of(context).size.width,
+                        height: 120,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(8),
+                          color: listColor,
+                        ),
+                        child: Text(dataItems[index]["product"].toString(),
+                            style: textStyle, textAlign: TextAlign.center),
+                      ),
                     ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,

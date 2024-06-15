@@ -65,6 +65,9 @@ dependencies:
   flutter_pannable_rating_bar: ^2.7.2+1
   flutter_rating_bar: ^4.0.1
   dotted_line: ^3.2.2
+  pinput: ^5.0.0
+  smart_auth: ^2.0.0
+  pin_code_fields: ^8.0.1
   # khalti_checkout_flutter: ^1.0.0-dev.4
 
 dev_dependencies:

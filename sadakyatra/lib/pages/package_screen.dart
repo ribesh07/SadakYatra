@@ -25,7 +25,7 @@ class _JourneyScreenState extends State<JourneyScreen> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: Color.fromARGB(255, 202, 227, 247),
+      color: backgroundColor,
       height: double.infinity,
       width: double.infinity,
       child: SingleChildScrollView(
@@ -71,7 +71,7 @@ class _JourneyScreenState extends State<JourneyScreen> {
                                           decoration: BoxDecoration(
                                             borderRadius:
                                                 BorderRadius.circular(8),
-                                            color: Colors.amberAccent[200],
+                                            color: listColor,
                                           ),
                                           child: Text(
                                               dataItems[index]["product"]

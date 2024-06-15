@@ -4,6 +4,7 @@ import 'package:sadakyatra/pages/HomeDefScreen.dart';
 import 'package:sadakyatra/pages/Home_screen.dart';
 import 'package:sadakyatra/pages/history.dart';
 import 'package:sadakyatra/pages/setting_profile.dart';
+import 'package:sadakyatra/setups.dart';
 
 class BottomBar extends StatefulWidget {
   const BottomBar({super.key});
@@ -42,7 +43,7 @@ class _BottomBarState extends State<BottomBar> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
+        backgroundColor: appbarcolor,
         title: const Text('SadakYatra'),
         centerTitle: true,
         //automaticallyImplyLeading: false,

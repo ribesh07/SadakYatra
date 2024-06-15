@@ -43,15 +43,9 @@ class _Login_pageState extends State<Login_page> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Container(
-            alignment: Alignment.center,
-            child: const Padding(
-              padding: EdgeInsets.only(right: 69),
-              child: Text(
-                'Login Page',
-                style: textStyleappbar,
-              ),
-            )),
+        title: Text(
+          'Login Page',
+        ),
         backgroundColor: appbarcolor,
       ),
       body: Container(

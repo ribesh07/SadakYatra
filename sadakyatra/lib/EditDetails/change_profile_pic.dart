@@ -60,12 +60,12 @@ class _changeProfilePicState extends State<changeProfilePic> {
           'Change Profile Pic',
         ),
         centerTitle: true,
-        backgroundColor: Color.fromARGB(255, 137, 196, 248),
+        backgroundColor: appbarcolor,
       ),
       body: Container(
         width: MediaQuery.of(context).size.width,
         height: double.infinity,
-        color: Color.fromARGB(255, 210, 230, 244),
+        color: Colors.white,
         child: SingleChildScrollView(
           physics: BouncingScrollPhysics(
             parent: AlwaysScrollableScrollPhysics(),

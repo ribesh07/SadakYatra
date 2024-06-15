@@ -26,7 +26,7 @@ class _HelplineState extends State<Helpline> {
       appBar: AppBar(
         title: Text('Customer Support'),
         centerTitle: true,
-        backgroundColor: Color.fromARGB(255, 244, 188, 251),
+        backgroundColor: appbarcolor,
       ),
       body: Container(
         width: MediaQuery.of(context).size.width,
@@ -180,8 +180,11 @@ class _HelplineState extends State<Helpline> {
         ),
       ),
       floatingActionButton: FloatingActionButton(
+        backgroundColor: appbarcolor,
         onPressed: () {},
-        child: Icon(Icons.chat),
+        child: Icon(
+          Icons.chat,
+        ),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
     );

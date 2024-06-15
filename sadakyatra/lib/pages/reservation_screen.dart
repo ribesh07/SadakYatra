@@ -49,7 +49,7 @@ class _TicketScreenState extends State<TicketScreen> {
       body: Container(
         width: double.infinity,
         height: double.infinity,
-        color: Color.fromARGB(255, 158, 207, 248),
+        color: backgroundColor,
         child: Form(
           key: formkey,
           child: SingleChildScrollView(
@@ -306,7 +306,6 @@ class _TicketScreenState extends State<TicketScreen> {
                     height: 10,
                   ),
                   Card(
-                    elevation: 8,
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(50)),
                     child: Container(

@@ -42,7 +42,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
       //   backgroundColor: appbarcolor,
       // ),
       body: Container(
-        color: Color.fromARGB(255, 224, 196, 250),
+        color: backgroundColor,
         child: Column(
           children: [
             SizedBox(

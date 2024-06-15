@@ -50,7 +50,7 @@ class _EditEmailState extends State<EditEmail> {
       body: Container(
         width: MediaQuery.of(context).size.width,
         height: double.infinity,
-        color: Color.fromARGB(255, 235, 229, 245),
+        color: Colors.white,
         child: SingleChildScrollView(
           physics: BouncingScrollPhysics(
             parent: AlwaysScrollableScrollPhysics(),
@@ -137,7 +137,6 @@ class _EditEmailState extends State<EditEmail> {
                         },
                         child: Text(
                           'Save Changes',
-                          style: buttonStyle,
                         )),
                   ),
                 )

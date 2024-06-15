@@ -46,6 +46,14 @@ class settingProvider extends ChangeNotifier {
     }
   }
 
+  otpValidator(String value) {
+    if (value.isEmpty) {
+      return "";
+    } else {
+      return null;
+    }
+  }
+
   passValidator(String value) {
     if (value.isEmpty) {
       return "Enter password";

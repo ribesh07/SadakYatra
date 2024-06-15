@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:sadakyatra/Booking/input_field.dart';
 import 'package:sadakyatra/Booking/provide.dart';
 import 'package:sadakyatra/payments/App_khalti.dart';
+import 'package:sadakyatra/setups.dart';
 
 class ChangePassword extends StatefulWidget {
   const ChangePassword({super.key});
@@ -39,10 +40,9 @@ class _ChangePasswordState extends State<ChangePassword> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Change password'),
-        centerTitle: true,
-        backgroundColor: Color.fromARGB(255, 219, 168, 239),
-      ),
+          title: Text('Change password'),
+          centerTitle: true,
+          backgroundColor: appbarcolor),
       body: Container(
         width: MediaQuery.of(context).size.width,
         height: double.infinity,
@@ -181,7 +181,9 @@ class _ChangePasswordState extends State<ChangePassword> {
                         }
                       } else {}
                     },
-                    child: Text('Change password'))
+                    child: Text(
+                      'Change password',
+                    ))
               ],
             ),
           ),
