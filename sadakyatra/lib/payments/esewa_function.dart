@@ -10,6 +10,7 @@ import 'package:esewa_flutter_sdk/esewa_payment_success_result.dart';
 
 import 'package:flutter/material.dart';
 import 'package:sadakyatra/pages/setups/snackbar_message.dart';
+import 'package:sadakyatra/routes/app_route.dart';
 
 const String kEsewaClientId =
     'JB0BBQ4aD0UqIThFJwAKBgAXEUkEGQUBBAwdOgABHD4DChwUAB0R';
@@ -60,6 +61,7 @@ class Esewa {
             message: 'Canceled to payment proceed.',
             bgColor: Colors.pink,
           );
+           Navigator.pushNamed(context, AppRoute.homeRoute);
         },
       );
     } catch (e) {

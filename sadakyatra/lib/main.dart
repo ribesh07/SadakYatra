@@ -7,6 +7,7 @@ import 'package:sadakyatra/EditDetails/edit-details.dart';
 import 'package:sadakyatra/firebase_options.dart';
 //import 'package:sadakyatra/pages/Home_screen.dart';
 import 'package:sadakyatra/pages/botton_nav_bar.dart';
+import 'package:sadakyatra/pages/chat-screen.dart';
 import 'package:sadakyatra/pages/login-page.dart';
 import 'package:sadakyatra/pages/seat.dart';
 // import 'package:sadakyatra/pages/seat_plan.dart';
@@ -188,6 +189,17 @@ class _MyHomePageState extends State<MyHomePage> {
                           },
                           child: const Text(
                             "Edit profile",
+                            style: textStyle,
+                          )),
+                      ElevatedButton(
+                          onPressed: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => ChatScreen()));
+                          },
+                          child: const Text(
+                            "Chat-Screen",
                             style: textStyle,
                           )),
                     ],
