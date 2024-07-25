@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>File Upload</title>
+  <style>
+    /* Basic styles for loading screen */
+    #loadingScreen {
+      display: none; 
+      position: fixed;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.5);
+      color: #fff;
+      text-align: center;
+      line-height: 100vh;
+      font-size: 24px;
+      z-index: 9999;
+    }
+  </style>
+</head>
+<body>
+  <h1>Upload Image and Description</h1>
+  <div id="loadingScreen">Loading...</div>
+  <form id="uploadForm" enctype="multipart/form-data">
+    <label for="image">Select image:</label>
+    <input type="file" id="image" name="image" accept="image/*" required><br><br>
+    
+    <label for="description">Select description:</label>
+    <input type="text" id="description" name="description" required><br><br>
+    
+    <button type="submit">Upload</button>
+  </form>
+
+  <script>
+    document.getElementById('uploadForm').addEventListener('submit', async (event) => {
+      event.preventDefault();
+
+      const loadingScreen = document.getElementById('loadingScreen');
+      loadingScreen.style.display = 'block'; 
+
+      const formData = new FormData();
+      formData.append('image', document.getElementById('image').files[0]);
+      formData.append('description', document.getElementById('description').value);
+
+      try {
+        const response = await fetch('/upload', {
+          method: 'POST',
+          body: formData
+        });
+
+        if (response.ok) {
+          alert('Files uploaded successfully');
+        } else {
+          alert('Error uploading files....');
+        }
+      } catch (error) {
+        console.error('Error:', error);
+        alert('Error uploading files!!!');
+      }finally {
+        loadingScreen.style.display = 'none'; // Hide loading screen
+      }
+    });
+  </script>
+</body>
+</html>

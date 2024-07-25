@@ -38,6 +38,9 @@
         <li class="nav-item">
             <a class="nav-link" id="contact-tab" data-toggle="tab" href="bus-edit" role="tab" aria-controls="contact" aria-selected="false">Bus-update</a>
           </li>
+        <li class="nav-item">
+            <a class="nav-link" id="contact-tab" data-toggle="tab" href="upload-image" role="tab" aria-controls="contact" aria-selected="false">Upload-image</a>
+          </li>
       </ul>
       <div class="tab-content" id="myTabContent">
         <div class="tab-pane fade" id="home" role="tabpanel" aria-labelledby="home-tab"></div>
@@ -65,9 +68,9 @@
   <table id="data-table">
     <thead>
       <tr>
-        <th>ID</th>
-        <th>Name</th>
-        <th>Age</th>
+        <th>Username</th>
+        <th>Email</th>
+        <th>contact</th>
       </tr>
     </thead>
     <tbody>
@@ -80,16 +83,16 @@
     </footer> -->
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-          fetch('/data')
+          fetch('/users')
             .then(response => response.json())
             .then(data => {
               const tableBody = document.getElementById('data-table').querySelector('tbody');
               data.forEach(item => {
                 const row = document.createElement('tr');
                 row.innerHTML = `
-                  <td>${item.id}</td>
-                  <td>${item.name}</td>
-                  <td>${item.age}</td>
+                  <td>${item.username}</td>
+                  <td>${item.email}</td>
+                  <td>${item.contact}</td>
                 `;
                 tableBody.appendChild(row);
               });
