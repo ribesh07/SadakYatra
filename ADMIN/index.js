@@ -92,6 +92,11 @@ app.get('/news-blog', (req, res) => {
    console.log('Hello World!');
     res.render('news-blog', { message: 'SadakYatra' });
   });
+  //to render bus-edit
+app.get('/bus-edit', (req, res) => {
+   console.log('Hello World!');
+    res.render('bus-edit', { message: 'SadakYatra' });
+  });
 
   //success page
 app.get('/success', (req, res) => {
@@ -123,8 +128,27 @@ app.get('/success', (req, res) => {
     console.log('Form data received successfully');
     res.render('news-blog',{ message: 'SadakYatra' });
     });
+  //to update and add news-blog data
+  app.post('/bus-edit',async (req, res) => {
+    console.log("news-blog", req.body);
+    // await alert("success");
+    console.log('Form data received successfully');
+    res.render('bus-edit',{ message: 'SadakYatra' });
+    });
 
 
   app.listen(port, () => { 
     console.log(` App listening at http://localhost:${port}`);
     });
+
+// Sample data
+const data = [
+  { id: 1, name: 'Alice', age: 28 },
+  { id: 2, name: 'Bob', age: 34 },
+  { id: 3, name: 'Charlie', age: 23 }
+];
+
+// Endpoint to send data
+app.get('/data', (req, res) => {
+  res.json(data);
+});
