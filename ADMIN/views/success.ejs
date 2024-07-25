@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>SUCCESS</title>
+  <link rel="stylesheet" type="text/css" href="success-style.css">
+</head>
+<body>
+  <h1>Alert Example</h1>
+  <% if (alertMessage) { %>
+    <div class="alert">
+      <%= alertMessage %>
+    </div>
+  <% } %>
+  <form method="get" action="/success">
+    <button type="submit">Submit</button>
+  </form>
+</body>
+</html>

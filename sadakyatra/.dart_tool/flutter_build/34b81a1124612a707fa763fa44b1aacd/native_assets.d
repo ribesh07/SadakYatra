@@ -1,0 +1,1 @@
+ E:\\devapps\\projects\\SadakYatra\\SadakYatra\\.dart_tool\\flutter_build\\34b81a1124612a707fa763fa44b1aacd\\native_assets.yaml: 
