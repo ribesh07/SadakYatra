@@ -11,18 +11,6 @@ admin.initializeApp({
 // Get a Firestore instance
 const db = admin.firestore();
 
-
-// Add a document to Firestore
-async function addDocument() {
-  const docRef = db.collection('users').doc('user_123');
-  await docRef.set({
-    first: 'John',
-    last: 'Doe',
-    born: 1990
-  });
-  console.log('Document added.');
-}
-
 // Retrieve a document from Firestore
 async function getDocument() {
   const docRef = db.collection('users').doc('user_123');
@@ -75,9 +63,6 @@ const multer = require('multer');
 const path = require('path');
 const { v4: uuidv4 } = require('uuid');
 
-
-
-
 const bucket = admin.storage().bucket();
 
 // Set up multer for file uploads
@@ -97,7 +82,7 @@ app.get('/users-edit', async(req, res) => {
    try {
     const snapshot = await db.collection('sadakyatra').doc('userDetailsDatabase').collection('users').get();
     const users = snapshot.docs.map(doc => doc.data());
-    console.log(users);
+    // console.log(users);
     // res.json(users);
     res.render('users-edit', { message:'SadakYatra',data :users });
   } catch (error) {
@@ -134,16 +119,6 @@ app.get('/upload-image', (req, res) => {
 //    console.log('Hello World!');
     res.render('upload-image', { message: 'Success' });
   });
-
-
-  //to update user data
-app.post('/user-update',async (req, res) => {
-    console.log("user-update", req.body);
-    // await alert("success");
-    console.log('Form data received successfully');
-    res.render('users-edit',{ message: 'SadakYatra' });
-    });
-
 
   //to update agent data
   app.post('/agent-update',async (req, res) => {
@@ -218,8 +193,8 @@ app.post('/upload', upload.single('image'), async (req, res) => {
       metadata: { firebaseStorageDownloadTokens: uuidv4() }
     });
 
-    // Generate image URL
-    // const imageUrl = `${imageName1}`;
+    console.log("\n\nimage file ---"+imageFile);
+
     const file = bucket.file(imageName1); 
     const [url] = await file.getSignedUrl({
       action: 'read',
@@ -227,7 +202,7 @@ app.post('/upload', upload.single('image'), async (req, res) => {
     });
     console.log(url);
     // Store description and image URL in Firestore
-    await db.collection('sadakyatra').doc('userDetailsDatabase').collection('users').add({
+    await db.collection('uploads').add({
       description: description,
       imageUrl: url,
       createdAt: admin.firestore.FieldValue.serverTimestamp()
@@ -259,56 +234,131 @@ app.get('/image-url', async (req, res) => {
 });
 
  //to create user data
- app.post('/user-create',async (req, res) => {
+ app.post('/user-create',upload.single('image'),async (req, res) => {
   //  alert("success");
-  console.log("\n\nuser-create", req.body);
-  try{
-  // const description = req.body.description;
-  const username = req.body.username;
-  const contact = req.body.contact;
-  const email = req.body.email;
-  const password = req.body.password;
-  const imageFile = req.file;
-  const folderName = "user_images";
+  try {
+    const username = req.body.username;
+    const email = req.body.email;
+    const password = req.body.password;
+    const contact = req.body.contact;
+    const userId = uuidv4(); 
 
-  // if (!username || !password) {
-  //   return res.status(400).send('Image file and description are required.');
-  // }
-  const imageName1 = `${folderName}/${username}`; 
-  const imageBlob = bucket.file(imageName1);
-  
-  await imageBlob.save(imageFile.buffer, {
-    contentType: imageFile.mimetype,
-    metadata: { firebaseStorageDownloadTokens: uuidv4() }
-  });
-  // Generate image URL
-  // const imageUrl = `${imageName1}`;
-  const file = bucket.file(imageName1); 
-  const [url] = await file.getSignedUrl({
-    action: 'read',
-    expires: '03-01-2500'
-  });
+    // const description = req.body.description;
+    const imageFile = req.file;
+    const folderName = "user_images";
 
-  await db.collection('sadakyatra').doc('userDetailsDatabase').collection('users').add({
-    username: username,
-    password:password,
-    contact: contact,
-    email: email,
-    imageUrl: url,
-    createdAt: admin.firestore.FieldValue.serverTimestamp()
-  });
-
-    console.log(url);
-
-    res.status(200).send('Files uploaded successfully');
-    } catch (error) {
-      console.error('Error uploading files:', error);
-      res.status(500).send('Error uploading files');
+    if (!imageFile) {
+      return res.status(400).send('Image file and description are required.');
     }
+    const resultArray = imageFile.originalname.split('.');
+    const imageName = resultArray[0];
+    const modifiedName = replaceSpacesWithHyphens(imageName);
+    const modifiedUserImage = (username+'-'+ modifiedName);
+    const imageName1 = `${folderName}/${modifiedUserImage}`;
+    const imageBlob = bucket.file(imageName1);
+    
+    await imageBlob.save(imageFile.buffer, {
+      contentType: imageFile.mimetype,
+      metadata: { firebaseStorageDownloadTokens: uuidv4() }
+    });
+
+    console.log("\n\nimage file -----------------------------\n\ninside create---user");
+
+    const file = bucket.file(imageName1); 
+    const [url] = await file.getSignedUrl({
+      action: 'read',
+      expires: '03-01-2500'
+    });
+    console.log(url);
+    // Store description and image URL in Firestore
+    await db.collection('sadakyatra').doc('userDetailsDatabase').collection('users').add({
+      uid: userId,
+      username: username,
+      email: email,
+      password: password,
+      contact: contact,
+      imageUrl: url,
+      createdAt: admin.firestore.FieldValue.serverTimestamp()
+    });
+
+    // console.log('Description:', description);
+    console.log(modifiedName);
+
+  res.status(200).send('Files uploaded successfully');
+  } catch (error) {
+    console.error('Error uploading files:', error);
+    res.status(500).send('Error uploading files');
+  }
   // res.render('users-create',{ message: 'SadakYatra' });
 });
 
+// Route to handle user update by email
+app.post('/user-update', upload.single('image'), async (req, res) => {
+  try {
+    const { email, username, password, contact } = req.body;
+    userId = req.body.uid;
+    console.log(userId);
+    if (!email) {
+      return res.status(400).send('Email is required');
+    }
 
+    const userQuerySnapshot = await db.collection('sadakyatra').doc('userDetailsDatabase').collection('users').where('email', '==', email).get();
+
+    if (userQuerySnapshot.empty) {
+      return res.status(404).send('User not found');
+    }
+
+    const userDoc = userQuerySnapshot.docs[0];
+    // const userId = userDoc.uid;
+
+    const userData = {
+      username,
+      password,
+      contact,
+      updatedAt: admin.firestore.FieldValue.serverTimestamp(),
+
+    };
+
+    // Check if an image file is included in the request
+    if (req.file) {
+      const imageFile = req.file;
+      const folderName = 'user_images';
+     
+      const resultArray = imageFile.originalname.split('.');
+    const imageName = resultArray[0];
+    const modifiedName = replaceSpacesWithHyphens(imageName);
+    const modifiedUserImage = (username+'-'+ modifiedName);
+    const imageName1 = `${folderName}/${modifiedUserImage}`;
+    const imageBlob = bucket.file(imageName1);
+    
+    await imageBlob.save(imageFile.buffer, {
+      contentType: imageFile.mimetype,
+      metadata: { firebaseStorageDownloadTokens: uuidv4() }
+    });
+
+    console.log("\n\nimage file -----------------------------\n\ninside create---user");
+
+    const file = bucket.file(imageName1); 
+    const [url] = await file.getSignedUrl({
+      action: 'read',
+      expires: '03-01-2500'
+    });
+    console.log(url);
+    console.log(modifiedName);
+
+    userData.imageUrl = url;
+    console.log(userId);
+    await db.collection('sadakyatra').doc('userDetailsDatabase').collection('users').doc(userId).update(userData);
+    res.status(200).json('success');
+  } else {
+    await db.collection('sadakyatra').doc('userDetailsDatabase').collection('users').doc(userId).update(userData);
+    res.status(200).json('success');
+    }
+  } catch (error) {
+    console.error('Error updating user:', error);
+    res.status(500).json('Error updating user');
+  }
+});
 
 app.listen(port, () => { 
     // getDocument();

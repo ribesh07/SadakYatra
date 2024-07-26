@@ -96,72 +96,175 @@
           <td><img id="firebaseImage" src="<%= item.imageUrl %>" alt="Firebase Image" style="max-width: 10%; height: auto;"></td>
 
           <td>
-            <button onclick="editbutton('<%= item.username %>','<%= item.email %>','<%= item.contact %>')" >Edit</button>
+            <button onclick="editbutton('<%= item.username %>','<%= item.email %>','<%= item.contact %>','<%= item.password %>','<%= item.imageUrl %>','<%= item.uid %>')" >Edit</button>
             <button onclick="deleteBtn('<%= item.uid %>')" >Delete</button>
           </td>
     <%}) %>
     </tbody>
   </table><br>
   <h2>Add User</h2><br>
-  <form id="updateForm" enctype="multipart/form-data" method="post" action="/user-create">
-    <label for="username">Userame: </label>
-    <input type="text" id="username" name="username" required><br><br>
-    <label for="password">Password: </label>
-    <input type="password" id="password" name="password" required><br><br>
-    <label for="contact">Contact: </label>
-    <input type="text" id="contact" name="contact" required><br><br>
-    <label for="email">Email:  </label>
-    <input type="email" id="email" name="email" required><br><br>
-    <label for="image">Image: </label>
-    <input type="file" id="image" name="image" accept="image/*" required><br><br>
-    <button type="submit">Add User</button>
+  <!-- <h2>Upload Image and Description</h2> -->
+  <div id="loadingScreen">Loading...</div>
+  <form id="uploadForm" enctype="multipart/form-data">
+    <div class="form-row">
+      <div class="form-group col-md-6">
+        <label for="username">Username</label>
+        <input type="text" class="form-control" id="username" name="username" placeholder="Username" required>
+      </div>
+      <div class="form-group col-md-6">
+        <label for="password">Password</label>
+        <input type="password" class="form-control" id="password" name="password" placeholder="Password" required>
+      </div>
+    </div>
+    <div class="form-row">
+      <div class="form-group col-md-6">
+        <label for="email">Email</label>
+        <input type="email" class="form-control" id="email" name="email" placeholder="Email" required>
+      </div>
+      <div class="form-group col-md-6">
+        <label for="contact">contact</label>
+        <input type="text" class="form-control" id="contact" name="contact" placeholder="Contact" required>
+      </div>
+    </div>
+    <label for="image">Select image:</label>
+    <input type="file" id="image" name="image" style="margin: 12px;" accept="image/*" required><br><br>
+  
+    <button type="submit" class="btn btn-primary">Add User</button>
+    <!-- <button type="submit" style="margin:10px">Upload</button> -->
   </form>
-  <br>
-<script>
-  document.getElementById('uploadForm').addEventListener('submit', async (event) => {
-    event.preventDefault();
 
-    const loadingScreen = document.getElementById('loadingScreen');
-    loadingScreen.style.display = 'block'; 
+      <div class="modal fade" id="editUserModal" tabindex="-1" role="dialog" aria-labelledby="editUserModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="editUserModalLabel">Edit User</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <form id="editUserForm">
+                <div class="form-group">
+                  <label for="editUsername">Username</label>
+                  <input type="text" class="form-control" id="editUsername" name="editUsername" >
+                </div>
+                <div class="form-group">
+                  <label for="password">Password</label>
+                  <input type="password" class="form-control" id="editPassword" name="editPassword" >
+                </div>
+                <div class="form-group">
+                  <label for="editContact">Contact</label>
+                  <input type="text" class="form-control" id="editContact" name="editContact" >
+                </div>
+                <div class="form-group">
+                  <label for="uid">User Uid</label>
+                  <input type="text" id="uid" name="uid" disabled>
+                </div>
+                <div class="form-group">
+                  <label for="image">Change Image</label>
+                  <input type="file" class="form-control" id="editimage" name="editimage" accept="image/*">
+                </div>
+                <input type="hidden" id="originalEmail" name="originalEmail">
+                <button type="submit" class="btn btn-primary">Save changes</button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
 
-    const formData = new FormData();
-    formData.append('image', document.getElementById('image').files[0]);
-    formData.append('username', document.getElementById('username').value);
-    formData.append('password', document.getElementById('password').value);
-    formData.append('contact', document.getElementById('contact').value);
-    formData.append('email', document.getElementById('email').value);
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 
 
-    try {
-      const response = await fetch('/user-create', {
-        method: 'POST',
-        body: formData
-      });
+  <script>
+    document.getElementById('uploadForm').addEventListener('submit', async (event) => {
+      event.preventDefault();
 
-      if (response.ok) {
-        alert('Files uploaded successfully');
-      } else {
-        alert('Error uploading files....');
+      const loadingScreen = document.getElementById('loadingScreen');
+      loadingScreen.style.display = 'block'; 
+
+      const formData = new FormData();
+      formData.append('image', document.getElementById('image').files[0]);
+      formData.append('username', document.getElementById('username').value);
+      formData.append('contact', document.getElementById('contact').value);
+      formData.append('email', document.getElementById('email').value);
+      formData.append('password', document.getElementById('password').value);
+      
+      console.log(formData);
+      try {
+        const response = await fetch('/user-create', {
+          method: 'POST',
+          body: formData
+        });
+
+        if (response.ok) {
+          alert('Files uploaded successfully');
+          location.reload();
+        } else {
+          alert('Error uploading files....');
+        }
+      } catch (error) {
+        console.error('Error:', error);
+        alert('Error uploading files!!!');
+      }finally {
+        loadingScreen.style.display = 'none'; // Hide loading screen
       }
-    } catch (error) {
-      console.error('Error:', error);
-      alert('Error uploading files!!!');
-    }finally {
-      loadingScreen.style.display = 'none'; // Hide loading screen
-    }
-  });
+    });
   function deleteBtn(uid) {
     alert("Delete Button Clicked");
     console.log("uid: " + uid);
   }
   
-  function editbutton(user,email,contact) {
+  function editbutton(user,email,contact,password,imageUrl ,uid) {
     alert("Edit Button Clicked "+user+email);
     console.log("---------------------------------");
     console.log(user);
     console.log(contact);
     console.log(email);
+    document.getElementById('editUsername').value = user;
+    document.getElementById('originalEmail').value = email;
+    document.getElementById('editContact').value = contact;
+    document.getElementById('editPassword').value = password;
+    document.getElementById('editimage').value = "";
+    document.getElementById('uid').value = uid;
+    $('#editUserModal').modal('show');
   }
+  document.getElementById('editUserForm').addEventListener('submit', async function(event) {
+    event.preventDefault();
+    const loadingScreen = document.getElementById('loadingScreen');
+    loadingScreen.style.display = 'block'; 
+
+    const formData = new FormData();
+    formData.append('email', document.getElementById('originalEmail').value);
+    formData.append('username', document.getElementById('editUsername').value);
+    formData.append('password', document.getElementById('editPassword').value);
+    formData.append('contact', document.getElementById('editContact').value);
+    formData.append('image', document.getElementById('editimage').files[0]);
+    formData.append('uid', document.getElementById('uid').value);
+
+
+    try {
+      const response = await fetch('/user-update', {
+        method: 'POST',
+        body: formData
+      });
+
+      const result = await response.json();
+      if (response.ok) {
+        alert('User updated successfully');
+        location.reload();
+      } else {
+        alert('Error updating user: ' + result);
+      }
+    } catch(e){
+      alert('Error updating user: ' + e);
+    }
+    finally {
+      loadingScreen.style.display = 'none'; // Hide loading screen
+    }
+  });
 
 
 </script>
