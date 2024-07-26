@@ -271,7 +271,7 @@ app.get('/image-url', async (req, res) => {
     });
     console.log(url);
     // Store description and image URL in Firestore
-    await db.collection('sadakyatra').doc('userDetailsDatabase').collection('users').add({
+    await db.collection('sadakyatra').doc('userDetailsDatabase').collection('users').doc(userId).add({
       uid: userId,
       username: username,
       email: email,
@@ -357,6 +357,19 @@ app.post('/user-update', upload.single('image'), async (req, res) => {
   } catch (error) {
     console.error('Error updating user:', error);
     res.status(500).json('Error updating user');
+  }
+});
+
+//delete users
+app.delete('/delete-user/:userId', async (req, res) => {
+  try {
+    const { userId } = req.params;
+    console.log(userId);
+    await db.collection('users').doc(userId).delete();
+    res.json({ success: true, message: 'User deleted successfully' });
+  } catch (error) {
+    console.error('Error deleting user:', error);
+    res.status(500).send('Error deleting user');
   }
 });
 

@@ -60,17 +60,12 @@
           <a class="nav-link" id="contact-tab" data-toggle="tab" href="bus-edit" role="tab" aria-controls="contact" aria-selected="false">Bus-update</a>
         </li>
       </ul>
-      <div class="tab-content" id="myTabContent">
-        <div class="tab-pane fade" id="home" role="tabpanel" aria-labelledby="home-tab">...</div>
-        <div class="tab-pane fade show active" id="profile" role="tabpanel" aria-labelledby="profile-tab"></div>
-        <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">...</div>
-      </div>
 
 <br>
 <body>
   <h1>User Details Table</h1>
-
-  <h2>Items</h2>
+<br>
+  <h3>UserNames</h3>
   <ul>
     <% data.forEach(item => { %>
       <li><%= item.username %></li>
@@ -173,9 +168,9 @@
       </div>
     </div>
 
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <!-- <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script> -->
 
 
   <script>
@@ -212,11 +207,32 @@
         loadingScreen.style.display = 'none'; // Hide loading screen
       }
     });
-  function deleteBtn(uid) {
+  
+  
+    function deleteBtn(uid) {
     alert("Delete Button Clicked");
     console.log("uid: " + uid);
+    if (confirm('Are you sure you want to delete this user?')) {
+      // Call the server to delete the user
+      fetch(`/delete-user/${uid}`, {
+        method: 'DELETE'
+      })
+      .then(response => response.json())
+      .then(result => {
+        if (result.success) {
+          alert('User deleted successfully');
+          location.reload();
+        } else {
+          alert('Error deleting user: ' + result.message);
+        }
+      })
+      .catch(error => {
+        console.error('Error:', error);
+        alert('Error deleting user');
+      });
+    }
   }
-  
+
   function editbutton(user,email,contact,password,imageUrl ,uid) {
     alert("Edit Button Clicked "+user+email);
     console.log("---------------------------------");
