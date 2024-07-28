@@ -51,13 +51,13 @@
           <a class="nav-link" id="profile-tab" data-toggle="tab" href="users-edit" role="tab" aria-controls="profile" aria-selected="false">User-update</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" id="contact-tab" data-toggle="tab" href="agent-edit" role="tab" aria-controls="contact" aria-selected="false">Agent-Update</a>
+          <a class="nav-link" id="contact-tab" data-toggle="tab" href="reservation-edit" role="tab" aria-controls="contact" aria-selected="false">Reservation</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" id="contact-tab" data-toggle="tab" href="news-blog" role="tab" aria-controls="contact" aria-selected="false">News & Blog</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" id="contact-tab" data-toggle="tab" href="bus-edit" role="tab" aria-controls="contact" aria-selected="false">Bus-update</a>
+          <a class="nav-link" id="contact-tab" data-toggle="tab" href="bus-edit" role="tab" aria-controls="contact" aria-selected="false">Bus update</a>
         </li>
       </ul>
 
@@ -72,7 +72,7 @@
     <% }) %>
   </ul>
   <br>
-  <table id="userTable">
+  <table id="userTable" class="table-hover">
     <thead>
       <tr>
         <th>Name</th>
@@ -88,7 +88,7 @@
           <td><%= item.username %></td>
           <td><%= item.contact %></td>
           <td><%= item.email %></td>
-          <td><img id="firebaseImage" src="<%= item.imageUrl %>" alt="Firebase Image" style="max-width: 10%; height: auto;"></td>
+          <td><img id="firebaseImage" src="<%= item.imageUrl %>" alt="Firebase Image" style="max-width: 200px; height: 100px;"></td>
 
           <td>
             <button onclick="editbutton('<%= item.username %>','<%= item.email %>','<%= item.contact %>','<%= item.password %>','<%= item.imageUrl %>','<%= item.uid %>')" >Edit</button>
@@ -97,6 +97,7 @@
     <%}) %>
     </tbody>
   </table><br>
+  
   <h2>Add User</h2><br>
   <!-- <h2>Upload Image and Description</h2> -->
   <div id="loadingScreen">Loading...</div>
@@ -125,19 +126,9 @@
     <input type="file" id="image" name="image" style="margin: 12px;" accept="image/*" required><br><br>
   
     <button type="submit" class="btn btn-primary">Add User</button>
-    <!-- <button type="submit" style="margin:10px">Upload</button> -->
-  </form>
-
-      <div class="modal fade" id="editUserModal" tabindex="-1" role="dialog" aria-labelledby="editUserModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title" id="editUserModalLabel">Edit User</h5>
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-              </button>
-            </div>
-            <div class="modal-body">
+  </form><br><br>
+  <h2>Edit User</h2><br>
+      <div class="modal-body">
               <form id="editUserForm">
                 <div class="form-group">
                   <label for="editUsername">Username</label>
@@ -153,7 +144,7 @@
                 </div>
                 <div class="form-group">
                   <label for="uid">User Uid</label>
-                  <input type="text" id="uid" name="uid" disabled>
+                  <input type="text" id="uuid" name="uuid" disabled>
                 </div>
                 <div class="form-group">
                   <label for="image">Change Image</label>
@@ -167,13 +158,12 @@
         </div>
       </div>
     </div>
-
-    <!-- <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script> -->
-
-
+    <footer id="footer" style="background-color: #f1f1f1; padding: 20px; text-align: center;">
+    </footer>
+  
   <script>
+ 
+
     document.getElementById('uploadForm').addEventListener('submit', async (event) => {
       event.preventDefault();
 
@@ -186,8 +176,7 @@
       formData.append('contact', document.getElementById('contact').value);
       formData.append('email', document.getElementById('email').value);
       formData.append('password', document.getElementById('password').value);
-      
-      console.log(formData);
+
       try {
         const response = await fetch('/user-create', {
           method: 'POST',
@@ -210,11 +199,14 @@
   
   
     function deleteBtn(uid) {
-    alert("Delete Button Clicked");
     console.log("uid: " + uid);
     if (confirm('Are you sure you want to delete this user?')) {
+      const loadingScreen = document.getElementById('loadingScreen');
+      loadingScreen.style.display = 'block'; 
       // Call the server to delete the user
-      fetch(`/delete-user/${uid}`, {
+      
+      try{
+        fetch(`/delete-user/${uid}`, {
         method: 'DELETE'
       })
       .then(response => response.json())
@@ -230,11 +222,14 @@
         console.error('Error:', error);
         alert('Error deleting user');
       });
+      }finally{
+        loadingScreen.style.display = 'none';
+      }
     }
   }
 
   function editbutton(user,email,contact,password,imageUrl ,uid) {
-    alert("Edit Button Clicked "+user+email);
+    alert("Edit Button Clicked Go to Bottom to Update "+user);
     console.log("---------------------------------");
     console.log(user);
     console.log(contact);
@@ -244,8 +239,9 @@
     document.getElementById('editContact').value = contact;
     document.getElementById('editPassword').value = password;
     document.getElementById('editimage').value = "";
-    document.getElementById('uid').value = uid;
-    $('#editUserModal').modal('show');
+    document.getElementById('uuid').value = uid;
+    document.getElementById('footer').scrollIntoView({ behavior: 'smooth' });
+  
   }
   document.getElementById('editUserForm').addEventListener('submit', async function(event) {
     event.preventDefault();
@@ -258,7 +254,7 @@
     formData.append('password', document.getElementById('editPassword').value);
     formData.append('contact', document.getElementById('editContact').value);
     formData.append('image', document.getElementById('editimage').files[0]);
-    formData.append('uid', document.getElementById('uid').value);
+    formData.append('uid', document.getElementById('uuid').value);
 
 
     try {

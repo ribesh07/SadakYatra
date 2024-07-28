@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Reservation Details Table</title>
+</head>
+<head>
+    <title>SadakYatra - Admin Panel</title>
+    <style>
+      table {
+        width: 100%;
+        border-collapse: collapse;
+      }
+      table, th, td {
+        border: 1px solid black;
+      }
+      th, td {
+        padding: 8px;
+        text-align: left;
+      }
+      #loadingScreen {
+        display: none; 
+        position: fixed;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.5);
+        color: #fff;
+        text-align: center;
+        line-height: 100vh;
+        font-size: 24px;
+        z-index: 9999;
+      }
+    </style>
+    <link rel="stylesheet" type="text/css" href="style-edit-user.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+</head>
+<body>
+    <header>
+        <h1><%= message %> - Agent Panel</h1>
+    </header>
+    <ul class="nav nav-tabs" id="myTab" role="tablist">
+        <li class="nav-item">
+          <a class="nav-link active" id="home-tab" data-toggle="tab" href="/" role="tab" aria-controls="home" aria-selected="true">Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" id="profile-tab" data-toggle="tab" href="users-edit" role="tab" aria-controls="profile" aria-selected="false">User-update</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" id="contact-tab" data-toggle="tab" href="reservation-edit" role="tab" aria-controls="contact" aria-selected="false">Reservation</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" id="contact-tab" data-toggle="tab" href="news-blog" role="tab" aria-controls="contact" aria-selected="false">News & Blog</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" id="contact-tab" data-toggle="tab" href="bus-edit" role="tab" aria-controls="contact" aria-selected="false">Bus update</a>
+        </li>
+      </ul>
+      <div class="tab-content" id="myTabContent">
+        <div class="tab-pane fade" id="home" role="tabpanel" aria-labelledby="home-tab">...</div>
+        <div class="tab-pane fade show active" id="profile" role="tabpanel" aria-labelledby="profile-tab"></div>
+        <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">...</div>
+      </div>
+
+      <br>
+<body>
+  <h1>Reservation Details Table</h1>
+  <br>
+  <div id="loadingScreen">Loading...</div>
+  <table class="table table-hover">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Email</th>
+        <th>Contact</th>
+        <th>Vehicle</th>
+        <th>From</th>
+        <th>Destination</th>
+        <th>Date</th>
+        <th>Status</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% for (const route in data) { %>
+        <%  if (data.hasOwnProperty(route)) { %>       
+          <tr>
+            <%  data[route].forEach(reserve => {  %>
+          <td><%= reserve.name %></td>
+          <td><%= reserve.email %></td>
+          <td><%= reserve.contact %></td>
+          <td><%= reserve.type %></td>
+          <td><%= reserve.startLocation %></td>
+          <td><%= reserve.destination %></td>
+          <td><%= reserve.date %></td>
+          <td><%= reserve.status %></td>
+          <td>
+            <button onclick="acceptBtn('<%= reserve.uid %>', '<%= reserve.type %>','<%= reserve.status %>')" >Accept</button>
+          </td>
+          <td>
+            <button onclick="deleteBtn('<%= reserve.uid %>', '<%= reserve.type %>')" >Delete</button>
+          </td>
+          </tr>
+          <% } )  %>
+    <% }} %>   
+    </tbody>
+  </table>
+
+
+  <script>
+    async function acceptBtn(uid,type,status){
+      if (confirm('Are you sure you want to accept ?')) {
+        const loadingScreen = document.getElementById('loadingScreen');
+        loadingScreen.style.display = 'block'; 
+        status='accepted';
+        const formData = new FormData();
+        formData.append('uid', uid);
+        formData.append('location', type);
+        formData.append('status',status)
+        
+        try{
+          const response = await fetch('/reservation-update', {
+            method: 'POST',
+            body: formData
+          });
+          const result = await response.json();
+          if (response.ok) {
+            alert('Data saved successfully');
+            location.reload();
+          } else {
+            alert('Error saving data...');
+          }
+        }
+         finally {
+          loadingScreen.style.display = 'none'; // Hide loading screen
+          location.reload();
+        }
+      }
+   
+
+    }
+
+  async  function deleteBtn(uid,type){
+      console.log("uid: " + uid);
+      if (confirm('Are you sure you want to delete this user?')) {
+        const loadingScreen = document.getElementById('loadingScreen');
+        loadingScreen.style.display = 'block'; 
+
+        const formData = new FormData();
+        formData.append('uid', uid);
+        formData.append('location', type);
+        
+        try{
+          const response = await fetch('/delete-reservation', {
+            method: 'POST',
+            body: formData
+          });
+          const result = await response.json();
+          if (response.ok) {
+            alert('Data saved successfully');
+            location.reload();
+          } else {
+            alert('Error saving data...');
+          }
+        }
+         finally {
+          loadingScreen.style.display = 'none'; // Hide loading screen
+          location.reload();
+        }
+      }
+   
+    }
+  </script>
+</body>
+</html>

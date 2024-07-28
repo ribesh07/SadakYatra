@@ -8,7 +8,36 @@
     <!-- <link rel="stylesheet" type="text/css" href="style.css"> -->
     <link rel="stylesheet" type="text/css" href="style-edit-user.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-</head>
+
+    <style>
+      table {
+        width: 100%;
+        border-collapse: collapse;
+      }
+      table, th, td {
+        border: 1px solid black;
+      }
+      th, td {
+        padding: 8px;
+        text-align: left;
+      }
+      #loadingScreen {
+        display: none; 
+        position: fixed;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.5);
+        color: #fff;
+        text-align: center;
+        line-height: 100vh;
+        font-size: 24px;
+        z-index: 9999;
+      }
+    </style>
+
+  </head>
 <body>
     <header>
         <h1><%= message %> - Bus Panel</h1>
@@ -21,13 +50,13 @@
           <a class="nav-link" id="profile-tab" data-toggle="tab" href="users-edit" role="tab" aria-controls="profile" aria-selected="false">User-update</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" id="contact-tab" data-toggle="tab" href="agent-edit" role="tab" aria-controls="contact" aria-selected="false">Agent-Update</a>
+          <a class="nav-link" id="contact-tab" data-toggle="tab" href="reservation-edit" role="tab" aria-controls="contact" aria-selected="false">Reservation</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" id="contact-tab" data-toggle="tab" href="news-blog" role="tab" aria-controls="contact" aria-selected="false">News & Blog</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" id="contact-tab" data-toggle="tab" href="bus-edit" role="tab" aria-controls="contact" aria-selected="false">Bus-update</a>
+          <a class="nav-link" id="contact-tab" data-toggle="tab" href="bus-edit" role="tab" aria-controls="contact" aria-selected="false">Bus update</a>
         </li>
       </ul>
       <div class="tab-content" id="myTabContent">
@@ -37,52 +66,145 @@
       </div>
 
       <br>
-<body>
   <h1>Bus Details Table</h1>
   <br>
-  <table id="user-table">
+  <table id="userTable" class="table-hover">
     <thead>
       <tr>
-        <th>UserId</th>
-        <th>Username</th>
-        <th>Email</th>
-        <th>Price</th>
+        <th>Route</th>
+        <th>BusName</th>
+        <th>Bus Number</th>
+        <th>Bus Type</th>
         <th>Actions</th>
       </tr>
     </thead>
     <tbody>
-      <tr>
-        <td>bus</td>
-        <td>John Doe</td>
-        <td>johndoe@example.com</td>
-        <td>1000</td>
-        <td>
-          <button class="edit-btn" data-user-id="1" data-first-name="John" data-last-name="Doe" data-email="johndoe@example.com">Edit</button>
-          <button class="delete-btn">Delete</button>
-        </td>
-    </tr>
-    <tr>
-        <td>bus</td>
-        <td>Jane Doe</td>
-        <td>janedoe@example.com</td>
-        <td>1000</td>
-        <td>
-          <button class="edit-btn" data-user-id="2" data-first-name="Jane" data-last-name="Doe" data-email="janedoe@example.com">Edit</button>
-          <button class="delete-btn">Delete</button>
-        </td>
-      </tr>
-      <!-- Add more table rows as needed -->
+      <% for (const route in data) { %>
+        <%  if (data.hasOwnProperty(route)) { %>
+          
+          <tr>
+            <% if(route !=='buses') {%>
+            <%  data[route].forEach(bus => {  %>
+          <td><%= bus.location %></td>
+          <td><%= bus.busName %></td>
+          <td><%= bus.busNumber %></td>
+          <td><%= bus.busType %></td>
+          <td>
+            <button onclick="deleteBtn('<%= bus.uid %>', '<%= bus.location %>')" >Delete</button>
+          </td>
+          </tr>
+          <% } )}  %>
+    <% }} %>
     </tbody>
   </table>
   
-  <form id="editForm" style="display: none;" action="/bus-edit" method="post">
-    <input type="hidden" id="userId" name="userId">
-    <input type="text" id="firstName" name="firstName" placeholder="First Name">
-    <input type="text" id="lastName" name="lastName" placeholder="Last Name">
-    <input type="email" id="email" name="email" placeholder="Email">
-    <button type="submit">Save</button>
-  </form>
+  <h2 style="margin: 20px;">Add Bus</h2><br>
+  <div id="loadingScreen">Loading...</div>
 
-  <script src="users-details.js"></script>
+    <form id="uploadForm">
+      <div class="form-row">
+        <div class="form-group col-md-6">
+          <label for="location">Select an option:</label>
+          <select id="location" name="location">
+            <option value="POK-KTM">POK-KTM</option>
+            <option value="POK-JKR">POK-JKR</option>
+            <option value="KTM-POK">KTM-POK</option>
+            <option value="KTM-JKR">KTM-JKR</option>
+            <option value="JKR-POK">JKR-POK</option>
+            <option value="JKR-KTM">JKR-KTM</option>
+          </select>
+        </div>
+        <div class="form-group col-md-6">
+          <label for="busName">Bus Name</label>
+          <input type="text" id="busName" name="busName" placeholder="Bus Name" required>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group col-md-6">
+          <label for="busNumber">Bus Number</label>
+          <input type="text" id="busNumber" name="busNumber" placeholder="Bus Number" required>
+        </div>
+        <div class="form-group col-md-6">
+          <label for="price">Price</label>
+          <input type="text" id="price" name="price" placeholder="Price" required>
+        </div>
+      </div>
+      <div class="form-group col-md-6">
+        <label for="busType">Select Bus Type:</label>
+        <select id="busType" name="busType">
+          <option value="AC">AC</option>
+          <option value="DELUXE">DELUXE</option>
+        </select>
+      </div><br><br>
+      <button type="submit" class="btn btn-primary">Add Bus</button>
+    </form><br><br>
+
+  <script>
+    document.getElementById('uploadForm').addEventListener('submit', async (event) => {
+      event.preventDefault();
+
+      const loadingScreen = document.getElementById('loadingScreen');
+      loadingScreen.style.display = 'block'; 
+
+      const formData = new FormData();
+      formData.append('busName', document.getElementById('busName').value);
+      formData.append('busNumber', document.getElementById('busNumber').value);
+      formData.append('location', document.getElementById('location').value);
+      formData.append('price', document.getElementById('price').value);
+      formData.append('busType', document.getElementById('busType').value);
+
+      console.log(document.getElementById('location').value);
+      try {
+        const response = await fetch('/bus-create', {
+          method: 'POST',
+          body: formData
+        });
+        const result = await response.json();
+        if (response.ok) {
+          alert('Data saved successfully');
+          location.reload();
+        } else {
+          alert('Error saving data...');
+        }
+      } catch (error) {
+        console.error('Error:', error);
+        alert('Error saving data!!!');
+      } finally {
+        loadingScreen.style.display = 'none'; // Hide loading screen
+      }
+    });
+  
+  
+ async function deleteBtn(uid,location){
+      console.log("uid: " + uid);
+      if (confirm('Are you sure you want to delete this user?')) {
+        const loadingScreen = document.getElementById('loadingScreen');
+        loadingScreen.style.display = 'block'; 
+
+        const formData = new FormData();
+        formData.append('uid', uid);
+        formData.append('location', location);
+        
+        try{
+          const response = await fetch('/delete-bus', {
+            method: 'POST',
+            body: formData
+          });
+          const result = await response.json();
+          if (response.ok) {
+            alert('Data saved successfully');
+            location.reload();
+          } else {
+            alert('Error saving data...');
+          }
+        }
+         finally {
+          loadingScreen.style.display = 'none'; // Hide loading screen
+          location.reload();
+        }
+      }
+    }
+  
+  </script>
 </body>
 </html>
