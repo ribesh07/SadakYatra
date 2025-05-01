@@ -18,7 +18,7 @@ import 'package:sadakyatra/payments/payment_options.dart';
 // import 'package:sadakyatra/payments/test_khalti.dart';
 import 'package:sadakyatra/setups.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:sadakyatra/test2/extapp.dart';
+// import 'package:sadakyatra/test2/extapp.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();

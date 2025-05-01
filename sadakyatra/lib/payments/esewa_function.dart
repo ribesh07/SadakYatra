@@ -61,7 +61,7 @@ class Esewa {
             message: 'Canceled to payment proceed.',
             bgColor: Colors.pink,
           );
-           Navigator.pushNamed(context, AppRoute.homeRoute);
+          Navigator.pushNamed(context, AppRoute.homeRoute);
         },
       );
     } catch (e) {
