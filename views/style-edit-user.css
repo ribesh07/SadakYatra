@@ -1,0 +1,79 @@
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+header {
+    background-color: #333;
+    color: #fff;
+    padding: 10px;
+}
+/* .nav-tabs .nav-item.show .nav-link, .nav-tabs .nav-link.active {
+    color: #495057;
+    background-color: #fff;
+    border-color: #dee2e6 #dee2e6 #fff;
+} */
+.nav-link {
+    color: #495057;
+    text-decoration: none;
+    background-color: transparent;
+}
+th, td {
+  padding: 8px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
+
+tr:hover {
+  background-color: #f5f5f5;
+}
+
+#editForm {
+  margin-top: 20px;
+}
+
+#editForm input[type="text"], #editForm input[type="email"] {
+  margin-right: 8%;
+}
+
+#editForm button {
+  background-color: #4CAF50;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  cursor: pointer;
+}
+#user-table {
+    border-collapse: collapse;
+    width: 100%;
+  }
+  
+  #user-table th, #user-table td {
+    border: 1px solid #ddd;
+    padding: 10px;
+    text-align: left;
+  }
+  
+  #user-table th {
+    background-color: #f0f0f0;
+  }
+  
+  .edit-btn, .delete-btn {
+    background-color: #4CAF50;
+    color: #fff;
+    padding: 5px 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .edit-btn:hover, .delete-btn:hover {
+    background-color: #3e8e41;
+  }
+  
+  .delete-btn {
+    background-color: #e74c3c;
+  }
+  
+  .delete-btn:hover {
+    background-color: #c0392b;
+  }

@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>News & Updates Table</title>
+</head>
+<head>
+    <title>SadakYatra - Admin Panel</title>
+    <!-- <link rel="stylesheet" type="text/css" href="style.css"> -->
+    <link rel="stylesheet" type="text/css" href="style-edit-user.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+    <style>
+      table {
+        width: 100%;
+        border-collapse: collapse;
+      }
+      table, th, td {
+        border: 1px solid black;
+      }
+      th, td {
+        padding: 8px;
+        text-align: left;
+      }
+      #loadingScreen {
+        display: none; 
+        position: fixed;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.5);
+        color: #fff;
+        text-align: center;
+        line-height: 100vh;
+        font-size: 24px;
+        z-index: 9999;
+      }
+    </style>
+
+  </head>
+<body>
+    <header>
+        <h1><%= message %> - News & Updates Panel</h1>
+    </header>
+    <ul class="nav nav-tabs" id="myTab" role="tablist">
+        <li class="nav-item">
+          <a class="nav-link active" id="home-tab" data-toggle="tab" href="/" role="tab" aria-controls="home" aria-selected="true">Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" id="profile-tab" data-toggle="tab" href="users-edit" role="tab" aria-controls="profile" aria-selected="false">User-update</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" id="contact-tab" data-toggle="tab" href="reservation-edit" role="tab" aria-controls="contact" aria-selected="false">Reservation</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" id="contact-tab" data-toggle="tab" href="news-blog" role="tab" aria-controls="contact" aria-selected="false">News & Blog</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" id="contact-tab" data-toggle="tab" href="bus-edit" role="tab" aria-controls="contact" aria-selected="false">Bus update</a>
+        </li>
+      </ul>
+
+      <br>
+    <h1>News & Update Details Table</h1><br><br>
+    <div id="loadingScreen">Loading...</div>
+  <table id="userTable" class="table-hover">
+      <thead>
+          <tr>
+            <th>Packages</th>
+            <th>Name</th>
+            <th>Price</th>
+            <th>Image</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% for (const package in data) { %>
+            <%  if (data.hasOwnProperty(package)) { %>
+              
+              <tr>
+              <td><%= package %></td>
+              <%  data[package].forEach( pkg => {  %>
+              <td><%= pkg.name %></td>
+              <td><%= pkg.price %></td>
+              <td><img id="firebaseImage" src="<%= pkg.imageUrl %>" alt="Firebase Image" style="max-width: 200px; height: 100px;"></td>
+      
+              <td>
+                <button onclick="deleteBtn('<%= pkg.id %>', '<%= package %>')" >Delete</button>
+              </td>
+            </tr>
+            <% } )  %>
+        <% }} %>
+  </tbody>
+</table><br>
+<h2 style="margin: 20px;">Add Packages</h2><br>
+  <div id="loadingScreen">Loading...</div>
+
+  <form id="uploadForm" enctype="multipart/form-data">
+    <div class="form-row">
+      <div class="form-group col-md-6">
+        <label for="package">Package location</label>
+        <input type="text" class="form-control" id="package" name="package" placeholder="Package" required>
+      </div>
+      <div class="form-group col-md-6">
+        <label for="name">Description</label>
+        <input type="text" class="form-control" id="name" name="name" placeholder="name" required>
+      </div>
+    </div>
+    <div class="form-row">
+      <div class="form-group col-md-6">
+        <label for="price">Price</label>
+        <input type="text" class="form-control" id="price" name="price" placeholder="Price" required>
+      </div>
+      <div class="form-group col-md-6">
+        <label for="image">Select image:</label>
+        <input type="file" id="image" name="image" style="margin-top: 34px;" accept="image/*" required><br><br>
+      </div>
+    </div>
+  
+    <button type="submit" class="btn btn-primary">Add Package</button>
+  </form>
+
+</body>
+<script>
+
+document.getElementById('uploadForm').addEventListener('submit', async (event) => {
+      event.preventDefault();
+
+      const loadingScreen = document.getElementById('loadingScreen');
+      loadingScreen.style.display = 'block'; 
+
+      const formData = new FormData();
+      formData.append('image', document.getElementById('image').files[0]);
+      formData.append('name', document.getElementById('name').value);
+      formData.append('package', document.getElementById('package').value);
+      formData.append('price', document.getElementById('price').value);
+
+      try {
+        const response = await fetch('/package-create', {
+          method: 'POST',
+          body: formData
+        });
+
+        if (response.ok) {
+          alert('Files uploaded successfully');
+          location.reload();
+        } else {
+          alert('Error uploading files....');
+        }
+      } catch (error) {
+        console.error('Error:', error);
+        alert('Error uploading files!!!');
+      }finally {
+        location.reload();
+        loadingScreen.style.display = 'none'; // Hide loading screen
+      }
+    });
+  
+
+ async function deleteBtn(uid,package){
+    console.log(uid);
+    console.log(package);
+    if (confirm('Are you sure you want to delete this user?')) {
+        const loadingScreen = document.getElementById('loadingScreen');
+        loadingScreen.style.display = 'block'; 
+
+        const formData = new FormData();
+        formData.append('uid', uid);
+        formData.append('package', package);
+        
+        try{
+          const response = await fetch('/delete-package', {
+            method: 'POST',
+            body: formData
+          });
+          const result = await response.json();
+          if (response.ok) {
+            alert('Data saved successfully');
+            location.reload();
+          } else {
+            alert('Error saving data...');
+          }
+        }
+         finally {
+          loadingScreen.style.display = 'none'; // Hide loading screen
+          location.reload();
+        }
+      }
+   
+  }
+</script>
+</html>
