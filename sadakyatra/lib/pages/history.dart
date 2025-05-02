@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:sadakyatra/pages/tickets/cancelled_tickets.dart';
 import 'package:sadakyatra/pages/tickets/completed_tickets.dart';
 import 'package:sadakyatra/pages/tickets/upcoming_tickets.dart';
-import 'package:sadakyatra/setups.dart';
+// import 'package:sadakyatra/setups.dart';
 
 class MyTabbedPage extends StatefulWidget {
   const MyTabbedPage({super.key});

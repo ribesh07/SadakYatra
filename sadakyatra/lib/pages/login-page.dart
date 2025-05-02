@@ -1,15 +1,17 @@
-// ignore_for_file: camel_case_types, prefer_const_constructors
+// ignore_for_file: camel_case_types, prefer_const_constructors, unused_local_variable
 
-// import 'package:flutter/cupertino.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter/widgets.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
+
+// import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'package:sadakyatra/Booking/input_field.dart';
 import 'package:sadakyatra/Booking/provide.dart';
 import 'package:sadakyatra/pages/ForgotPassword.dart';
+import 'package:sadakyatra/pages/botton_nav_bar.dart';
+import 'package:sadakyatra/pages/setups/snackbar_message.dart';
 import 'package:sadakyatra/pages/signup-page.dart';
 import 'package:sadakyatra/setups.dart';
 
@@ -23,9 +25,44 @@ class Login_page extends StatefulWidget {
 class _Login_pageState extends State<Login_page> {
   bool passObsecure = true;
   final provider = settingProvider();
-  final phonecontroller = TextEditingController();
+  final emailcontroller = TextEditingController();
   final passcontroller = TextEditingController();
   final formkey = GlobalKey<FormState>();
+
+  login(String email, String password) async {
+    UserCredential? usercredential;
+    try {
+      usercredential = await FirebaseAuth.instance
+          .signInWithEmailAndPassword(email: email, password: password)
+          .then((value) => Navigator.pushReplacement(
+              context, MaterialPageRoute(builder: (context) => BottomBar())));
+      _storePassword();
+    } on FirebaseAuthException catch (e) {
+      showSnackBarMsg(
+          // ignore: use_build_context_synchronously
+          context: context,
+          message: e.toString(),
+          bgColor: Colors.red);
+    }
+  }
+
+  Future<void> _storePassword() async {
+    final currentUser = FirebaseAuth.instance.currentUser;
+    final uid = currentUser?.uid;
+
+    try {
+      // Update Firestore document
+      await FirebaseFirestore.instance
+          .collection('sadakyatra')
+          .doc('userDetailsDatabase')
+          .collection('users')
+          .doc(uid)
+          .update({
+        'password': passcontroller.text,
+      });
+    } catch (e) {}
+  }
+
   @override
   void initState() {
     super.initState();
@@ -33,7 +70,7 @@ class _Login_pageState extends State<Login_page> {
 
   @override
   void dispose() {
-    phonecontroller.dispose();
+    emailcontroller.dispose();
     passcontroller.dispose();
     // cpasscontroller.dispose();
     super.dispose();
@@ -48,7 +85,7 @@ class _Login_pageState extends State<Login_page> {
         ),
         backgroundColor: appbarcolor,
       ),
-      body: Container(
+      body: SizedBox(
         width: MediaQuery.of(context).size.width,
         height: double.infinity,
         child: Form(
@@ -89,15 +126,15 @@ class _Login_pageState extends State<Login_page> {
                     padding: const EdgeInsets.only(
                         top: 8, bottom: 10, left: 18, right: 18),
                     child: InputField(
-                      label: "+977",
-                      icon: Icons.phone,
-                      keypad: TextInputType.number,
-                      inputFormat: [
-                        FilteringTextInputFormatter.digitsOnly,
-                        LengthLimitingTextInputFormatter(10),
-                      ],
-                      controller: phonecontroller,
-                      validator: (value) => provider.phoneValidator(value),
+                      label: "Email",
+                      icon: Icons.mail,
+                      keypad: TextInputType.text,
+                      // inputFormat: [
+                      //   FilteringTextInputFormatter.digitsOnly,
+                      //   LengthLimitingTextInputFormatter(10),
+                      // ],
+                      controller: emailcontroller,
+                      validator: (value) => provider.emailValidator(value),
                     ),
                   ),
                   // const SizedBox(height: 20,),
@@ -164,8 +201,10 @@ class _Login_pageState extends State<Login_page> {
                     child: ElevatedButton(
                       onPressed: () {
                         if (formkey.currentState!.validate()) {
+                          login(emailcontroller.text.toString(),
+                              passcontroller.text.toString());
                         } else {}
-                        debugPrint(phonecontroller.text);
+                        debugPrint(emailcontroller.text);
                         debugPrint(passcontroller.text);
                       },
                       child: const Text(

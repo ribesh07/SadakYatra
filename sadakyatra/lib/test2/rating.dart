@@ -6,6 +6,8 @@ import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 void main() => runApp(MyApp());
 
 class MyApp extends StatefulWidget {
+  const MyApp({super.key});
+
   @override
   _MyAppState createState() => _MyAppState();
 }
@@ -320,6 +322,8 @@ class _MyAppState extends State<MyApp> {
 }
 
 class IconAlert extends StatelessWidget {
+  const IconAlert({super.key});
+
   @override
   Widget build(BuildContext context) {
     return AlertDialog(

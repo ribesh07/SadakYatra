@@ -2,7 +2,6 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter/widgets.dart';
 // import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:sadakyatra/Booking/input_field.dart';
 import 'package:sadakyatra/Booking/provide.dart';
@@ -10,7 +9,33 @@ import 'package:sadakyatra/payments/payment_options.dart';
 import 'package:sadakyatra/setups.dart';
 
 class bookSeat extends StatefulWidget {
-  const bookSeat({super.key});
+  final String busName;
+  final String shift;
+  final String depMin;
+  final String depHr;
+  final String arrMin;
+  final String arrHr;
+  final String price;
+  final String date;
+  final List selectedSeats;
+  final String uniqueBusID;
+  final String userID;
+  final String location;
+  const bookSeat({
+    super.key,
+    required this.busName,
+    required this.shift,
+    required this.depMin,
+    required this.depHr,
+    required this.arrMin,
+    required this.arrHr,
+    required this.price,
+    required this.date,
+    required this.selectedSeats,
+    required this.uniqueBusID,
+    required this.userID,
+    required this.location,
+  });
 
   @override
   State<bookSeat> createState() => _bookSeatState();
@@ -24,7 +49,8 @@ class _bookSeatState extends State<bookSeat> {
   final phonecontroller = TextEditingController();
   final formkey = GlobalKey<FormState>();
   final mailcontroller = TextEditingController();
-  String trippin = 'titu mama';
+  final numbercontroller = TextEditingController();
+
   @override
   void initState() {
     super.initState();
@@ -41,6 +67,11 @@ class _bookSeatState extends State<bookSeat> {
 
   @override
   Widget build(BuildContext context) {
+    // int totalPrice = int.parse(${widget.price})
+    String pickup = "";
+
+    int priceD = int.parse(widget.price) * widget.selectedSeats.length;
+    print(priceD);
     return PopScope(
       canPop: false,
       child: Scaffold(
@@ -78,16 +109,63 @@ class _bookSeatState extends State<bookSeat> {
                     Card(
                       elevation: 8,
                       child: Container(
-                        height: 100,
+                        height: 110,
                         width: MediaQuery.of(context).size.width,
                         child: Column(
                           children: [
-                            Text(
-                              'Trip Details',
-                              style: textStyle,
-                              textAlign: TextAlign.center,
+                            Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Column(
+                                children: [
+                                  Text(
+                                    widget.busName,
+                                    style: textStyle,
+                                    textAlign: TextAlign.center,
+                                  ),
+                                  // Padding(
+                                  //   padding: const EdgeInsets.all(8.0),
+                                  //   child: Row(
+                                  //     mainAxisAlignment:
+                                  //         MainAxisAlignment.spaceEvenly,
+                                  //     children: [
+                                  Text(
+                                    "Shift: ${widget.shift}",
+                                    style: textStyle,
+                                    textAlign: TextAlign.center,
+                                  ),
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Text(
+                                        "Time: ${widget.depHr}",
+                                        style: textStyle,
+                                      ),
+                                      Text(" : "),
+                                      Text(
+                                        widget.depHr,
+                                        style: textStyle,
+                                      ),
+                                      Text(
+                                        " --- ",
+                                        style: textStyle,
+                                      ),
+                                      Text(
+                                        widget.arrHr,
+                                        style: textStyle,
+                                      ),
+                                      Text(" : "),
+                                      Text(
+                                        widget.arrMin,
+                                        style: textStyle,
+                                      )
+                                    ],
+                                  ),
+                                  //     ],
+                                  //   ),
+                                  // ),
+                                ],
+                              ),
                             ),
-                            Text('${trippin}'),
                           ],
                         ),
                       ),
@@ -106,7 +184,7 @@ class _bookSeatState extends State<bookSeat> {
                             controller: namecontroller,
                             inputFormat: [
                               FilteringTextInputFormatter.allow(
-                                RegExp(r'[a-zA-z]'),
+                                RegExp(r'[a-zA-z ]'),
                               ),
                               LengthLimitingTextInputFormatter(50),
                             ],
@@ -190,7 +268,6 @@ class _bookSeatState extends State<bookSeat> {
                               onChanged: (value) {
                                 setState(() {
                                   _value = value as int;
-                                  print(_value);
                                 });
                               },
                               items: [
@@ -233,8 +310,15 @@ class _bookSeatState extends State<bookSeat> {
                               height: 10,
                             ),
                             Text(
-                              "Amount : Rs.${toPay}",
+                              "Amount : ${int.parse(widget.price) * widget.selectedSeats.length}",
                               style: TextStyle(fontSize: 18),
+                            ),
+                            SizedBox(
+                              height: 5,
+                            ),
+                            Text(
+                              "Total Seat: ${widget.selectedSeats.length}",
+                              style: TextStyle(fontSize: 12),
                             ),
                           ],
                         ),
@@ -256,9 +340,22 @@ class _bookSeatState extends State<bookSeat> {
                               Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                      builder: (context) => PaymentOptions()));
-                            } else {}
-                            print(namecontroller);
+                                      builder: (context) => PaymentOptions(
+                                            userName: namecontroller.text,
+                                            busName: widget.busName,
+                                            deptHr: widget.depHr,
+                                            deptMin: widget.depMin,
+                                            contact: phonecontroller.text,
+                                            date: widget.date,
+                                            price: priceD.toString(),
+                                            // seatNumber:widget
+                                            selectedList: widget.selectedSeats,
+                                            email: mailcontroller.text,
+                                            uniqueBusID: widget.uniqueBusID,
+                                            userID: widget.userID,
+                                            location: widget.location,
+                                          )));
+                            }
                           },
                           child: Text(
                             "Pay Now",

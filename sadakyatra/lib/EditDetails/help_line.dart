@@ -1,6 +1,7 @@
 // ignore_for_file: prefer_const_constructors, sized_box_for_whitespace
 
 import 'package:flutter/material.dart';
+import 'package:sadakyatra/pages/chat-screen.dart';
 import 'package:sadakyatra/setups.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -63,7 +64,7 @@ class _HelplineState extends State<Helpline> {
                             Row(
                               children: [
                                 Text(
-                                  '${sushantNtc}',
+                                  '$sushantNtc',
                                   style: TextStyle(
                                       fontSize: 20, color: Colors.blue),
                                 ),
@@ -93,7 +94,7 @@ class _HelplineState extends State<Helpline> {
                             Row(
                               children: [
                                 Text(
-                                  '${sushantNcell}',
+                                  '$sushantNcell',
                                   style: TextStyle(
                                       fontSize: 20, color: Colors.blue),
                                 ),
@@ -151,7 +152,7 @@ class _HelplineState extends State<Helpline> {
                                 Container(
                                   width: 345,
                                   child: Text(
-                                    '${mail}',
+                                    mail,
                                     style: TextStyle(fontSize: 20),
                                   ),
                                 ),
@@ -181,7 +182,10 @@ class _HelplineState extends State<Helpline> {
       ),
       floatingActionButton: FloatingActionButton(
         backgroundColor: appbarcolor,
-        onPressed: () {},
+        onPressed: () {
+          Navigator.push(
+              context, MaterialPageRoute(builder: (context) => ChatScreen()));
+        },
         child: Icon(
           Icons.chat,
         ),

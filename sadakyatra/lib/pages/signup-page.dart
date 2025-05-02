@@ -1,11 +1,15 @@
 // ignore_for_file: camel_case_types, prefer_const_constructors, sized_box_for_whitespace, prefer_const_literals_to_create_immutables
 
 import 'dart:io';
-// import 'dart:js';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:sadakyatra/Booking/input_field.dart';
 import 'package:sadakyatra/Booking/provide.dart';
+import 'package:sadakyatra/pages/botton_nav_bar.dart';
+import 'package:sadakyatra/services/database.dart';
 import 'package:sadakyatra/setups.dart';
 
 class Signup_page extends StatefulWidget {
@@ -26,27 +30,65 @@ class _Signup_pageState extends State<Signup_page> {
   final usernamecontroller = TextEditingController();
   final contactnumcontroller = TextEditingController();
   final formkey = GlobalKey<FormState>();
-  File? image;
+
+  final ImagePicker _picker = ImagePicker();
+  XFile? _image;
+
   void selectImage() async {
-    image = await PickImageFromGallery(context);
-    setState(() {});
+    final pickedImage = await _picker.pickImage(source: ImageSource.gallery);
+    setState(() {
+      _image = pickedImage;
+    });
   }
 
-  void storeUserData() async {
-    String email = emailcontroller.text.trim();
-    String password = passcontroller.text.trim();
-    String cpassword = cpasscontroller.text.trim();
-    // String username = usernamecontroller.text.trim();
-    // String contactnum = contactnumcontroller.text.trim();
+  Future<String?> _uploadImage(XFile image) async {
+    try {
+      final storageRef =
+          FirebaseStorage.instance.ref().child('user_images').child(image.name);
+      final uploadTask = storageRef.putFile(File(image.path));
+      final snapshot = await uploadTask;
+      final downloadUrl = await snapshot.ref.getDownloadURL();
+      return downloadUrl;
+    } catch (e) {
+      print('Error uploading image: $e');
+      return null;
+    }
+  }
 
-    if (image != null) {
-      if (password == cpassword) {
-        if (email.isNotEmpty && password.isNotEmpty) {
-          // ref
-          //     .read(authControllerProvider)
-          //     .saveUserDataToFirebase(context, name, email, password, image);
-        }
-      }
+  signUp(String email, String password) async {
+    if (_image == null) {
+      print('No image selected');
+      return;
+    }
+
+    final imageUrl = await _uploadImage(_image!);
+
+    if (imageUrl == null) {
+      print('Failed to upload image');
+      return;
+    }
+
+    UserCredential? usercredential;
+    try {
+      usercredential = await FirebaseAuth.instance
+          .createUserWithEmailAndPassword(email: email, password: password);
+
+      String? uid = usercredential.user?.uid;
+
+      Map<String, dynamic> userInfoMap = {
+        'username': usernamecontroller.text.toString(),
+        'email': emailcontroller.text.toString(),
+        'contact': contactnumcontroller.text.toString(),
+        'uid': uid,
+        'password': passcontroller.text.toString(),
+        'imageUrl': imageUrl,
+      };
+      await DatabaseMethod().addUserDetails(userInfoMap, uid!).then((value) {
+        Navigator.push(
+            context, MaterialPageRoute(builder: (context) => BottomBar()));
+      });
+    } on FirebaseAuthException catch (e) {
+      print('Error: $e');
     }
   }
 
@@ -93,14 +135,10 @@ class _Signup_pageState extends State<Signup_page> {
                   ),
                   Stack(
                     children: [
-                      image != null
+                      _image != null
                           ? CircleAvatar(
-                              backgroundImage: FileImage(image!),
+                              backgroundImage: FileImage(File(_image!.path)),
                               radius: 46,
-                              // child: Icon(
-                              //   Icons.person,
-                              //   size: 50,
-                              // )
                             )
                           : CircleAvatar(
                               backgroundColor: appbarcolor,
@@ -113,14 +151,12 @@ class _Signup_pageState extends State<Signup_page> {
                                 ),
                               ),
                             ),
-                      if (image == null)
+                      if (_image == null)
                         Positioned(
                           bottom: -6,
                           right: -10,
                           child: IconButton(
-                            onPressed: () {
-                              selectImage();
-                            },
+                            onPressed: selectImage,
                             icon: const Icon(
                               Icons.add_a_photo_outlined,
                               size: 30,
@@ -132,7 +168,7 @@ class _Signup_pageState extends State<Signup_page> {
                   const SizedBox(
                     height: 15,
                   ),
-                  image == null
+                  _image == null
                       ? const Text(
                           'Add Image',
                           style: textStyle,
@@ -156,7 +192,7 @@ class _Signup_pageState extends State<Signup_page> {
                     controller: usernamecontroller,
                     inputFormat: [
                       FilteringTextInputFormatter.allow(
-                        RegExp(r'[a-zA-z]'),
+                        RegExp(r'[a-zA-Z ]'),
                       ),
                       LengthLimitingTextInputFormatter(50),
                     ],
@@ -174,7 +210,6 @@ class _Signup_pageState extends State<Signup_page> {
                     ],
                     validator: (value) => provider.phoneValidator(value),
                   ),
-                  // const SizedBox(height: 20,),
                   InputField(
                     label: 'Password',
                     icon: Icons.lock,
@@ -227,19 +262,18 @@ class _Signup_pageState extends State<Signup_page> {
                                   height: 200,
                                   width: 200,
                                   child: Column(
-                                    // mainAxisAlignment: MainAxisAlignment.start,
                                     crossAxisAlignment:
                                         CrossAxisAlignment.start,
                                     children: [
-                                      Text("•Minimun 8 character"),
-                                      Text("Maximum 8 Character"),
+                                      Text("•Minimum 8 characters"),
+                                      Text("•Maximum 16 characters"),
                                       Text(
-                                          "•At Least one uppercase English letter [A-Z]"),
+                                          "•At least one uppercase English letter [A-Z]"),
                                       Text(
-                                          "•At Least one uppercase English letter [a-z]"),
+                                          "•At least one lowercase English letter [a-z]"),
                                       Text("•At least one digit [0-9]"),
                                       Text(
-                                          "•At least one Special Character [@ # & ? % ^ .]"),
+                                          "•At least one special character [@ # & ? % ^ .]"),
                                     ],
                                   ),
                                 ),
@@ -254,8 +288,9 @@ class _Signup_pageState extends State<Signup_page> {
                     child: ElevatedButton(
                       onPressed: () {
                         if (formkey.currentState!.validate()) {
+                          signUp(emailcontroller.text.toString(),
+                              passcontroller.text.toString());
                         } else {}
-                        // storeUserData;
                       },
                       child: Text(
                         'Submit',

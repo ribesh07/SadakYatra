@@ -14,7 +14,7 @@ class _TextformtestState extends State<Textformtest> {
       appBar: AppBar(
         title: Text('test'),
       ),
-      body: Container(
+      body: SizedBox(
         width: MediaQuery.of(context).size.width,
         height: double.infinity,
         child: TextFormField(
@@ -22,10 +22,10 @@ class _TextformtestState extends State<Textformtest> {
           onTap: () {
             items:
             [
-              DropdownMenuItem(child: Text("To"), value: -1),
-              DropdownMenuItem(child: Text("Tinkune"), value: 1),
-              DropdownMenuItem(child: Text("Gaushala"), value: 2),
-              DropdownMenuItem(child: Text("Kalanki"), value: 3),
+              DropdownMenuItem(value: -1, child: Text("To")),
+              DropdownMenuItem(value: 1, child: Text("Tinkune")),
+              DropdownMenuItem(value: 2, child: Text("Gaushala")),
+              DropdownMenuItem(value: 3, child: Text("Kalanki")),
             ];
           },
         ),

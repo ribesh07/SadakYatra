@@ -2,8 +2,6 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
-import 'package:pinput/pinput.dart';
-import 'package:smart_auth/smart_auth.dart';
 
 class oottpp extends StatefulWidget {
   const oottpp({super.key});
@@ -22,7 +20,7 @@ class _oottppState extends State<oottpp> {
         title: Text('otp'),
         centerTitle: true,
       ),
-      body: Container(
+      body: SizedBox(
         width: MediaQuery.of(context).size.width,
         height: double.infinity,
         child: Container(

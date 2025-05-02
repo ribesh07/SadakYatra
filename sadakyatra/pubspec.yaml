@@ -64,6 +64,10 @@ dependencies:
   pinput: ^5.0.0
   smart_auth: ^2.0.0
   pin_code_fields: ^8.0.1
+  win32: ^5.5.5
+  pdf: ^3.11.3
+  printing: ^5.13.1
+  path_provider: ^2.1.5
   # khalti_checkout_flutter: ^1.0.0-dev.4
 
 dev_dependencies:

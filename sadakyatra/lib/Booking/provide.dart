@@ -2,7 +2,7 @@
 
 import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
+// import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class settingProvider extends ChangeNotifier {
   static final RegExp passValid = RegExp(
@@ -41,6 +41,18 @@ class settingProvider extends ChangeNotifier {
       return "phone number is required";
     } else if (value.length < 10) {
       return "at least 10 digits are required";
+    } else {
+      return null;
+    }
+  }
+
+  passengerValidator(String value) {
+    if (value.isEmpty) {
+      return "Total Number is required";
+    } else if (int.parse(value) < 1) {
+      return "at least 1 persons are required";
+    } else if (int.parse(value) > 10) {
+      return "Max 10 persons are available";
     } else {
       return null;
     }
