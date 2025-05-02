@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Users</title>
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+  <h1>All Users</h1>
+
+  <a href="/users/create">Create New User</a>
+
+  <table border="1" cellpadding="10">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Email</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% if (users.length === 0) { %>
+        <tr>
+          <td colspan="4">No users found.</td>
+        </tr>
+      <% } else { %>
+        <% users.forEach(user => { %>
+          <tr>
+            <td><%= user.id %></td>
+            <td><%= user.name %></td>
+            <td><%= user.email %></td>
+            <td>
+              <a href="/users/edit/<%= user.id %>">Edit</a>
+
+              <form action="/users/delete/<%= user.id %>" method="POST" style="display:inline;">
+                <button type="submit" onclick="return confirm('Delete this user?')">Delete</button>
+              </form>
+            </td>
+          </tr>
+        <% }) %>
+      <% } %>
+    </tbody>
+  </table>
+</body>
+</html>
