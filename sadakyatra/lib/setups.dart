@@ -51,7 +51,7 @@ Future<File?> PickImageFromGallery(BuildContext contex) async {
   return image;
 }
 
-Card CustomTextButton(String buttonName, Onpressed()) {
+Card CustomTextButton(String buttonName, Function() Onpressed) {
   return Card(
     color: Color.fromARGB(255, 154, 199, 236),
     child: TextButton(

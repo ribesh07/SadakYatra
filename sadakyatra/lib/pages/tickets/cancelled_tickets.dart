@@ -32,7 +32,7 @@ class _CancelledTicketsState extends State<CancelledTickets> {
         itemBuilder: (BuildContext context, int index) => Padding(
           padding: const EdgeInsets.all(8.0),
           child: Card(
-            child: Container(
+            child: SizedBox(
                 height: 200,
                 width: 300,
                 child: Column(

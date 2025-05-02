@@ -3,7 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
-import 'package:sadakyatra/Booking/input_field.dart';
+// import 'package:sadakyatra/Booking/input_field.dart';
 import 'package:sadakyatra/Booking/provide.dart';
 import 'package:sadakyatra/setups.dart';
 
@@ -39,7 +39,7 @@ class _CompletedTicketsState extends State<CompletedTickets> {
         itemBuilder: (BuildContext context, int index) => Padding(
           padding: const EdgeInsets.all(8.0),
           child: Card(
-            child: Container(
+            child: SizedBox(
                 height: 220,
                 width: 300,
                 child: Column(
@@ -99,7 +99,7 @@ class _CompletedTicketsState extends State<CompletedTickets> {
                                         ),
                                         title: Text("Write a review"),
                                         content: FittedBox(
-                                          child: Container(
+                                          child: SizedBox(
                                             //height: 100,
                                             width: MediaQuery.of(
                                               context,

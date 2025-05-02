@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:khalti_flutter/khalti_flutter.dart';
-import 'package:khalti_flutter/localization/khalti_localizations.dart';
 import 'package:sadakyatra/routes/app_route.dart';
 
 class App extends StatelessWidget {
-  App({super.key});
+  const App({super.key});
 
   final String _publicKey = 'test_public_key_88f255b7a1f64a08884e811440174478';
 

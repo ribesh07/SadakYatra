@@ -1,6 +1,10 @@
+import 'dart:ffi';
+
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:fluentui_icons/fluentui_icons.dart';
 import 'package:flutter/material.dart';
-import 'package:sadakyatra/pages/HomeDefScreen.dart';
+// import 'package:sadakyatra/pages/HomeDefScreen.dart';
 import 'package:sadakyatra/pages/Home_screen.dart';
 import 'package:sadakyatra/pages/history.dart';
 import 'package:sadakyatra/pages/setting_profile.dart';
@@ -15,16 +19,47 @@ class BottomBar extends StatefulWidget {
 
 class _BottomBarState extends State<BottomBar> {
   int _selectedIndex = 0;
+  final FirebaseAuth _auth = FirebaseAuth.instance;
+  User? _currentUser;
+  String? uID;
+  @override
+  void initState() {
+    super.initState();
+    _fetchUserData();
+  }
 
-  static final List<Widget> _widgetOptions = <Widget>[
-    const HomeScreen(),
-    const MyTabbedPage(),
-    const profileSetting(),
-  ];
+  List<Widget> get _widgetOptions {
+    return [
+      // HomeScreen(userUId: uID),
+      if (uID != null)
+        HomeScreen(userUId: uID!)
+      else
+        const CircularProgressIndicator(),
+      const MyTabbedPage(),
+      const ProfileSetting(),
+      // the argument tyoe 'String?' can;t be assigned to parameter type 'string'
+    ];
+  }
+
   void _onItemTapped(int Index) {
     setState(() {
       _selectedIndex = Index;
     });
+  }
+
+  Future<void> _fetchUserData() async {
+    _currentUser = _auth.currentUser;
+    if (_currentUser != null) {
+      DocumentSnapshot userDoc = await FirebaseFirestore.instance
+          .collection('sadakyatra')
+          .doc('userDetailsDatabase')
+          .collection('users')
+          .doc(_currentUser!.uid)
+          .get();
+      setState(() {
+        uID = userDoc['uid'].toString();
+      });
+    }
   }
 
   void backtoFirstnavbar(int Index) {
@@ -44,20 +79,20 @@ class _BottomBarState extends State<BottomBar> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: appbarcolor,
-        title: const Text('SadakYatra'),
+        title: const Text('Sadak'),
         centerTitle: true,
-        //automaticallyImplyLeading: false,
+        automaticallyImplyLeading: false,
         //forceMaterialTransparency: true,
-        leading: Builder(
-          builder: (BuildContext context) {
-            return IconButton(
-              icon: const Icon(Icons.arrow_back_ios_new),
-              onPressed: () {
-                backtoFirstnavbar(_selectedIndex);
-              },
-            );
-          },
-        ),
+        // leading: Builder(
+        //   builder: (BuildContext context) {
+        //     return IconButton(
+        //       icon: const Icon(Icons.arrow_back_ios_new),
+        //       onPressed: () {
+        //         backtoFirstnavbar(_selectedIndex);
+        //       },
+        //     );
+        //   },
+        // ),
       ),
       body: Center(
         child: _widgetOptions[_selectedIndex],

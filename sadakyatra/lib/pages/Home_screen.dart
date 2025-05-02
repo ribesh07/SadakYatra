@@ -1,8 +1,6 @@
 // ignore_for_file: prefer_const_literals_to_create_immutables, prefer_const_constructors, sized_box_for_whitespace, file_names
 
-import 'dart:ui';
-
-import 'package:cloud_firestore/cloud_firestore.dart';
+// import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:sadakyatra/pages/HomeDefScreen.dart';
 // import 'package:sadakyatra/main.dart';
@@ -11,7 +9,12 @@ import 'package:sadakyatra/pages/reservation_screen.dart';
 import 'package:sadakyatra/setups.dart';
 
 class HomeScreen extends StatefulWidget {
-  const HomeScreen({super.key});
+  final String userUId;
+
+  const HomeScreen({
+    Key? key,
+    required this.userUId,
+  }) : super(key: key);
 
   @override
   State<HomeScreen> createState() => _HomeScreenState();
@@ -34,13 +37,6 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // appBar: AppBar(
-      //   title: Text(
-      //     "Sada Yatra",
-      //   ),
-      //   centerTitle: true,
-      //   backgroundColor: appbarcolor,
-      // ),
       body: Container(
         color: backgroundColor,
         child: Column(
@@ -147,7 +143,9 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                 child: TabBarView(
               controller: _tabController,
               children: [
-                HomeDefScreen(),
+                HomeDefScreen(
+                  userUId: widget.userUId,
+                ),
                 TicketScreen(),
                 JourneyScreen(),
               ],

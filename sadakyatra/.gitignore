@@ -10,7 +10,7 @@
 .svn/
 migrate_working_dir/
 
-# # IntelliJ related
+# IntelliJ related
 *.iml
 *.ipr
 *.iws
@@ -31,7 +31,7 @@ migrate_working_dir/
 .pub/
 /build/
 
-# # Symbolication related
+# Symbolication related
 app.*.symbols
 
 # Obfuscation related
@@ -41,5 +41,3 @@ app.*.map.json
 /android/app/debug
 /android/app/profile
 /android/app/release
-./firebase.json
-./ADMIN/sadakyatra-firebase.json

@@ -1,11 +1,12 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
 
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:sadakyatra/Booking/input_field.dart';
 import 'package:sadakyatra/Booking/provide.dart';
-import 'package:sadakyatra/pages/forget_otp.dart';
-import 'package:sadakyatra/pages/setups/oottpp.dart';
+import 'package:sadakyatra/pages/login-page.dart';
+// import 'package:sadakyatra/pages/setups/oottpp.dart';
 import 'package:sadakyatra/setups.dart';
 
 class ForgotPassword extends StatefulWidget {
@@ -16,9 +17,10 @@ class ForgotPassword extends StatefulWidget {
 }
 
 class _ForgotPasswordState extends State<ForgotPassword> {
-  final phonecontroller = TextEditingController();
+  final emailController = TextEditingController();
   final provider = settingProvider();
   final formkey = GlobalKey<FormState>();
+  final auth = FirebaseAuth.instance;
 
   @override
   Widget build(BuildContext context) {
@@ -61,7 +63,7 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                   ),
                   FittedBox(
                     child: Text(
-                      'Enter your registered mobile number',
+                      'Enter your registered Email',
                       style: TextStyle(fontSize: 20),
                     ),
                   ),
@@ -69,15 +71,15 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                     height: 10,
                   ),
                   InputField(
-                    label: "+977",
-                    icon: Icons.phone,
-                    controller: phonecontroller,
-                    keypad: TextInputType.number,
-                    inputFormat: [
-                      FilteringTextInputFormatter.digitsOnly,
-                      LengthLimitingTextInputFormatter(10),
-                    ],
-                    validator: (value) => provider.phoneValidator(value),
+                    label: "Email",
+                    icon: Icons.mail,
+                    controller: emailController,
+                    keypad: TextInputType.text,
+                    // inputFormat: [
+                    //   FilteringTextInputFormatter.digitsOnly,
+                    //   LengthLimitingTextInputFormatter(10),
+                    // ],
+                    validator: (value) => provider.emailValidator(value),
                   ),
                   Padding(
                     padding: const EdgeInsets.all(10.0),
@@ -91,14 +93,15 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                         child: TextButton(
                           onPressed: () {
                             if (formkey.currentState!.validate()) {
+                              auth.sendPasswordResetEmail(
+                                  email: emailController.text.toString());
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                  builder: (context) => ForgetOtp(),
+                                  builder: (context) => Login_page(),
                                 ),
                               );
                             } else {}
-                            print(phonecontroller);
                           },
                           child: Text(
                             "Submit",

@@ -2,6 +2,7 @@
 
 //import 'dart:nativewrappers/_internal/vm/lib/async_patch.dart';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
@@ -26,7 +27,48 @@ class _TicketScreenState extends State<TicketScreen> {
   final emailcontroller = TextEditingController();
   final departcontroller = TextEditingController();
   final destinationcontroller = TextEditingController();
-  var departureDate = "${DateFormat("dd/MM/yyyy").format(DateTime.now())}";
+  var departureDate = DateFormat("dd/MM/yyyy").format(DateTime.now());
+
+  Future<void> _storeReservationDetails() async {
+    if (formkey.currentState!.validate()) {
+      String vehicleType;
+
+      switch (_value) {
+        case 1:
+          vehicleType = 'Bus';
+          break;
+        case 2:
+          vehicleType = 'Car';
+          break;
+        case 3:
+          vehicleType = 'Jeep';
+          break;
+        default:
+          vehicleType = 'Unknown';
+      }
+
+      final data = {
+        'name': namecontroller.text,
+        'contact': phonecontroller.text,
+        'email': emailcontroller.text,
+        'startLocation': departcontroller.text,
+        'destination': destinationcontroller.text,
+        'date': departureDate,
+      };
+
+      try {
+        await FirebaseFirestore.instance
+            .collection('sadakyatra')
+            .doc('reservation')
+            .collection(vehicleType)
+            .add(data);
+        print('Reservation details stored successfully');
+      } catch (e) {
+        print('Error storing reservation details: $e');
+      }
+    }
+  }
+
   @override
   void initState() {
     super.initState();
@@ -264,7 +306,7 @@ class _TicketScreenState extends State<TicketScreen> {
                                   ),
                                 ),
                                 Text(
-                                  "${departureDate}",
+                                  departureDate,
                                   style: TextStyle(fontSize: 18),
                                 )
                               ],
@@ -275,33 +317,6 @@ class _TicketScreenState extends State<TicketScreen> {
                     ),
                   ),
 
-                  //billing
-                  // Card(
-                  //   elevation: 10,
-                  //   child: Container(
-                  //     height: 100,
-                  //     width: MediaQuery.of(context).size.width,
-                  //     child: Column(
-                  //       children: [
-                  //         SizedBox(
-                  //           height: 10,
-                  //         ),
-                  //         Text(
-                  //           'Bill Amount',
-                  //           style: textStyle,
-                  //           textAlign: TextAlign.center,
-                  //         ),
-                  //         SizedBox(
-                  //           height: 10,
-                  //         ),
-                  //         Text(
-                  //           "Amount : Rs.${toPay}",
-                  //           style: TextStyle(fontSize: 18),
-                  //         ),
-                  //       ],
-                  //     ),
-                  //   ),
-                  // ),
                   SizedBox(
                     height: 10,
                   ),
@@ -328,7 +343,7 @@ class _TicketScreenState extends State<TicketScreen> {
                                     TextButton(
                                       onPressed: () {
                                         //main Logic
-
+                                        _storeReservationDetails();
                                         final snackBar = SnackBar(
                                           backgroundColor: Colors.green,
                                           elevation: 10,
@@ -357,47 +372,6 @@ class _TicketScreenState extends State<TicketScreen> {
                             );
                             print(namecontroller);
                           } else {}
-                          // showDialog(
-                          //   context: context,
-                          //   builder: (_) {
-                          //     return AlertDialog(
-                          //       shape: RoundedRectangleBorder(
-                          //         borderRadius: BorderRadius.circular(10),
-                          //       ),
-                          //       title: Text("Conformation"),
-                          //       content: Text("Confirm Reservation"),
-                          //       actions: [
-                          //         TextButton(
-                          //           onPressed: () {
-                          //             //main Logic
-                          //             if (formkey.currentState!.validate()) {
-                          //             } else {}
-
-                          //             final snackBar = SnackBar(
-                          //               backgroundColor: Colors.green,
-                          //               elevation: 10,
-                          //               duration: Duration(milliseconds: 3000),
-                          //               content: const Text(
-                          //                 "we will contact you soon",
-                          //                 style: TextStyle(fontSize: 20),
-                          //               ),
-                          //             );
-                          //             ScaffoldMessenger.of(context)
-                          //                 .showSnackBar(snackBar);
-                          //             Navigator.pop(context);
-                          //           },
-                          //           child: Text("Ok"),
-                          //         ),
-                          //         TextButton(
-                          //             onPressed: () {
-                          //               Navigator.pop(context);
-                          //             },
-                          //             child: Text("Cancel"))
-                          //       ],
-                          //     );
-                          //   },
-                          // );
-                          // print(fullName);
                         },
                         child: Text(
                           "Submit",

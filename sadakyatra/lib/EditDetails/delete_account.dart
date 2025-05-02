@@ -1,9 +1,12 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
 
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
+// import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:sadakyatra/Booking/input_field.dart';
 import 'package:sadakyatra/Booking/provide.dart';
+import 'package:sadakyatra/pages/login-page.dart';
 import 'package:sadakyatra/setups.dart';
 
 class DeleteAccount extends StatefulWidget {
@@ -14,7 +17,7 @@ class DeleteAccount extends StatefulWidget {
 }
 
 class _DeleteAccountState extends State<DeleteAccount> {
-  final passcontroller = TextEditingController();
+  final passwordController = TextEditingController();
   bool isObsecure = true;
   final provider = settingProvider();
   final formkey = GlobalKey<FormState>();
@@ -26,8 +29,91 @@ class _DeleteAccountState extends State<DeleteAccount> {
 
   @override
   void dispose() {
-    passcontroller.dispose();
+    passwordController.dispose();
     super.dispose();
+  }
+
+  Future<bool> _reauthenticate() async {
+    final currentUser = FirebaseAuth.instance.currentUser;
+    final uid = currentUser?.uid;
+
+    if (uid == null) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('User is not logged in')),
+      );
+      return false;
+    }
+
+    try {
+      // Fetch the email from Firestore
+      DocumentSnapshot userDoc = await FirebaseFirestore.instance
+          .collection('sadakyatra')
+          .doc('userDetailsDatabase')
+          .collection('users')
+          .doc(uid)
+          .get();
+
+      if (!userDoc.exists) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('User not found')),
+        );
+        return false;
+      }
+
+      String email = userDoc['email'];
+
+      // Create credential
+      var credential = EmailAuthProvider.credential(
+          email: email, password: passwordController.text);
+
+      // Reauthenticate user
+      await currentUser?.reauthenticateWithCredential(credential);
+
+      return true;
+    } catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Error: ${e.toString()}')),
+      );
+      print('Error: $e');
+      return false;
+    }
+  }
+
+  Future<void> _deleteAccount() async {
+    final currentUser = FirebaseAuth.instance.currentUser;
+    final uid = currentUser?.uid;
+
+    if (uid == null) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('User is not logged in')),
+      );
+      return;
+    }
+
+    try {
+      // Delete the Firestore document
+      await FirebaseFirestore.instance
+          .collection('sadakyatra')
+          .doc('userDetailsDatabase')
+          .collection('users')
+          .doc(uid)
+          .delete();
+
+      // Delete the Firebase Auth user
+      await currentUser?.delete();
+
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Account deleted successfully')),
+      );
+
+      Navigator.pushReplacement(
+          context, MaterialPageRoute(builder: (context) => Login_page()));
+    } catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Error: ${e.toString()}')),
+      );
+      print('Error: $e');
+    }
   }
 
   @override
@@ -38,7 +124,7 @@ class _DeleteAccountState extends State<DeleteAccount> {
         centerTitle: true,
         backgroundColor: appbarcolor,
       ),
-      body: Container(
+      body: SizedBox(
         width: MediaQuery.of(context).size.width,
         height: double.infinity,
         child: Form(
@@ -55,7 +141,7 @@ class _DeleteAccountState extends State<DeleteAccount> {
                 InputField(
                   label: 'Enter Password',
                   icon: Icons.lock,
-                  controller: passcontroller,
+                  controller: passwordController,
                   isvisible: isObsecure,
                   eyeButton: IconButton(
                     onPressed: () {
@@ -72,47 +158,53 @@ class _DeleteAccountState extends State<DeleteAccount> {
                   height: 20,
                 ),
                 ElevatedButton(
-                  onPressed: () {
+                  onPressed: () async {
                     if (formkey.currentState!.validate()) {
-                      showDialog(
-                        context: context,
-                        builder: (_) {
-                          return AlertDialog(
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(10),
-                              ),
-                              title: Text("Are You Sure?"),
-                              content: FittedBox(
-                                child: Container(
-                                  height: 100,
-                                  width: 200,
-                                  child: Column(
-                                    children: [
-                                      Text(
-                                          'This will permanently delete your account'),
-                                      SizedBox(height: 10),
-                                      Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.center,
-                                        children: [
-                                          TextButton(
-                                            onPressed: () {},
-                                            child: Text('Yes'),
-                                          ),
-                                          TextButton(
-                                            onPressed: () {
-                                              Navigator.pop(context);
-                                            },
-                                            child: Text('No'),
-                                          ),
-                                        ],
-                                      ),
-                                    ],
-                                  ),
+                      bool authenticated = await _reauthenticate();
+                      if (authenticated) {
+                        showDialog(
+                          context: context,
+                          builder: (_) {
+                            return AlertDialog(
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(10),
                                 ),
-                              ));
-                        },
-                      );
+                                title: Text("Are You Sure?"),
+                                content: FittedBox(
+                                  child: SizedBox(
+                                    height: 100,
+                                    width: 200,
+                                    child: Column(
+                                      children: [
+                                        Text(
+                                            'This will permanently delete your account'),
+                                        SizedBox(height: 10),
+                                        Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                          children: [
+                                            TextButton(
+                                              onPressed: () async {
+                                                _deleteAccount();
+                                              },
+                                              child: Text('Yes'),
+                                            ),
+                                            TextButton(
+                                              onPressed: () {
+                                                Navigator.pop(context);
+                                                Navigator.pop(context);
+                                              },
+                                              child: Text('No'),
+                                            ),
+                                          ],
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ));
+                          },
+                        );
+                      }
                     } else {}
                     // showDialog(
                     //   context: context,
