@@ -1,14 +1,41 @@
 // ignore_for_file: prefer_const_constructors
 
-import 'dart:ffi';
-
 import 'package:flutter/material.dart';
 import 'package:sadakyatra/payments/esewa-pay.dart';
 import 'package:sadakyatra/payments/khalti-pay.dart';
 import 'package:sadakyatra/setups.dart';
 
 class PaymentOptions extends StatefulWidget {
-  const PaymentOptions({super.key});
+  // String userName,String busName,String deptHr,String deptMin, String contact,String date
+
+  final String userName;
+  final String busName;
+  final String deptHr;
+  final String deptMin;
+  final String contact;
+  final String date;
+  final String price;
+  final List selectedList;
+  final String email;
+  final String uniqueBusID;
+  final String userID;
+  final String location;
+
+  PaymentOptions({
+    super.key,
+    required this.userName,
+    required this.busName,
+    required this.deptHr,
+    required this.deptMin,
+    required this.contact,
+    required this.date,
+    required this.price,
+    required this.selectedList,
+    required this.email,
+    required this.uniqueBusID,
+    required this.userID,
+    required this.location,
+  });
 
   @override
   State<PaymentOptions> createState() => _PaymentOptionsState();
@@ -17,6 +44,7 @@ class PaymentOptions extends StatefulWidget {
 class _PaymentOptionsState extends State<PaymentOptions> {
   @override
   Widget build(BuildContext context) {
+    String listString = widget.selectedList.join(', ');
     return Scaffold(
         appBar: AppBar(
           backgroundColor: appbarcolor,
@@ -41,8 +69,22 @@ class _PaymentOptionsState extends State<PaymentOptions> {
                   onTap: () {
                     Navigator.push(
                         context,
+                        // String userName,String busName,String deptHr,String deptMin, String contact,String date
                         MaterialPageRoute(
-                            builder: (context) => const EsewaScreen()));
+                            builder: (context) => EsewaScreen(
+                                  userName: widget.userName,
+                                  busName: widget.busName,
+                                  deptHr: widget.deptHr,
+                                  deptMin: widget.deptMin,
+                                  contact: widget.contact,
+                                  date: widget.date,
+                                  price: widget.price,
+                                  selectedList: widget.selectedList,
+                                  email: widget.email,
+                                  uniqueBusID: widget.uniqueBusID,
+                                  userID: widget.userID,
+                                  location: widget.location,
+                                )));
                   },
                   child: Padding(
                     padding: const EdgeInsets.all(8.0),
@@ -56,26 +98,28 @@ class _PaymentOptionsState extends State<PaymentOptions> {
                           color: Color.fromARGB(255, 168, 172, 241),
                           child: Padding(
                             padding: const EdgeInsets.all(8.0),
-                            child: Container(
+                            child: SizedBox(
                               width: MediaQuery.of(context).size.width,
                               child: Column(
                                 // mainAxisAlignment: MainAxisAlignment.start,
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  Text(
-                                    "Seats : [s1] [s2]",
-                                    style: textStyle,
+                                  Row(
+                                    children: [
+                                      Text(
+                                        "Seats: ",
+                                        style: textStyle,
+                                      ),
+                                      Text(
+                                        listString,
+
+                                        //wdd
+                                        style: textStyle,
+                                      ),
+                                    ],
                                   ),
                                   Text(
-                                    "Bus Number : xxxx",
-                                    style: textStyle,
-                                  ),
-                                  Text(
-                                    "Bus Contact Number :98XXXXXXXX",
-                                    style: textStyle,
-                                  ),
-                                  Text(
-                                    "To Pay : Rs.1000",
+                                    "Payable Amount : ${widget.price}",
                                     style: textStyle,
                                   ),
                                 ],
@@ -86,7 +130,7 @@ class _PaymentOptionsState extends State<PaymentOptions> {
                         SizedBox(
                           height: 30,
                         ),
-                        Container(
+                        SizedBox(
                           height: 70,
                           width: 70,
                           child: Image(
@@ -114,7 +158,7 @@ class _PaymentOptionsState extends State<PaymentOptions> {
                     padding: const EdgeInsets.all(8.0),
                     child: Column(
                       children: [
-                        Container(
+                        SizedBox(
                           height: 70,
                           width: 70,
                           child: Image(

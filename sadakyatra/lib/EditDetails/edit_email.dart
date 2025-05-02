@@ -1,10 +1,12 @@
-// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
+// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, deprecated_member_use
 
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
+// import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:sadakyatra/Booking/input_field.dart';
 import 'package:sadakyatra/Booking/provide.dart';
+// import 'package:sadakyatra/services/database.dart';
 import 'package:sadakyatra/setups.dart';
 
 class EditEmail extends StatefulWidget {
@@ -16,25 +18,99 @@ class EditEmail extends StatefulWidget {
 
 class _EditEmailState extends State<EditEmail> {
   bool passwordObsecured = true;
-  final emailcontroller = TextEditingController();
-  final passcontroller = TextEditingController();
-  final namecontroller = TextEditingController();
+
+  final newEmailController = TextEditingController();
+  final passwordController = TextEditingController();
+  final usernameController = TextEditingController();
+
+  Future<void> _authenticateAndUpdate() async {
+    // final newEmail = newEmailController.text;
+    // final password = passwordController.text;
+    // final newUsername = usernameController.text;
+    final currentUser = FirebaseAuth.instance.currentUser;
+    final uid = currentUser?.uid;
+
+    if (uid == null) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('User is not logged in')),
+      );
+      return;
+    }
+
+    try {
+      // Fetch the email from Firestore
+      DocumentSnapshot userDoc = await FirebaseFirestore.instance
+          .collection('sadakyatra')
+          .doc('userDetailsDatabase')
+          .collection('users')
+          .doc(uid)
+          .get();
+
+      if (!userDoc.exists) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('User not found')),
+        );
+        return;
+      }
+
+      String email = userDoc['email'];
+
+      // Create credential
+      var credential = EmailAuthProvider.credential(
+          email: email, password: passwordController.text);
+
+      // Reauthenticate user
+
+      await currentUser?.reauthenticateWithCredential(credential);
+      // Send verification email to the new email address
+      await currentUser?.verifyBeforeUpdateEmail(newEmailController.text);
+
+      // Update email
+      // await currentUser?.updateEmail(newEmailController.text);
+
+      // Get user UID
+
+      // Update Firestore document
+      await FirebaseFirestore.instance
+          .collection('sadakyatra')
+          .doc('userDetailsDatabase')
+          .collection('users')
+          .doc(uid)
+          .update({
+        'username': usernameController.text,
+        'email': newEmailController.text,
+      });
+
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Username updated successfully')),
+      );
+      Future.delayed(Duration(seconds: 2), () {
+        Navigator.pop(context);
+      });
+    } catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Error: ${e.toString()}')),
+      );
+    }
+  }
+
   final provider = settingProvider();
   final formkey = GlobalKey<FormState>();
-  var password = 'hola';
+
+  // final FirebaseAuth _auth = FirebaseAuth.instance;
+  // User? _currentUser;
+  // Map<String, dynamic>? _userData;
 
   @override
   void initState() {
-    namecontroller.text = 'hey';
-    emailcontroller.text = 'a@gmail.com';
     super.initState();
   }
 
   @override
   void dispose() {
-    emailcontroller.dispose();
-    passcontroller.dispose();
-    namecontroller.dispose();
+    newEmailController.dispose();
+    passwordController.dispose();
+    usernameController.dispose();
 
     super.dispose();
   }
@@ -66,14 +142,14 @@ class _EditEmailState extends State<EditEmail> {
                 InputField(
                   label: 'Fullname',
                   icon: Icons.person,
-                  controller: namecontroller,
+                  controller: usernameController,
                   validator: (value) =>
                       provider.validator(value, 'Fullname required'),
                 ),
                 InputField(
-                  label: 'Email',
+                  label: 'New-Email',
                   icon: Icons.mail,
-                  controller: emailcontroller,
+                  controller: newEmailController,
                   validator: (value) => provider.emailValidator(value),
                 ),
                 Padding(
@@ -83,7 +159,7 @@ class _EditEmailState extends State<EditEmail> {
                 InputField(
                   label: 'Password',
                   icon: Icons.lock,
-                  controller: passcontroller,
+                  controller: passwordController,
                   isvisible: passwordObsecured,
                   eyeButton: IconButton(
                     onPressed: () {
@@ -105,35 +181,11 @@ class _EditEmailState extends State<EditEmail> {
                   child: Center(
                     child: ElevatedButton(
                         onPressed: () {
+                          // print(ps);
                           if (formkey.currentState!.validate()) {
-                            if (passcontroller.text == password) {
-                              final snackBar = SnackBar(
-                                backgroundColor: Colors.green,
-                                elevation: 10,
-                                duration: Duration(milliseconds: 3000),
-                                content: const Text(
-                                  "Email changed",
-                                  style: TextStyle(fontSize: 20),
-                                ),
-                              );
-
-                              ScaffoldMessenger.of(context)
-                                  .showSnackBar(snackBar);
-                            } else {
-                              final snackBar = SnackBar(
-                                backgroundColor: Color.fromARGB(255, 230, 5, 5),
-                                elevation: 10,
-                                duration: Duration(milliseconds: 3000),
-                                content: const Text(
-                                  "Password Incorrect",
-                                  style: TextStyle(fontSize: 20),
-                                ),
-                              );
-
-                              ScaffoldMessenger.of(context)
-                                  .showSnackBar(snackBar);
-                            }
-                          } else {}
+                            _authenticateAndUpdate();
+                            // _updateEmail();
+                          }
                         },
                         child: Text(
                           'Save Changes',

@@ -26,7 +26,7 @@ class _NewPasswordState extends State<NewPassword> {
         title: Text('New Password'),
         centerTitle: true,
       ),
-      body: Container(
+      body: SizedBox(
         width: MediaQuery.of(context).size.width,
         height: double.infinity,
         child: Form(
@@ -99,7 +99,7 @@ class _NewPasswordState extends State<NewPassword> {
                             ),
                             title: Text("Password must have"),
                             content: FittedBox(
-                              child: Container(
+                              child: SizedBox(
                                 height: 200,
                                 width: 200,
                                 child: Column(

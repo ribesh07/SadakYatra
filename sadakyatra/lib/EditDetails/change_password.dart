@@ -1,9 +1,12 @@
 // ignore_for_file: prefer_const_literals_to_create_immutables, prefer_const_constructors, sized_box_for_whitespace
 
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:sadakyatra/Booking/input_field.dart';
 import 'package:sadakyatra/Booking/provide.dart';
-import 'package:sadakyatra/payments/App_khalti.dart';
+import 'package:sadakyatra/pages/login-page.dart';
+
 import 'package:sadakyatra/setups.dart';
 
 class ChangePassword extends StatefulWidget {
@@ -22,7 +25,56 @@ class _ChangePasswordState extends State<ChangePassword> {
   bool oldpassObsercured = true;
   bool newpassObsercured = true;
   bool newpassConfirmobsecured = true;
-  var oldpassword = 'A@1bcdef';
+
+  Future<void> changePassword() async {
+    final currentUser = FirebaseAuth.instance.currentUser;
+    final uid = currentUser?.uid;
+    try {
+      // Fetch the email from Firestore
+      DocumentSnapshot userDoc = await FirebaseFirestore.instance
+          .collection('sadakyatra')
+          .doc('userDetailsDatabase')
+          .collection('users')
+          .doc(uid)
+          .get();
+
+      String email = userDoc['email'];
+
+      var credential = EmailAuthProvider.credential(
+          email: email, password: oldpasscontroller.text);
+
+      // Reauthenticate the user
+      await currentUser?.reauthenticateWithCredential(credential);
+
+      // Update the password
+      await currentUser?.updatePassword(newconfirmpassController.text);
+
+      // Update Firestore document
+      await FirebaseFirestore.instance
+          .collection('sadakyatra')
+          .doc('userDetailsDatabase')
+          .collection('users')
+          .doc(uid)
+          .update({
+        'password': newconfirmpassController.text,
+      });
+      // await currentUser!.updatePassword(newconfirmpassController.text);
+      FirebaseAuth.instance.signOut();
+
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Password updated successfully')),
+      );
+      Future.delayed(Duration(seconds: 2), () {
+        Navigator.pushReplacement(
+            context, MaterialPageRoute(builder: (context) => Login_page()));
+      });
+    } catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Error: ${e.toString()}')),
+      );
+    }
+  }
+
   @override
   void initState() {
     super.initState();
@@ -152,33 +204,9 @@ class _ChangePasswordState extends State<ChangePassword> {
                   height: 20,
                 ),
                 ElevatedButton(
-                    onPressed: () {
+                    onPressed: () async {
                       if (formkey.currentState!.validate()) {
-                        if (oldpasscontroller.text == oldpassword) {
-                          final snackBar = SnackBar(
-                            backgroundColor: Colors.green,
-                            elevation: 10,
-                            duration: Duration(milliseconds: 3000),
-                            content: const Text(
-                              "Password changed",
-                              style: TextStyle(fontSize: 20),
-                            ),
-                          );
-
-                          ScaffoldMessenger.of(context).showSnackBar(snackBar);
-                        } else {
-                          final snackBar = SnackBar(
-                            backgroundColor: Color.fromARGB(255, 232, 4, 4),
-                            elevation: 10,
-                            duration: Duration(milliseconds: 3000),
-                            content: const Text(
-                              "Old password incorrect",
-                              style: TextStyle(fontSize: 20),
-                            ),
-                          );
-
-                          ScaffoldMessenger.of(context).showSnackBar(snackBar);
-                        }
+                        await changePassword();
                       } else {}
                     },
                     child: Text(
