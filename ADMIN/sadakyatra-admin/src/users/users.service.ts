@@ -1,6 +1,6 @@
 // src/users/users.service.ts
 import { Injectable } from '@nestjs/common';
-import { FirebaseService } from '../firebase/firebase.service';
+import { FirebaseService } from 'src/firebase/firebase.service';
 
 @Injectable()
 export class UsersService {
