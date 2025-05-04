@@ -74,7 +74,19 @@
       </tr>
     </thead>
     <tbody>
-      <!-- Data will be inserted here -->
+      <% if (users.length === 0) { %>
+        <tr>
+          <td colspan="4">No users found.</td>
+        </tr>
+      <% } else { %>
+        <% users.forEach(user => { %>
+          <tr>
+            <td><%= user.id %></td>
+            <td><%= user.name %></td>
+            <td><%= user.email %></td>            
+          </tr>
+        <% }) %>
+      <% } %>
     </tbody>
   </table>
     </main>
@@ -84,23 +96,7 @@
     
 
     <script>
-        document.addEventListener('DOMContentLoaded', () => {
-          fetch('/users')
-            .then(response => response.json())
-            .then(data => {
-              const tableBody = document.getElementById('data-table').querySelector('tbody');
-              data.forEach(item => {
-                const row = document.createElement('tr');
-                row.innerHTML = `
-                  <td>${item.username}</td>
-                  <td>${item.email}</td>
-                  <td>${item.contact}</td>
-                `;
-                tableBody.appendChild(row);
-              });
-            })
-            .catch(error => console.error('Error fetching data:', error));
-        });
+        
       </script>
 </body>
 </html>

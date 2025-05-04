@@ -24,4 +24,7 @@ export class FirebaseService {
   getFirestore(): FirebaseFirestore.Firestore {
     return this.db;
   }
+  getAuth(): admin.auth.Auth {
+    return admin.auth();
+  }
 }
