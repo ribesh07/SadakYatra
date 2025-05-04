@@ -1,2 +1,2 @@
 # SadakYatra
-Project II
+Project
